@@ -1,0 +1,1190 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Parte Mercadona</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<meta name="application-name" content="Parte Mercadona">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Partes">
+<meta name="theme-color" content="#1a6b3a">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="data:application/json,{%22name%22:%22Parte%20Mercadona%22,%22short_name%22:%22Partes%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22%231a6b3a%22,%22theme_color%22:%22%231a6b3a%22,%22icons%22:[{%22src%22:%22data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20100%20100%27%3E%3Crect%20width%3D%27100%27%20height%3D%27100%27%20rx%3D%2720%27%20fill%3D%27%231a6b3a%27/%3E%3Ctext%20y%3D%27.9em%27%20font-size%3D%2780%27%20x%3D%2710%27%3E%F0%9F%8F%AA%3C/text%3E%3C/svg%3E%22,%22sizes%22:%22192x192%22,%22type%22:%22image/svg+xml%22}]}">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+:root{
+  --bg:#f0f2f5;--surface:#fff;--surface2:#f7f9fb;
+  --border:#dde2ea;--border2:#eaecf0;
+  --green:#1a6b3a;--green-light:#e8f5ee;--green-pale:#f2fbf5;
+  --red:#c0392b;--red-light:#fdf0ef;
+  --amber:#b45309;--amber-light:#fffbeb;
+  --blue:#1d4ed8;--blue-light:#eff6ff;
+  --text:#18202e;--text2:#4b5563;--text3:#9ca3af;
+  --r:12px;--r-sm:7px;
+  --sh:0 1px 3px rgba(0,0,0,.07),0 1px 2px rgba(0,0,0,.04);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:14px 12px 48px}
+.app{max-width:780px;margin:auto}
+.hdr{background:var(--green);border-radius:var(--r);padding:16px 20px;margin-bottom:14px;display:flex;align-items:center;gap:14px;box-shadow:0 4px 18px rgba(26,107,58,.22)}
+.hdr-ico{width:42px;height:42px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.hdr h1{font-size:1.15rem;font-weight:700;color:#fff}
+.hdr p{font-size:.75rem;color:rgba(255,255,255,.65);margin-top:2px}
+.win{display:none;animation:fadeIn .2s ease}.win.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.back{display:flex;align-items:center;gap:6px;font-size:.85rem;font-weight:600;color:var(--green);background:none;border:none;cursor:pointer;padding:0;margin-bottom:14px;font-family:inherit}
+.back:hover{text-decoration:underline}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+.menu-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:28px 20px;text-align:center;cursor:pointer;transition:all .18s;box-shadow:var(--sh)}
+.menu-card:hover{border-color:var(--green);box-shadow:0 4px 16px rgba(26,107,58,.14);transform:translateY(-2px)}
+.menu-card .mc-ico{font-size:36px;margin-bottom:10px}
+.menu-card .mc-title{font-size:1rem;font-weight:700;color:var(--text)}
+.menu-card .mc-sub{font-size:.78rem;color:var(--text2);margin-top:4px}
+@media(max-width:460px){.menu-grid{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:var(--sh)}
+.card-title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--green);margin-bottom:13px;padding-bottom:9px;border-bottom:1px solid var(--green-light);display:flex;align-items:center;gap:6px}
+.field{margin-bottom:10px}
+label{font-size:.76rem;font-weight:600;color:var(--text2);display:block;margin-bottom:3px;text-transform:uppercase;letter-spacing:.05em}
+label .req{color:var(--red);margin-left:1px}
+input,textarea,select{width:100%;padding:8px 11px;border:1.5px solid var(--border);border-radius:var(--r-sm);font-family:inherit;font-size:.9rem;color:var(--text);background:var(--surface2);transition:border .16s,box-shadow .16s;outline:none;-webkit-appearance:none}
+input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(26,107,58,.1);background:#fff}
+textarea{resize:vertical;min-height:72px}#obs{min-height:150px;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+@media(max-width:500px){.g2,.g3{grid-template-columns:1fr}}
+.tgl{display:flex;border:1.5px solid var(--border);border-radius:var(--r-sm);overflow:hidden}
+.tgl button{flex:1;padding:7px 4px;border:none;border-right:1px solid var(--border);background:var(--surface2);font-family:inherit;font-size:.82rem;font-weight:600;color:var(--text2);cursor:pointer;transition:all .14s}
+.tgl button:last-child{border-right:none}
+.tgl button.active{background:var(--green);color:#fff}
+.tgl button:not(.active):hover{background:var(--green-light);color:var(--green)}
+.worker-row{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--r-sm);margin-bottom:6px}
+.worker-label{font-size:.85rem;font-weight:600;flex:1}
+.wbadge{font-size:.72rem;font-weight:700;padding:2px 7px;border-radius:20px;margin-left:6px}
+.wbadge-auto{background:var(--green-light);color:var(--green)}
+.wbadge-sel{background:var(--blue-light);color:var(--blue)}
+.worker-tgl{display:flex;border:1.5px solid var(--border);border-radius:var(--r-sm);overflow:hidden;flex-shrink:0}
+.worker-tgl button{padding:5px 12px;border:none;border-right:1px solid var(--border);background:var(--surface);font-family:inherit;font-size:.8rem;font-weight:600;color:var(--text2);cursor:pointer;transition:all .14s}
+.worker-tgl button:last-child{border-right:none}
+.worker-tgl button.active{background:var(--green);color:#fff}
+.worker-tgl button:not(.active):hover{background:var(--green-light);color:var(--green)}
+.btn{padding:9px 16px;border:none;border-radius:var(--r-sm);font-family:inherit;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .16s;display:inline-flex;align-items:center;gap:6px}
+.btn-p{background:var(--green);color:#fff}.btn-p:hover{background:#155a30;box-shadow:0 3px 10px rgba(26,107,58,.28)}
+.btn-s{background:var(--surface);color:var(--text);border:1.5px solid var(--border)}.btn-s:hover{border-color:var(--green);color:var(--green);background:var(--green-light)}
+.btn-d{background:var(--red-light);color:var(--red);border:1.5px solid rgba(192,57,43,.18)}.btn-d:hover{background:var(--red);color:#fff}
+.btn-sm{padding:5px 11px;font-size:.8rem}
+.btn-full{width:100%;justify-content:center}
+.brow{display:flex;gap:8px;flex-wrap:wrap;margin-top:5px}
+.msg{padding:9px 13px;border-radius:var(--r-sm);font-size:.85rem;font-weight:500;margin-bottom:11px;display:none;border-left:3px solid;align-items:flex-start;gap:7px}
+.msg.show{display:flex}
+.msg.error{background:var(--red-light);color:var(--red);border-color:var(--red)}
+.msg.success{background:var(--green-light);color:var(--green);border-color:var(--green)}
+.msg.warn{background:var(--amber-light);color:var(--amber);border-color:var(--amber)}
+.abn{display:none;padding:10px 13px;border-radius:var(--r-sm);background:var(--blue-light);border:1px solid rgba(29,78,216,.18);color:var(--blue);font-size:.84rem;font-weight:500;margin-bottom:10px;align-items:flex-start;gap:7px}
+.abn.show{display:flex}
+.rgroup-title{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin:12px 0 5px}
+.rrow{display:flex;align-items:stretch;border-radius:var(--r-sm);margin-bottom:4px;overflow:hidden;border:1px solid var(--border2);font-family:'DM Mono',monospace;font-size:.83rem}
+.rrow .rc{background:var(--green);color:#fff;padding:7px 8px;font-weight:500;flex-shrink:0;min-width:68px;text-align:center;display:flex;align-items:center;justify-content:center;font-size:.78rem}
+.rrow .rl{background:var(--green-light);color:var(--green);padding:7px 8px;font-weight:500;flex-shrink:0;width:72px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;font-size:.78rem}
+.rrow .rv{background:var(--surface2);color:var(--text);padding:7px 10px;text-align:right;flex:1;font-weight:600;display:flex;align-items:center;justify-content:flex-end;white-space:nowrap;font-size:.82rem}
+.rrow.info-row .rc{background:var(--border2);color:var(--text2);font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.rrow.info-row .rl{background:var(--surface);color:var(--text);font-family:'DM Sans',sans-serif;width:auto;flex:1;white-space:normal}
+.rrow.info-row .rv{display:none}
+.rrow.total-row .rc{background:#0f4a28}
+.rrow.total-row .rl{background:#1a6b3a;color:#fff;font-weight:700}
+.rrow.total-row .rv{background:#155a30;color:#fff;font-weight:700}
+.rrow.obs-row .rc{background:var(--amber);color:#fff;font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+.rrow.obs-row .rl{background:var(--amber-light);color:var(--amber);font-family:'DM Sans',sans-serif;font-size:.85rem;white-space:normal;word-break:break-word;flex:1}
+.rrow.obs-row .rv{display:none}
+.hist-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:12px 15px;margin-bottom:8px;cursor:pointer;transition:border .16s,box-shadow .16s;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.hist-item:hover{border-color:var(--green);box-shadow:0 2px 10px rgba(26,107,58,.1)}
+.hi-title{font-weight:600;font-size:.9rem}
+.hi-sub{font-size:.78rem;color:var(--text2);margin-top:2px}
+.hi-date{font-family:'DM Mono',monospace;font-size:.76rem;color:var(--text3);text-align:right;flex-shrink:0}
+.empty{text-align:center;padding:36px 20px;color:var(--text3);font-size:.88rem}
+.empty-ico{font-size:32px;margin-bottom:8px}
+.divider{height:1px;background:var(--border2);margin:12px 0}
+.badge{display:inline-block;padding:2px 7px;border-radius:20px;font-size:.72rem;font-weight:600}
+.badge-g{background:var(--green-light);color:var(--green)}
+.hidden{display:none!important}
+.tl-row{font-size:.88rem;font-weight:500;color:var(--text2);padding:6px 0;border-bottom:1px solid var(--border2);margin-bottom:4px}
+.tl-row:last-of-type{border-bottom:none}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="hdr">
+  <div class="hdr-ico">🏪</div>
+  <div>
+    <h1>Parte de Trabajo – Mercadona</h1>
+    <p>Generador de partes con cálculo automático</p>
+  </div>
+</div>
+
+<!-- VENTANA 1: MENÚ -->
+<div id="w-menu" class="win active">
+  <div class="menu-grid">
+    <div class="menu-card" onclick="goTo('w-form')">
+      <div class="mc-ico">✏️</div>
+      <div class="mc-title">Generar parte</div>
+      <div class="mc-sub">Nuevo parte de trabajo</div>
+    </div>
+    <div class="menu-card" onclick="goTo('w-hist')">
+      <div class="mc-ico">📋</div>
+      <div class="mc-title">Historial</div>
+      <div class="mc-sub">Ver partes guardados</div>
+    </div>
+  </div>
+</div>
+
+<!-- VENTANA 2: FORMULARIO -->
+<div id="w-form" class="win">
+  <button class="back" onclick="goTo('w-menu')">← Menú principal</button>
+
+  <!-- LECTURA -->
+  <div class="card">
+    <div class="card-title">📄 Lectura de orden</div>
+    <div class="field">
+      <label>Pegar texto de la orden</label>
+      <textarea id="raw" placeholder="Pega aquí el texto de la orden de trabajo…" rows="5"></textarea>
+    </div>
+    <div class="brow">
+      <button class="btn btn-p" onclick="leer()">🔍 Autocompletar</button>
+      <button class="btn btn-s" onclick="clearRaw()">🗑️ Limpiar</button>
+    </div>
+  </div>
+
+  <!-- TIPO DE TRABAJO -->
+  <div class="card">
+    <div class="card-title">🔧 Tipo de trabajo</div>
+    <div class="field">
+      <label>Selecciona <span class="req">*</span></label>
+      <div class="tgl" id="jobTgl">
+        <button onclick="setJob('Conductos',this)">Conductos</button>
+        <button onclick="setJob('Climatización',this)">Climatización</button>
+        <button onclick="setJob('Obras',this)">Obras</button>
+      </div>
+      <input type="hidden" id="job">
+    </div>
+  </div>
+
+  <!-- DATOS GENERALES -->
+  <div class="card">
+    <div class="card-title">📋 Datos de la orden</div>
+    <div class="g2">
+      <div class="field"><label>Fecha <span class="req">*</span></label><input id="fecha" type="date" onchange="checkAutoEnlace()" onkeydown="if(event.key==='Enter')this.blur()"></div>
+      <div class="field"><label>Nº orden <span class="req">*</span></label><input id="pedido" placeholder="Ej: 119137"></div>
+    </div>
+    <div class="field"><label>Tienda <span class="req">*</span></label><input id="tienda" placeholder="Mercadona SAN JAVIER 2721"></div>
+    <input type="hidden" id="centro">
+    <div class="field"><label>Dirección <span class="req">*</span></label><input id="dir"></div>
+    <div class="field"><label>Teléfono <span class="req">*</span></label><input id="tel" type="tel"></div>
+  </div>
+
+  <!-- ENLACE -->
+  <div class="card">
+    <div class="card-title">🔗 Enlace</div>
+    <div id="lnkToggleDiv" class="field">
+      <label>Tipo</label>
+      <div class="tgl" id="lnkTgl">
+        <button class="active" onclick="setLink('No',this)">Sin enlace</button>
+        <button onclick="setLink('Sí',this)">Con enlace</button>
+      </div>
+      <input type="hidden" id="link" value="No">
+    </div>
+    <div id="abn" class="abn"><span>🔗</span><span id="abnTxt"></span></div>
+    <!-- SIN ENLACE -->
+    <div id="modeNo">
+      <div class="g2">
+        <div class="field"><label>Km ida</label><input id="km" type="number" min="0" placeholder="km"></div>
+        <div class="field"><label>Despl. ida (min)</label><input id="tr" type="number" min="0" placeholder="min"></div>
+      </div>
+    </div>
+    <!-- CON ENLACE MANUAL -->
+    <div id="modeSi" class="hidden">
+      <div class="g2">
+        <div class="field"><label>Km entrada</label><input id="kmE" type="number" min="0" placeholder="km"></div>
+        <div class="field"><label>Km salida</label><input id="kmS" type="number" min="0" placeholder="km"></div>
+      </div>
+      <div class="g2">
+        <div class="field"><label>Despl. entrada (min)</label><input id="trE" type="number" min="0" placeholder="min"></div>
+        <div class="field"><label>Despl. salida (min)</label><input id="trS" type="number" min="0" placeholder="min"></div>
+      </div>
+    </div>
+    <!-- AUTOENLACE: solo salida -->
+    <div id="modeAuto" class="hidden">
+      <div class="g2">
+        <div class="field"><label>Km salida</label><input id="kmA" type="number" min="0" placeholder="km"></div>
+        <div class="field"><label>Despl. salida (min)</label><input id="trA" type="number" min="0" placeholder="min"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HORARIO Y TRABAJADORES -->
+  <div class="card">
+    <div class="card-title">⏱️ Horario y trabajadores</div>
+    <div class="g3">
+      <div class="field">
+        <label>Trabajadores <span class="req">*</span></label>
+        <input id="w" type="number" min="1" max="4" value="2" onchange="renderWorkers()">
+      </div>
+      <div class="field"><label>Llegada <span class="req">*</span></label><input id="arr" type="time" onchange="checkAutoEnlace()"></div>
+      <div class="field"><label>Salida <span class="req">*</span></label><input id="lea" type="time"></div>
+    </div>
+    <div id="workersRol" class="hidden">
+      <div class="field">
+        <label>Categoría por trabajador</label>
+        <div id="workersList"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="msg" id="msgForm"></div>
+  <div class="brow" style="margin-bottom:4px">
+    <button class="btn btn-p btn-full" onclick="generar()" style="flex:2">⚡ Generar parte</button>
+    <button class="btn btn-s" onclick="nuevo()" style="flex:1">🔄 Nuevo</button>
+  </div>
+</div>
+
+<!-- VENTANA 3: PARTE GENERADO -->
+<div id="w-result" class="win">
+  <button class="back" onclick="goTo('w-form')">← Volver al formulario</button>
+  <div class="card">
+    <div class="card-title">✅ Parte generado</div>
+    <div id="out"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">📝 Observaciones</div>
+    <div class="field">
+      <textarea id="obs" placeholder="Observaciones adicionales (opcional)…"></textarea>
+    </div>
+    <div class="brow">
+      <button class="btn btn-p" onclick="guardar()" id="gbtn">💾 Guardar parte</button>
+      <button class="btn btn-s btn-sm" onclick="copiar()">📋 Copiar</button>
+    </div>
+    <div class="msg" id="msgRes" style="margin-top:10px;margin-bottom:0"></div>
+  </div>
+</div>
+
+<!-- VENTANA 4: HISTORIAL -->
+<div id="w-hist" class="win">
+  <button class="back" onclick="goTo('w-menu')">← Menú principal</button>
+  <div id="histList">
+    <div class="card">
+      <div class="card-title">🔍 Buscar</div>
+      <div class="g2">
+        <div class="field"><label>Centro / tienda / pedido</label><input id="busca" oninput="renderHist()" placeholder="Filtrar…"></div>
+        <div class="field"><label>Fecha</label><input id="buscaF" type="date" oninput="renderHist()"></div>
+      </div>
+      <div class="brow">
+        <button class="btn btn-d btn-sm" onclick="borrarHist()">🗑️ Borrar historial</button>
+        <button class="btn btn-s btn-sm" onclick="limpiarF()">✕ Limpiar filtros</button>
+      </div>
+      <div class="brow" style="margin-top:6px">
+        <button class="btn btn-s btn-sm" onclick="exportarBackup()">📦 Exportar backup</button>
+        <button class="btn btn-s btn-sm" onclick="$('fileBackup').click()">📥 Importar backup</button>
+        <input id="fileBackup" type="file" accept=".json" style="display:none" onchange="importarBackup(this)">
+      </div>
+      <div id="confirmBox" class="hidden" style="margin-top:10px;padding:12px;background:var(--red-light);border:1px solid rgba(192,57,43,.2);border-radius:var(--r-sm)">
+        <div style="font-size:.88rem;font-weight:600;color:var(--red);margin-bottom:8px">⚠️ ¿Borrar todo el historial? No se puede deshacer.</div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-d btn-sm" onclick="borrarConfirm(true)">Sí, borrar</button>
+          <button class="btn btn-s btn-sm" onclick="borrarConfirm(false)">Cancelar</button>
+        </div>
+      </div>
+    </div>
+    <div id="historial"></div>
+  </div>
+  <div id="detalleView" class="hidden">
+    <button class="back" onclick="volverHist()">← Volver al historial</button>
+    <div id="detalle"></div>
+  </div>
+</div>
+
+<script>
+const $=i=>document.getElementById(i);
+
+function goTo(id){
+  document.querySelectorAll('.win').forEach(w=>w.classList.remove('active'));
+  $(id).classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='w-hist')renderHist();
+  if(id==='w-form'){nuevo();checkAutoEnlace();}
+}
+
+function showMsg(id,txt,type='error'){
+  const m=$(id),icons={error:'❌',success:'✅',warn:'⚠️'};
+  m.innerHTML=`<span>${icons[type]||'ℹ️'}</span><span>${txt}</span>`;
+  m.className=`msg show ${type}`;
+  setTimeout(()=>{m.className='msg'},5000);
+}
+
+function cap(re,t){const m=t.match(re);return m?m[1].trim():'';}
+function tm(x){if(!x)return 0;const p=x.split(':');return+p[0]*60+ +p[1];}
+function fmt(v){const r=Math.round(v*100)/100;return Number.isInteger(r)?r.toString():r.toString().replace(/0+$/,'').replace(/\.$/,'');}
+function fmtH(v){
+  const r=Math.round(v*100)/100;
+  const whole=Math.floor(r);
+  const dec=Math.round((r-whole)*100)/100;
+  const fracs={0.25:'1/4',0.5:'1/2',0.75:'3/4'};
+  const frac=fracs[dec]||'';
+  if(frac){
+    if(whole===0) return `${frac}h`;
+    return `${whole}h ${frac}`;
+  }
+  return `${whole}h`;
+}
+function ov(s,e,a,b){return Math.max(0,Math.min(e,b)-Math.max(s,a));}
+function hoy(){const d=new Date();return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+
+// ===== CÓDIGOS =====
+const COD={
+  'Conductos':{
+    'H. Normal':       {cod:'MF9404',rol:false},
+    'H. Extra':        {cod:'MF9405',rol:false},
+    'H. Nocturna':     {cod:'MF9406',rol:false},
+    'Despl. Normal':   {cod:'MK9OVB',rol:false},
+    'Despl. Extra':    {cod:'MB8723',rol:false},
+    'Despl. Nocturno': {cod:'MB8725',rol:false},
+    'Kilometraje':     {cod:'MF9412',rol:false},
+    'Media dieta':     {cod:'MF9896',rol:false},
+  },
+  'Climatización':{
+    'H. Normal':       {cod:{Oficial:'MF9344',Peón:'MF9348'},rol:true},
+    'H. Extra':        {cod:{Oficial:'MF9345',Peón:'MF9349'},rol:true},
+    'H. Nocturna':     {cod:{Oficial:'MF9346',Peón:'MF9350'},rol:true},
+    'Despl. Normal':   {cod:'M71077',rol:false},
+    'Despl. Extra':    {cod:'MB8726',rol:false},
+    'Despl. Nocturno': {cod:'MB8728',rol:false},
+    'Kilometraje':     {cod:'MF9352',rol:false},
+    'Media dieta':     {cod:'MF9895',rol:false},
+  },
+  'Obras':{
+    'H. Normal':       {cod:'MA4836',rol:false},
+    'H. Extra':        {cod:'M71088',rol:false},
+    'H. Nocturna':     {cod:'MA4837',rol:false},
+    'Despl. Normal':   {cod:'M71077',rol:false},
+    'Despl. Extra':    {cod:'MB8726',rol:false},
+    'Despl. Nocturno': {cod:'MB8728',rol:false},
+    'Kilometraje':     {cod:'MA4841',rol:false},
+    'Media dieta':     {cod:'MA4839',rol:false},
+  }
+};
+
+function getCod(job,lab,rol){
+  const e=COD[job]&&COD[job][lab];
+  if(!e)return lab;
+  if(e.rol&&rol)return e.cod[rol]||lab;
+  return e.cod||lab;
+}
+
+// ===== JOB / LINK =====
+let curJob='',curLink='No';
+
+function setJob(v,btn){
+  curJob=v;$('job').value=v;
+  document.querySelectorAll('#jobTgl button').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  renderWorkers();
+}
+
+function setLink(v,btn){
+  curLink=v;$('link').value=v;
+  document.querySelectorAll('#lnkTgl button').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  $('modeNo').classList.toggle('hidden',v==='Sí');
+  $('modeSi').classList.toggle('hidden',v==='No');
+}
+
+// ===== TRABAJADORES =====
+let workerRoles=[];
+
+function renderWorkers(){
+  const w=Math.max(1,Math.min(4,+$('w').value||1));
+  const needRol=curJob==='Climatización';
+  if(!needRol){$('workersRol').classList.add('hidden');workerRoles=Array(w).fill('Oficial');return;}
+  $('workersRol').classList.remove('hidden');
+  while(workerRoles.length<w)workerRoles.push('Oficial');
+  workerRoles=workerRoles.slice(0,w);
+  workerRoles[0]='Oficial';
+  let html='';
+  for(let i=0;i<w;i++){
+    if(i===0){
+      html+=`<div class="worker-row"><span class="worker-label">Trabajador 1<span class="wbadge wbadge-auto">Oficial</span></span></div>`;
+    } else {
+      const rol=workerRoles[i]||'Oficial';
+      html+=`<div class="worker-row">
+        <span class="worker-label">Trabajador ${i+1}<span class="wbadge wbadge-sel" id="wb${i}">${rol}</span></span>
+        <div class="worker-tgl">
+          <button onclick="setWR(${i},'Oficial',this)" class="${rol==='Oficial'?'active':''}">Oficial</button>
+          <button onclick="setWR(${i},'Peón',this)" class="${rol==='Peón'?'active':''}">Peón</button>
+        </div>
+      </div>`;
+    }
+  }
+  $('workersList').innerHTML=html;
+}
+
+function setWR(i,rol,btn){
+  workerRoles[i]=rol;
+  btn.closest('.worker-row').querySelectorAll('.worker-tgl button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const wb=$('wb'+i);if(wb)wb.textContent=rol;
+}
+
+// ===== AUTOENLACE =====
+function checkAutoEnlace(){
+  const fecha=$('fecha').value;
+  const arrVal=$('arr').value;
+  // Solo comprobar si hay fecha Y hora de llegada introducida
+  if(!fecha||!arrVal){resetAE();return;}
+  const same=getH().filter(x=>x.fecha===fecha);
+  if(!same.length){resetAE();return;}
+  const last=same[same.length-1];
+  // Solo autoenlace si el parte anterior tenía enlace (manual o auto), no si era sin enlace
+  if(last.linkType==='No'||!last.linkType){resetAE();return;}
+  const finPrev=last.fin+(last.trS||0);
+  // Solo autoenlace si la hora de llegada coincide exactamente
+  if(tm(arrVal)===finPrev){
+    $('lnkToggleDiv').classList.add('hidden');
+    $('modeNo').classList.add('hidden');
+    $('modeSi').classList.add('hidden');
+    $('modeAuto').classList.remove('hidden');
+    $('link').value='Auto';curLink='Auto';
+    $('abn').classList.add('show');
+    $('abnTxt').textContent=`Enlace automático desde ${last.tienda} (Centro ${last.centro}). Indica solo km y despl. de salida.`;
+  } else {resetAE();}
+}
+
+function resetAE(){
+  $('lnkToggleDiv').classList.remove('hidden');
+  $('modeAuto').classList.add('hidden');
+  $('abn').classList.remove('show');
+  const isSi=curLink==='Sí';
+  $('modeNo').classList.toggle('hidden',isSi);
+  $('modeSi').classList.toggle('hidden',!isSi);
+  if(curLink==='Auto'){curLink='No';$('link').value='No';}
+}
+
+// ===== LEER =====
+function clearRaw(){$('raw').value='';}
+
+function leer(){
+  const t=$('raw').value;
+  if(!t.trim()){showMsg('msgForm','Pega el texto primero.','warn');return;}
+  const pedido=cap(/PEDIDO DE SERVICIO\s+N[º°ª]?[:\s]+(\d+)/i,t)||cap(/(\d{6,})/,t);
+  const centro=cap(/N[º°ª]?\s*de\s*Centro[:\s]+(\d+)/i,t)||cap(/Centro[:\s-]+(\d+)/i,t);
+  const denom=cap(/Denominaci[oó]n[:\s]+([^\n\r]+)/i,t);
+  const tel=cap(/Tel[eé]fono[^:]*:\s*(\+?[\d][\d\s\-]{6,})/i,t);
+  let dir='';
+  const dirM=t.match(/Direcci[oó]n[:\s]+([^\n\r]+)/i);
+  if(dirM){
+    dir=dirM[1].trim().replace(/\s+/g,' ');
+    dir=dir.replace(/\s*(Persona de contacto|Tel[eé]fono|Contacto|CP|Poblaci[oó]n)[:\s].*/i,'').trim();
+  }
+  if(pedido&&!$('pedido').value)$('pedido').value=pedido.trim();
+  if(centro&&!$('centro').value)$('centro').value=centro.trim();
+  if(!$('tienda').value){
+    let nombre='';
+    // Limpiar denom antes de usarla
+    const denomLimpia=denom?denom.replace(/\s*(Direcci[oó]n|Tel[eé]fono|Persona|Contacto|Calle|Avda|Plaza)[:\s].*/i,'').trim():'';
+    if(denomLimpia&&centro) nombre=`Mercadona ${denomLimpia} ${centro.trim()}`;
+    else if(denomLimpia) nombre=`Mercadona ${denomLimpia}`;
+    else if(centro) nombre=`Mercadona ${centro.trim()}`;
+    $('tienda').value=nombre;
+  }
+  if(dir&&!$('dir').value)$('dir').value=dir;
+  if(tel&&!$('tel').value)$('tel').value=tel.replace(/\s+/g,'').trim();
+  if(/conducto|ventilac/i.test(t))setJob('Conductos',document.querySelectorAll('#jobTgl button')[0]);
+  else if(/aver[ií]a|climatizaci[oó]n|fuga|refriger/i.test(t))setJob('Climatización',document.querySelectorAll('#jobTgl button')[1]);
+  else if(/obra/i.test(t))setJob('Obras',document.querySelectorAll('#jobTgl button')[2]);
+  const n=[pedido,centro,denom,dir,tel].filter(Boolean).length;
+  showMsg('msgForm',n?`${n} campo(s) autocompletados.`:'No se encontraron datos.',n?'success':'warn');
+}
+
+// ===== HISTORIAL =====
+function getH(){return JSON.parse(localStorage.getItem('pm_v4')||'[]');}
+function setH(d){localStorage.setItem('pm_v4',JSON.stringify(d));}
+function exists(r,d){return d.some(x=>x.fecha===r.fecha&&x.pedido===r.pedido&&x.centro===r.centro);}
+
+function guardar(){
+  if(!window.recTmp){showMsg('msgRes','Genera el parte primero.','warn');return;}
+  window.recTmp.obs=$('obs').value.trim();
+  const h=getH();
+  if(exists(window.recTmp,h)){showMsg('msgRes','Este parte ya está guardado.','warn');return;}
+  h.push(window.recTmp);setH(h);
+  showMsg('msgRes','Guardado correctamente.','success');
+  $('gbtn').textContent='✅ Guardado';$('gbtn').disabled=true;$('gbtn').style.opacity='.6';
+  setTimeout(()=>goTo('w-menu'),1200);
+}
+
+function borrarHist(){$('confirmBox').classList.remove('hidden');}
+function borrarConfirm(ok){
+  $('confirmBox').classList.add('hidden');
+  if(!ok)return;
+  localStorage.removeItem('pm_v4');
+  renderHist();
+}
+
+function limpiarF(){$('busca').value='';$('buscaF').value='';renderHist();}
+
+function renderHist(){
+  const q=($('busca').value||'').toLowerCase(),qf=$('buscaF').value||'';
+  const all=getH();
+  let data=all.filter(r=>{
+    const mq=!q||(r.centro||'').toLowerCase().includes(q)||(r.tienda||'').toLowerCase().includes(q)||(r.pedido||'').includes(q);
+    return mq&&(!qf||r.fecha===qf);
+  });
+  if(!data.length){
+    $('historial').innerHTML=`<div class="empty"><div class="empty-ico">📭</div><div>${all.length?'Sin resultados.':'El historial está vacío.'}</div></div>`;
+    return;
+  }
+  data=[...data].reverse();
+  $('historial').innerHTML=data.map(r=>{
+    const fF=r.fecha?r.fecha.split('-').reverse().join('/'):'–';
+    return`<div class="hist-item" onclick="ver(${all.indexOf(r)})">
+      <div><div class="hi-title">${r.tienda||'Tienda'} <span class="badge badge-g">Centro ${r.centro||'–'}</span></div>
+      <div class="hi-sub">Pedido ${r.pedido||'–'} · ${r.job||'–'}</div></div>
+      <div class="hi-date">${fF}</div>
+    </div>`;
+  }).join('');
+}
+
+function ver(i){
+  const r=getH()[i];if(!r)return;
+  window.detalleIdx=i;
+  $('histList').classList.add('hidden');$('detalleView').classList.remove('hidden');
+  const fF=r.fecha?r.fecha.split('-').reverse().join('/'):'–';
+  $('detalle').innerHTML=`<div class="card"><div class="card-title">📋 ${r.tienda} · ${fF}</div>
+    ${r.detalle}
+    ${r.obs?`<div class="divider"></div><div class="rrow obs-row" style="height:auto"><span class="rc" style="align-self:flex-start;padding-top:8px">Obs.</span><span class="rl" style="white-space:pre-wrap;word-break:break-word;height:auto;flex:1">${r.obs}</span></div>`:''}
+    <div class="divider"></div>
+    <div class="brow" style="margin-bottom:8px">
+      <button class="btn btn-s btn-sm" onclick="generarPDFHist(${i})">📄 PDF</button>
+      <button class="btn btn-s btn-sm" onclick="compartirHist(${i})">📤 Compartir</button>
+      <button class="btn btn-d btn-sm" onclick="borrarParte(${i})">🗑️ Borrar</button>
+    </div>
+    <div id="confirmDel" class="hidden" style="padding:12px;background:var(--red-light);border:1px solid rgba(192,57,43,.2);border-radius:var(--r-sm);margin-top:8px">
+      <div style="font-size:.88rem;font-weight:600;color:var(--red);margin-bottom:8px">⚠️ ¿Borrar este parte? No se puede deshacer.</div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-d btn-sm" onclick="borrarParteConfirm(true,${i})">Sí, borrar</button>
+        <button class="btn btn-s btn-sm" onclick="borrarParteConfirm(false,${i})">Cancelar</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function borrarParte(i){
+  window.detalleIdx=i;
+  $('confirmDel').classList.remove('hidden');
+}
+
+function borrarParteConfirm(ok,i){
+  if(!ok){$('confirmDel').classList.add('hidden');return;}
+  const h=getH();
+  h.splice(i!==undefined?i:window.detalleIdx,1);
+  setH(h);
+  volverHist();
+  renderHist();
+}
+
+function volverHist(){$('detalleView').classList.add('hidden');$('histList').classList.remove('hidden');}
+
+function nuevo(){
+  // Limpiar explícitamente cada campo
+  ['pedido','tienda','dir','tel','centro','raw','obs',
+   'km','tr','kmE','kmS','trE','trS','kmA','trA','arr','lea'].forEach(id=>{
+    const el=$(id); if(el) el.value='';
+  });
+  $('w').value='2';
+  $('job').value='';$('link').value='No';
+  curJob='';curLink='No';workerRoles=[];
+  document.querySelectorAll('#jobTgl button').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('#lnkTgl button').forEach((b,i)=>b.classList.toggle('active',i===0));
+  $('workersRol').classList.add('hidden');
+  $('workersList').innerHTML='';
+  $('modeNo').classList.remove('hidden');
+  $('modeSi').classList.add('hidden');
+  $('modeAuto').classList.add('hidden');
+  $('lnkToggleDiv').classList.remove('hidden');
+  $('abn').classList.remove('show');
+  $('msgForm').className='msg';
+  $('out').innerHTML='';
+  window.recTmp=null;
+  $('gbtn').textContent='💾 Guardar parte';$('gbtn').disabled=false;$('gbtn').style.opacity='1';
+  setFechaHoy();
+  renderWorkers();
+}
+
+function copiar(){
+  if(!window.recTmp)return;
+  const lines=[];
+  document.querySelectorAll('#out .rrow').forEach(row=>{
+    const rc=row.querySelector('.rc')?.textContent||'';
+    const rl=row.querySelector('.rl')?.textContent||'';
+    const rv=row.querySelector('.rv')?.textContent||'';
+    lines.push([rc,rl,rv].filter(s=>s.trim()).join(' | '));
+  });
+  const obs=$('obs').value.trim();
+  if(obs)lines.push(`Obs. | ${obs}`);
+  navigator.clipboard.writeText(lines.join('\n')).then(()=>showMsg('msgRes','Copiado.','success'));
+}
+
+// ===== ROWS =====
+function infoRow(l,v){return`<div class="rrow info-row"><span class="rc">${l}</span><span class="rl">${v}</span><span class="rv"></span></div>`;}
+function codRow(c,l,v){return`<div class="rrow"><span class="rc">${c}</span><span class="rl">${l}</span><span class="rv">${v}</span></div>`;}
+function obsRow(l,v){return`<div class="rrow obs-row"><span class="rc">${l}</span><span class="rl">${v}</span><span class="rv"></span></div>`;}
+function totalRow(v){return`<div class="rrow total-row"><span class="rc">TOTAL</span><span class="rl"></span><span class="rv">${v}</span></div>`;}
+function gt(t){return`<div class="rgroup-title">${t}</div>`;}
+
+// ===== GENERAR =====
+function generar(){
+  $('msgForm').className='msg';
+  const req=['pedido','fecha','tienda','dir','tel','arr','lea'];
+  for(const r of req){if(!$(r).value.trim()){showMsg('msgForm','Completa todos los campos obligatorios (*).','error');return;}}
+  if(!curJob){showMsg('msgForm','Selecciona el tipo de trabajo.','error');return;}
+
+  const fecha=$('fecha').value,arr=tm($('arr').value),lea=tm($('lea').value),w=Math.max(1,+$('w').value||1);
+  if(lea<=arr){showMsg('msgForm','La hora de salida debe ser posterior a la llegada.','error');return;}
+
+  const needRol=curJob==='Climatización';
+  if(needRol){for(let i=1;i<w;i++){if(!workerRoles[i]){showMsg('msgForm',`Selecciona categoría del Trabajador ${i+1}.`,'error');return;}}}
+
+  const roles=needRol?workerRoles.slice(0,w):Array(w).fill('Oficial');
+  const nOf=roles.filter(r=>r==='Oficial').length;
+  const nPe=roles.filter(r=>r==='Peón').length;
+  const hist=getH(),same=hist.filter(x=>x.fecha===fecha);
+
+  // KM Y DESPLAZAMIENTO
+  let kmTotal=0,trIn=0,trOut=0;
+  if(curLink==='No'){
+    if(!$('km').value||!$('tr').value){showMsg('msgForm','Indica km y desplazamiento.','error');return;}
+    kmTotal=+$('km').value*2;trIn=trOut=+$('tr').value;
+  } else if(curLink==='Sí'){
+    if(!$('kmE').value||!$('kmS').value||!$('trE').value||!$('trS').value){showMsg('msgForm','Completa los datos de enlace.','error');return;}
+    kmTotal=+$('kmE').value + +$('kmS').value;trIn=+$('trE').value;trOut=+$('trS').value;
+  } else if(curLink==='Auto'){
+    if(!$('kmA').value||!$('trA').value){showMsg('msgForm','Indica km y despl. de salida.','error');return;}
+    kmTotal=+$('kmA').value;trIn=0;trOut=+$('trA').value;
+  }
+
+  // OBSERVACIÓN AUTO
+  let autoObs='';
+  if(same.length){
+    const last=same[same.length-1];
+    if((last.fin+(last.trS||0))===arr) autoObs=`Desplazamiento desde ${last.tienda} (Centro ${last.centro})`;
+  }
+
+  const tienda=$('tienda').value;
+
+  // Variables de línea de tiempo para usar como títulos de sección
+  const fmtT=m=>`${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`;
+  let tlKm='', tlTienda='', tlSalida='';
+  const tl=(a,b)=>`(${fmtT(a)}) - (${fmtT(b)})`;
+  if(curLink==='No'){
+    tlKm=`${tl(arr-trIn,arr)} · ${fmt(kmTotal/2)} km`;
+    tlTienda=`${tl(arr,lea)} Tienda`;
+    tlSalida=`${tl(lea,lea+trOut)} · ${fmt(kmTotal/2)} km`;
+  } else if(curLink==='Sí'){
+    tlKm=`${tl(arr-trIn,arr)} · ${fmt(+$('kmE').value)} km`;
+    tlTienda=`${tl(arr,lea)} Tienda`;
+    tlSalida=`${tl(lea,lea+trOut)} · ${fmt(+$('kmS').value)} km`;
+  } else if(curLink==='Auto'){
+    tlKm='';
+    tlTienda=`${tl(arr,lea)} Tienda`;
+    tlSalida=`${tl(lea,lea+trOut)} · ${fmt(kmTotal)} km`;
+  }
+
+  let html='';
+
+  // 1. DATOS
+  html+=gt('Datos generales');
+  html+=infoRow('Fecha',fecha.split('-').reverse().join('/'));
+  html+=infoRow('Nº orden',$('pedido').value);
+  html+=infoRow('Tienda',tienda);
+  html+=infoRow('Dirección',$('dir').value);
+  html+=infoRow('Teléfono',$('tel').value);
+
+  // 3. KILOMETRAJE - título = línea de tiempo ida
+  if(tlKm)html+=gt(tlKm);
+  html+=codRow(getCod(curJob,'Kilometraje',''),'Kmje',`${fmt(kmTotal)} km`);
+
+  // 4. HORAS - título = línea de tiempo tienda
+  html+=gt(tlTienda);
+  let totalH=0;
+  const labAbr={'H. Normal':'H.Nor','H. Extra':'H.Ext','H. Nocturna':'H.Noc'};
+  [[480,1440,'H. Normal'],[360,480,'H. Extra'],[0,360,'H. Nocturna']].forEach(([ini,fin,lab])=>{
+    const min=ov(arr,lea,ini,fin);if(!min)return;
+    const h=min/60;
+    const abr=labAbr[lab]||lab;
+    if(!needRol){
+      const t=h*w;totalH+=t;
+      html+=codRow(getCod(curJob,lab,''),abr,w>1?`${fmtH(h)} x${w}= ${fmtH(t)}`:`${fmtH(h)}`);
+    } else {
+      if(nOf>0){const t=h*nOf;totalH+=t;html+=codRow(getCod(curJob,lab,'Oficial'),`${abr}.Of`,nOf>1?`${fmtH(h)} × ${nOf} = ${fmtH(t)}`:`${fmtH(h)}`);}
+      if(nPe>0){const t=h*nPe;totalH+=t;html+=codRow(getCod(curJob,lab,'Peón'),`${abr}.Pn`,nPe>1?`${fmtH(h)} × ${nPe} = ${fmtH(t)}`:`${fmtH(h)}`);}
+    }
+  });
+
+  // 5. DESPLAZAMIENTOS - título = línea de tiempo salida
+  html+=gt(tlSalida);
+  const grp={};
+  const addRng=(s,e)=>{[['Normal',480,1440],['Extra',360,480],['Nocturno',0,360]].forEach(r=>{const m=ov(s,e,r[1],r[2]);if(m)grp[r[0]]=(grp[r[0]]||0)+m;});};
+  if(trIn>0)addRng(arr-trIn,arr);
+  if(trOut>0)addRng(lea,lea+trOut);
+  ['Normal','Extra','Nocturno'].forEach(k=>{
+    if(!grp[k])return;
+    const h=grp[k]/60,t=h*w,lab=`Despl. ${k}`;
+    const abr=`Dsp.${k.substring(0,3)}`;
+    html+=codRow(getCod(curJob,lab,''),abr,w>1?`${fmtH(h)} x${w}= ${fmtH(t)}`:`${fmtH(h)}`);
+  });
+
+  // 6. DIETA
+  const totalMin=trIn+(lea-arr)+trOut;
+  const dietaYa=same.some(x=>x.dieta);
+  const acum=same.reduce((z,r)=>z+(r.totalMin||0),0)+totalMin;
+  const dieta=acum>=300&&!dietaYa;
+  const sepDieta='<div style="height:1px;background:var(--border);margin:10px 0"></div>';
+  if(dieta){
+    html+=sepDieta;
+    html+=codRow(getCod(curJob,'Media dieta',''),'½ Dieta',w>1?`× ${w}`:'× 1');
+  } else {
+    html+=sepDieta;
+    const info=dietaYa?'✅ Media dieta ya aplicada hoy':`⏳ Acumulado: ${fmt(acum/60)} h de 5 h (faltan ${fmt(Math.max(0,300-acum)/60)} h)`;
+    html+=`<div style="font-size:.82rem;color:var(--text2);padding:7px 10px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border2)">${info}</div>`;
+  }
+
+  // 7. OBS AUTO
+  if(autoObs){html+=gt('Enlace');html+=obsRow('Auto',autoObs);}
+
+  // 8. TOTAL
+  html+=totalRow(fmtH((lea-arr)/60*w).replace(/ h$/,' Horas'));
+
+  $('out').innerHTML=html;
+  $('gbtn').textContent='💾 Guardar parte';$('gbtn').disabled=false;$('gbtn').style.opacity='1';
+  $('msgRes').className='msg';
+
+  window.recTmp={
+    fecha,pedido:$('pedido').value,centro:$('centro').value,tienda:$('tienda').value,
+    job:curJob,roles,detalle:html,fin:lea,trS:trOut,totalMin,dieta,
+    arr:$('arr').value,lea:$('lea').value,obs:'',
+    linkType:curLink
+  };
+  goTo('w-result');
+}
+
+// ===== PDF Y COMPARTIR DESDE HISTORIAL =====
+function generarPDFHist(i){
+  const r=getH()[i];
+  if(!r)return;
+  generarPDFDesde(r.detalle, r.obs||'');
+}
+
+function compartirHist(i){
+  const r=getH()[i];
+  if(!r)return;
+  compartirDesde(r.detalle, r.obs||'');
+}
+
+function generarPDFDesde(detalle, obsVal){
+  if(!window.jspdf){
+    alert('PDF no disponible. Usa el botón Compartir.');
+    return;
+  }
+  const {jsPDF}=window.jspdf;
+  const doc=new jsPDF({unit:'mm',format:'a4',orientation:'portrait'});
+  const W=doc.internal.pageSize.getWidth();
+  const verde=[26,107,58];
+  const verdeLight=[232,245,238];
+  const gris=[247,249,251];
+  const bordeGris=[214,220,229];
+  const texto=[24,32,46];
+  const muted=[75,85,99];
+  let y=10;
+
+  // HEADER
+  doc.setFillColor(...verde);
+  doc.roundedRect(10,y,W-20,18,3,3,'F');
+  doc.setFontSize(13);doc.setFont('helvetica','bold');doc.setTextColor(255,255,255);
+  doc.text('Parte de Trabajo – Mercadona',18,y+8);
+  doc.setFontSize(8);doc.setFont('helvetica','normal');
+  doc.text('Soluciones Electrónicas y Climatización R&V',18,y+14);
+  y+=24;
+
+  // Parsear detalle
+  const tmp=document.createElement('div');
+  tmp.innerHTML=detalle;
+
+  const margin=10;
+  // Proporciones similares a la app: código estrecho, descripción fija, valor flexible
+  const codCol=20;
+  const descCol=22;
+  const valCol=W-20-codCol-descCol;
+
+  // Convertir decimales a fracciones
+  function fmtFrac(str){
+    return str
+      .replace(/(\d+)\.25h/g,'$1¼h').replace(/^0¼h$/,'¼h')
+      .replace(/(\d+)\.5h/g,'$1½h').replace(/^0½h$/,'½h')
+      .replace(/(\d+)\.75h/g,'$1¾h').replace(/^0¾h$/,'¾h')
+      .replace(/0\.25h/g,'¼h')
+      .replace(/0\.5h/g,'½h')
+      .replace(/0\.75h/g,'¾h');
+  }
+
+  [...tmp.children].forEach(el=>{
+    if(y>270){doc.addPage();y=10;}
+
+    if(el.classList.contains('rgroup-title')){
+      const secTxt=el.textContent.trim();
+      // Separación antes de Dieta
+      if(secTxt.toLowerCase().includes('dieta')) y+=4;
+      doc.setFontSize(6.5);doc.setFont('helvetica','bold');
+      doc.setTextColor(...muted);
+      doc.text(secTxt.toUpperCase(),margin,y+3.5);
+      y+=5.5;
+
+    } else if(el.classList.contains('rrow')){
+      const rc=el.querySelector('.rc')?.textContent?.trim()||'';
+      const rl=el.querySelector('.rl')?.textContent?.trim()||'';
+      const rv=fmtFrac(el.querySelector('.rv')?.textContent?.trim()||'');
+      const rowH=7;
+
+      if(el.classList.contains('info-row')){
+        doc.setFillColor(...gris);
+        doc.rect(margin,y,W-20,rowH,'F');
+        doc.setDrawColor(...bordeGris);doc.rect(margin,y,W-20,rowH);
+        doc.setFontSize(6.5);doc.setFont('helvetica','bold');doc.setTextColor(...muted);
+        doc.text(rc,margin+2,y+5);
+        doc.setFontSize(8.5);doc.setFont('helvetica','normal');doc.setTextColor(...texto);
+        doc.text(rl,margin+codCol+2,y+5);
+      } else if(el.classList.contains('total-row')){
+        y+=2;
+        doc.setFillColor(...verde);
+        doc.roundedRect(margin,y,W-20,rowH,1,1,'F');
+        doc.setFontSize(9);doc.setFont('helvetica','bold');doc.setTextColor(255,255,255);
+        doc.text('TOTAL',margin+2,y+5);
+        doc.text(rv,W-10,y+5,{align:'right'});
+      } else if(el.classList.contains('obs-row')){
+        doc.setFillColor(255,251,235);
+        doc.rect(margin,y,W-20,rowH,'F');
+        doc.setFontSize(6.5);doc.setFont('helvetica','bold');doc.setTextColor(180,83,9);
+        doc.text(rc,margin+2,y+5);
+        doc.setFontSize(8.5);doc.setFont('helvetica','normal');
+        const obsLines=doc.splitTextToSize(rl,descCol+valCol-2);
+        doc.text(obsLines,margin+codCol+2,y+5);
+      } else {
+        // Fila normal con código estrecho
+        doc.setFillColor(...verde);
+        doc.rect(margin,y,codCol,rowH,'F');
+        doc.setFillColor(...verdeLight);
+        doc.rect(margin+codCol,y,descCol,rowH,'F');
+        doc.setFillColor(...gris);
+        doc.rect(margin+codCol+descCol,y,valCol,rowH,'F');
+        doc.setDrawColor(...bordeGris);
+        doc.rect(margin,y,W-20,rowH);
+        doc.setFontSize(7);doc.setFont('helvetica','bold');doc.setTextColor(255,255,255);
+        doc.text(rc,margin+codCol/2,y+5,{align:'center'});
+        doc.setTextColor(...verde);
+        doc.setFontSize(7);
+        doc.text(rl,margin+codCol+2,y+5);
+        doc.setTextColor(...texto);
+        doc.setFontSize(8);
+        doc.text(rv,margin+codCol+descCol+2,y+5);
+      }
+      y+=rowH+0.5;
+
+    } else {
+      const txt=el.textContent?.trim();
+      if(txt){
+        doc.setFontSize(7.5);doc.setFont('helvetica','normal');doc.setTextColor(...muted);
+        doc.text(txt,margin,y+3.5);
+        y+=5.5;
+      }
+    }
+  });
+
+  // Observaciones
+  if(obsVal){
+    y+=2;
+    doc.setFontSize(7);doc.setFont('helvetica','bold');doc.setTextColor(...muted);
+    doc.text('OBSERVACIONES',margin,y+4);y+=7;
+    doc.setFillColor(255,251,235);
+    doc.rect(margin,y,W-20,8,'F');
+    doc.setFontSize(8);doc.setFont('helvetica','normal');doc.setTextColor(180,83,9);
+    const obsLines=doc.splitTextToSize(obsVal,W-24);
+    doc.text(obsLines,margin+2,y+5.5);
+    y+=8+obsLines.length*4;
+  }
+
+  const fecha=new Date().toISOString().slice(0,10);
+  doc.save(`parte_mercadona_${fecha}.pdf`);
+}
+
+async function compartirDesde(detalle, obsVal){
+  const tmp=document.createElement('div');
+  tmp.innerHTML=detalle;
+  const sep='━━━━━━━━━━━━━━━━━━━━';
+  const lines=['📋 PARTE DE TRABAJO', sep];
+
+  // Procesar elementos en orden directo (hijos directos del div)
+  [...tmp.children].forEach(el=>{
+    if(el.classList.contains('rgroup-title')){
+      const txt=el.textContent.trim();
+      if(txt==='Datos generales') return; // no añadir cabecera de datos generales
+      lines.push('');
+      lines.push(txt);
+    } else if(el.classList.contains('rrow')){
+      const rc=el.querySelector('.rc')?.textContent?.trim()||'';
+      const rl=el.querySelector('.rl')?.textContent?.trim()||'';
+      const rv=el.querySelector('.rv')?.textContent?.trim()||'';
+      if(el.classList.contains('info-row')){
+        lines.push(`${rc}: ${rl}`);
+      } else if(el.classList.contains('total-row')){
+        lines.push('');
+        lines.push(sep);
+        lines.push(`TOTAL: ${rv}`);
+      } else if(el.classList.contains('obs-row')){
+        lines.push(`📌 ${rc}: ${rl}`);
+      } else {
+        // Separar dieta del resto con línea en blanco
+        if(rl.toLowerCase().includes('dieta')){
+          lines.push('');
+          lines.push(`${rc} | ${rl} ${rv}`);
+        } else if(rv){
+          lines.push(`${rc} | ${rl}\n${rv}`);
+        } else {
+          lines.push(`${rc} | ${rl}`);
+        }
+      }
+    } else {
+      // Info de dieta u otros elementos
+      const txt=el.textContent.trim();
+      if(txt) lines.push(`ℹ️ ${txt}`);
+    }
+  });
+
+  if(obsVal){lines.push('');lines.push(`📝 Obs.: ${obsVal}`);}
+  const texto=lines.join('\n').trim();
+
+  if(navigator.share){
+    try{
+      await navigator.share({title:'Parte de Trabajo',text:texto});
+      return;
+    }catch(e){
+      if(e.name==='AbortError')return;
+    }
+  }
+  try{
+    await navigator.clipboard.writeText(texto);
+    alert('✅ Texto copiado. Pégalo en WhatsApp u otra app.');
+  }catch(e){
+    alert('No se pudo compartir. Usa el botón Copiar.');
+  }
+}
+
+// ===== COMPARTIR =====
+async function compartir(){
+  if(!window.recTmp){alert('Genera el parte primero.');return;}
+  const obsVal=$('obs').value.trim();
+
+  // Construir texto plano del parte
+  const lines=[];
+  document.querySelectorAll('#out > *').forEach(el=>{
+    if(el.classList.contains('rgroup-title')){
+      lines.push('');
+      lines.push('── '+el.textContent+' ──');
+    } else if(el.classList.contains('rrow')){
+      const rc=el.querySelector('.rc')?.textContent?.trim()||'';
+      const rl=el.querySelector('.rl')?.textContent?.trim()||'';
+      const rv=el.querySelector('.rv')?.textContent?.trim()||'';
+      if(el.classList.contains('info-row')){
+        lines.push(`${rc}: ${rl}`);
+      } else if(el.classList.contains('total-row')){
+        lines.push(`TOTAL: ${rv}`);
+      } else if(el.classList.contains('obs-row')){
+        lines.push(`${rc}: ${rl}`);
+      } else {
+        lines.push(rv?`${rc} | ${rl} | ${rv}`:`${rc} | ${rl}`);
+      }
+    } else {
+      const txt=el.textContent?.trim();
+      if(txt)lines.push(txt);
+    }
+  });
+  if(obsVal)lines.push('','Obs.: '+obsVal);
+
+  const texto=lines.join('\n').trim();
+
+  // Intentar Web Share API
+  if(navigator.share){
+    try{
+      await navigator.share({
+        title:'Parte de Trabajo Mercadona',
+        text:texto
+      });
+    }catch(e){
+      if(e.name!=='AbortError') compartirFallback(texto);
+    }
+  } else {
+    compartirFallback(texto);
+  }
+}
+
+function compartirFallback(texto){
+  // Copiar al portapapeles y avisar
+  navigator.clipboard.writeText(texto).then(()=>{
+    showMsg('msgRes','Texto copiado. Pégalo en WhatsApp o donde quieras.','success');
+  }).catch(()=>{
+    showMsg('msgRes','Usa el botón Copiar para copiar el parte.','warn');
+  });
+}
+
+// ===== BACKUP =====
+function exportarBackup(){
+  const h=getH();
+  if(!h.length){showMsg('msgForm','No hay partes guardados.','warn');return;}
+  const d=new Date();
+  const fn=`backup_mercadona_${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}.json`;
+  const blob=new Blob([JSON.stringify({version:'v6',fecha:d.toISOString(),partes:h})],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=fn;a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importarBackup(input){
+  const f=input.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{
+    try{
+      const data=JSON.parse(e.target.result);
+      const partes=data.partes||data;
+      if(!Array.isArray(partes))throw new Error('Formato inválido');
+      const actual=getH();
+      // Merge sin duplicados
+      partes.forEach(p=>{
+        if(!exists(p,actual))actual.push(p);
+      });
+      setH(actual);
+      renderHist();
+      alert(`✅ Backup importado: ${partes.length} partes restaurados.`);
+    }catch(e){
+      alert('❌ Error al importar. Verifica que el archivo sea un backup válido.');
+    }
+  };
+  r.readAsText(f);
+  input.value='';
+}
+
+// ===== PDF =====
+function generarPDF(){
+  if(!window.recTmp){alert('Genera el parte primero.');return;}
+  const obsVal=$('obs').value.trim();
+  const fecha=window.recTmp.fecha?window.recTmp.fecha.split('-').reverse().join('/'):'';
+
+  // Extraer filas del resultado
+  let filas='';
+  document.querySelectorAll('#out .rrow').forEach(row=>{
+    const rc=row.querySelector('.rc')?.textContent||'';
+    const rl=row.querySelector('.rl')?.textContent||'';
+    const rv=row.querySelector('.rv')?.textContent||'';
+    if(row.classList.contains('info-row')){
+      filas+=`<tr style="background:#f7f9fb"><td style="font-weight:700;color:#4b5563;font-size:11px;text-transform:uppercase;padding:5px 8px;width:90px">${rc}</td><td colspan="2" style="padding:5px 8px;font-size:13px">${rl}</td></tr>`;
+    } else if(row.classList.contains('total-row')){
+      filas+=`<tr style="background:#1a6b3a;color:white"><td style="padding:7px 8px;font-weight:700;font-size:12px">TOTAL</td><td style="padding:7px 8px;font-weight:700;font-size:13px">Total</td><td style="padding:7px 8px;font-weight:700;font-size:13px;text-align:right">${rv}</td></tr>`;
+    } else if(row.classList.contains('obs-row')){
+      filas+=`<tr style="background:#fffbeb"><td style="padding:5px 8px;font-weight:700;color:#b45309;font-size:11px">${rc}</td><td colspan="2" style="padding:5px 8px;color:#b45309;font-size:13px">${rl}</td></tr>`;
+    } else if(rc||rl){
+      filas+=`<tr style="border-bottom:1px solid #eaecf0"><td style="background:#1a6b3a;color:white;padding:6px 8px;font-weight:600;font-size:12px;font-family:monospace">${rc}</td><td style="background:#e8f5ee;color:#1a6b3a;padding:6px 8px;font-weight:500;font-size:12px">${rl}</td><td style="padding:6px 8px;font-weight:600;font-size:12px;text-align:right;font-family:monospace">${rv}</td></tr>`;
+    }
+    // rgroup-title
+  });
+  document.querySelectorAll('#out .rgroup-title').forEach(()=>{});
+
+  // Reconstruir con títulos de sección
+  let contenido='';
+  document.querySelectorAll('#out > *').forEach(el=>{
+    if(el.classList.contains('rgroup-title')){
+      contenido+=`<tr><td colspan="3" style="padding:8px 8px 3px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;border-top:1px solid #eaecf0">${el.textContent}</td></tr>`;
+    } else if(el.classList.contains('rrow')){
+      const rc=el.querySelector('.rc')?.textContent||'';
+      const rl=el.querySelector('.rl')?.textContent||'';
+      const rv=el.querySelector('.rv')?.textContent||'';
+      if(el.classList.contains('info-row')){
+        contenido+=`<tr style="background:#f7f9fb"><td style="font-weight:700;color:#4b5563;font-size:10px;text-transform:uppercase;padding:5px 8px">${rc}</td><td colspan="2" style="padding:5px 8px;font-size:12px">${rl}</td></tr>`;
+      } else if(el.classList.contains('total-row')){
+        contenido+=`<tr style="background:#1a6b3a;color:white"><td style="padding:7px 8px;font-weight:700;font-size:11px">TOTAL</td><td style="padding:7px 8px;font-weight:700;font-size:12px">Total</td><td style="padding:7px 8px;font-weight:700;font-size:12px;text-align:right">${rv}</td></tr>`;
+      } else if(el.classList.contains('obs-row')){
+        contenido+=`<tr style="background:#fffbeb"><td style="padding:5px 8px;font-weight:700;color:#b45309;font-size:10px">${rc}</td><td colspan="2" style="padding:5px 8px;color:#b45309;font-size:12px">${rl}</td></tr>`;
+      } else {
+        contenido+=`<tr style="border-bottom:1px solid #eaecf0"><td style="background:#1a6b3a;color:white;padding:5px 8px;font-weight:600;font-size:11px;font-family:monospace">${rc}</td><td style="background:#e8f5ee;color:#1a6b3a;padding:5px 8px;font-weight:500;font-size:11px">${rl}</td><td style="padding:5px 8px;font-weight:600;font-size:11px;text-align:right;font-family:monospace">${rv}</td></tr>`;
+      }
+    } else {
+      contenido+=`<tr><td colspan="3" style="padding:5px 8px;font-size:11px;color:#4b5563">${el.textContent}</td></tr>`;
+    }
+  });
+
+  if(obsVal){
+    contenido+=`<tr><td colspan="3" style="padding:8px 8px 3px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;border-top:1px solid #eaecf0">Observaciones</td></tr>`;
+    contenido+=`<tr style="background:#fffbeb"><td style="padding:5px 8px;font-weight:700;color:#b45309;font-size:10px">Obs.</td><td colspan="2" style="padding:5px 8px;color:#b45309;font-size:12px">${obsVal}</td></tr>`;
+  }
+
+  const html=`<!doctype html><html><head><meta charset="utf-8">
+  <title>Parte ${fecha}</title>
+  <style>
+    body{font-family:Arial,sans-serif;margin:0;padding:20px;color:#18202e}
+    .header{background:#1a6b3a;color:white;padding:14px 18px;border-radius:8px;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+    .header h1{font-size:16px;margin:0}
+    .header p{font-size:11px;opacity:.75;margin:2px 0 0}
+    table{width:100%;border-collapse:collapse;border-radius:8px;overflow:hidden;border:1px solid #eaecf0}
+    @media print{body{padding:10px}.no-print{display:none}}
+  </style>
+  </head><body>
+  <div class="header">
+    <div style="font-size:24px">🏪</div>
+    <div><h1>Parte de Trabajo – Mercadona</h1><p>Soluciones Electrónicas y Climatización R&V</p></div>
+  </div>
+  <table><tbody>${contenido}</tbody></table>
+  <div class="no-print" style="margin-top:16px;display:flex;gap:10px">
+    <button onclick="window.print()" style="background:#1a6b3a;color:white;border:none;padding:10px 20px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer">🖨️ Imprimir / Guardar PDF</button>
+    <button onclick="window.close()" style="background:#f7f9fb;border:1.5px solid #dde2ea;padding:10px 20px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer">✕ Cerrar</button>
+  </div>
+  </body></html>`;
+
+  // Descargar directamente como archivo HTML (funciona en móvil)
+  const blob=new Blob([html],{type:'text/html'});
+  const url=URL.createObjectURL(blob);
+  const fechaFn=window.recTmp?.fecha||new Date().toISOString().slice(0,10);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=`parte_mercadona_${fechaFn}.html`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),10000);
+}
+
+// ===== INIT =====
+function setFechaHoy(){$('fecha').value=hoy();}
+setFechaHoy();
+renderWorkers();
+
+
+</script>
+<script>
+if('serviceWorker' in navigator){
+  const sw=`
+    self.addEventListener('install',e=>self.skipWaiting());
+    self.addEventListener('fetch',e=>e.respondWith(fetch(e.request).catch(()=>caches.match(e.request))));
+  `;
+  const blob=new Blob([sw],{type:'application/javascript'});
+  const swUrl=URL.createObjectURL(blob);
+  navigator.serviceWorker.register(swUrl).catch(()=>{});
+}
+</script>
+</body>
+</html>
