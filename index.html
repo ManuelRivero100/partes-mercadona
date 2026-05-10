@@ -13,9 +13,6 @@
 <meta name="theme-color" content="#1a6b3a">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.json">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="IRV-10">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
@@ -119,95 +116,57 @@ textarea{resize:vertical;min-height:72px}#obs{min-height:150px;}
 </head>
 <body>
 <div class="app">
-
 <div class="hdr">
-  <div class="hdr-ico">🏪</div>
-  <div>
-    <h1>Parte de Trabajo – Mercadona</h1>
-    <p>Generador de partes con cálculo automático</p>
-  </div>
+  <div class="hdr-ico">&#127978;</div>
+  <div><h1>Parte de Trabajo &ndash; Mercadona</h1><p>Generador de partes con c&aacute;lculo autom&aacute;tico</p></div>
 </div>
-
-<!-- VENTANA 1: MENÚ -->
 <div id="w-menu" class="win active">
   <div class="menu-grid">
-    <div class="menu-card" onclick="goTo('w-form')">
-      <div class="mc-ico">✏️</div>
-      <div class="mc-title">Generar parte</div>
-      <div class="mc-sub">Nuevo parte de trabajo</div>
-    </div>
-    <div class="menu-card" onclick="goTo('w-hist')">
-      <div class="mc-ico">📋</div>
-      <div class="mc-title">Historial</div>
-      <div class="mc-sub">Ver partes guardados</div>
-    </div>
+    <div class="menu-card" onclick="goTo('w-form')"><div class="mc-ico">&#9999;&#65039;</div><div class="mc-title">Generar parte</div><div class="mc-sub">Nuevo parte de trabajo</div></div>
+    <div class="menu-card" onclick="goTo('w-hist')"><div class="mc-ico">&#128203;</div><div class="mc-title">Historial</div><div class="mc-sub">Ver partes guardados</div></div>
   </div>
 </div>
-
-<!-- VENTANA 2: FORMULARIO -->
 <div id="w-form" class="win">
-  <button class="back" onclick="goTo('w-menu')">← Menú principal</button>
-
-  <!-- LECTURA -->
-  <div class="card">
-    <div class="card-title">📄 Lectura de orden</div>
-    <div class="field">
-      <label>Pegar texto de la orden</label>
-      <textarea id="raw" placeholder="Pega aquí el texto de la orden de trabajo…" rows="5"></textarea>
-    </div>
-    <div class="brow">
-      <button class="btn btn-p" onclick="leer()">🔍 Autocompletar</button>
-      <button class="btn btn-s" onclick="clearRaw()">🗑️ Limpiar</button>
-    </div>
+  <button class="back" onclick="goTo('w-menu')">&#8592; Men&uacute; principal</button>
+  <div class="card"><div class="card-title">&#128196; Lectura de orden</div>
+    <div class="field"><label>Pegar texto de la orden</label><textarea id="raw" placeholder="Pega aqu&iacute; el texto de la orden de trabajo&hellip;" rows="5"></textarea></div>
+    <div class="brow"><button class="btn btn-p" onclick="leer()">&#128269; Autocompletar</button><button class="btn btn-s" onclick="clearRaw()">&#128465;&#65039; Limpiar</button></div>
   </div>
-
-  <!-- TIPO DE TRABAJO -->
-  <div class="card">
-    <div class="card-title">🔧 Tipo de trabajo</div>
-    <div class="field">
-      <label>Selecciona <span class="req">*</span></label>
+  <div class="card"><div class="card-title">&#128295; Tipo de trabajo</div>
+    <div class="field"><label>Selecciona <span class="req">*</span></label>
       <div class="tgl" id="jobTgl">
         <button onclick="setJob('Conductos',this)">Conductos</button>
-        <button onclick="setJob('Climatización',this)">Climatización</button>
+        <button onclick="setJob('Climatizaci&oacute;n',this)">Climatizaci&oacute;n</button>
         <button onclick="setJob('Obras',this)">Obras</button>
       </div>
       <input type="hidden" id="job">
     </div>
   </div>
-
-  <!-- DATOS GENERALES -->
-  <div class="card">
-    <div class="card-title">📋 Datos de la orden</div>
+  <div class="card"><div class="card-title">&#128203; Datos de la orden</div>
     <div class="g2">
       <div class="field"><label>Fecha <span class="req">*</span></label><input id="fecha" type="date" onchange="checkAutoEnlace()" onkeydown="if(event.key==='Enter')this.blur()"></div>
-      <div class="field"><label>Nº orden <span class="req">*</span></label><input id="pedido" placeholder="Ej: 119137"></div>
+      <div class="field"><label>N&ordm; orden <span class="req">*</span></label><input id="pedido" placeholder="Ej: 119137"></div>
     </div>
     <div class="field"><label>Tienda <span class="req">*</span></label><input id="tienda" placeholder="Mercadona SAN JAVIER 2721"></div>
     <input type="hidden" id="centro">
-    <div class="field"><label>Dirección <span class="req">*</span></label><input id="dir"></div>
-    <div class="field"><label>Teléfono <span class="req">*</span></label><input id="tel" type="tel"></div>
+    <div class="field"><label>Direcci&oacute;n <span class="req">*</span></label><input id="dir"></div>
+    <div class="field"><label>Tel&eacute;fono <span class="req">*</span></label><input id="tel" type="tel"></div>
   </div>
-
-  <!-- ENLACE -->
-  <div class="card">
-    <div class="card-title">🔗 Enlace</div>
-    <div id="lnkToggleDiv" class="field">
-      <label>Tipo</label>
+  <div class="card"><div class="card-title">&#128279; Enlace</div>
+    <div id="lnkToggleDiv" class="field"><label>Tipo</label>
       <div class="tgl" id="lnkTgl">
         <button class="active" onclick="setLink('No',this)">Sin enlace</button>
-        <button onclick="setLink('Sí',this)">Con enlace</button>
+        <button onclick="setLink('Si',this)">Con enlace</button>
       </div>
       <input type="hidden" id="link" value="No">
     </div>
-    <div id="abn" class="abn"><span>🔗</span><span id="abnTxt"></span></div>
-    <!-- SIN ENLACE -->
+    <div id="abn" class="abn"><span>&#128279;</span><span id="abnTxt"></span></div>
     <div id="modeNo">
       <div class="g2">
         <div class="field"><label>Km ida</label><input id="km" type="number" min="0" placeholder="km"></div>
         <div class="field"><label>Despl. ida (min)</label><input id="tr" type="number" min="0" placeholder="min"></div>
       </div>
     </div>
-    <!-- CON ENLACE MANUAL -->
     <div id="modeSi" class="hidden">
       <div class="g2">
         <div class="field"><label>Km entrada</label><input id="kmE" type="number" min="0" placeholder="km"></div>
@@ -218,7 +177,6 @@ textarea{resize:vertical;min-height:72px}#obs{min-height:150px;}
         <div class="field"><label>Despl. salida (min)</label><input id="trS" type="number" min="0" placeholder="min"></div>
       </div>
     </div>
-    <!-- AUTOENLACE: solo salida -->
     <div id="modeAuto" class="hidden">
       <div class="g2">
         <div class="field"><label>Km salida</label><input id="kmA" type="number" min="0" placeholder="km"></div>
@@ -226,247 +184,123 @@ textarea{resize:vertical;min-height:72px}#obs{min-height:150px;}
       </div>
     </div>
   </div>
-
-  <!-- HORARIO -->
-  <div class="card">
-    <div class="card-title">⏱️ Horario</div>
+  <div class="card"><div class="card-title">&#9201;&#65039; Horario</div>
     <div class="g2">
       <div class="field"><label>Llegada <span class="req">*</span></label><input id="arr" type="time" onchange="checkAutoEnlace()"></div>
       <div class="field"><label>Salida <span class="req">*</span></label><input id="lea" type="time"></div>
     </div>
   </div>
-
-  <!-- TRABAJADORES -->
-  <div class="card">
-    <div class="card-title">👷 Trabajadores</div>
-    <div class="field">
-      <label>Cantidad <span class="req">*</span></label>
-      <input id="w" type="number" min="1" max="4" placeholder="Nº de trabajadores" onchange="renderWorkers()">
-    </div>
-    <div id="workersRol" class="hidden">
-      <div id="workersList"></div>
-    </div>
+  <div class="card"><div class="card-title">&#128119; Trabajadores</div>
+    <div class="field"><label>Cantidad <span class="req">*</span></label><input id="w" type="number" min="1" max="4" placeholder="N&ordm; de trabajadores" onchange="renderWorkers()"></div>
+    <div id="workersRol" class="hidden"><div id="workersList"></div></div>
   </div>
-
   <div class="msg" id="msgForm"></div>
   <div class="brow" style="margin-bottom:4px">
-    <button class="btn btn-p btn-full" onclick="generar()" style="flex:2">⚡ Generar parte</button>
-    <button class="btn btn-s" onclick="nuevo()" style="flex:1">🔄 Nuevo</button>
+    <button class="btn btn-p btn-full" onclick="generar()" style="flex:2">&#9889; Generar parte</button>
+    <button class="btn btn-s" onclick="nuevo()" style="flex:1">&#128260; Nuevo</button>
   </div>
 </div>
-
-<!-- VENTANA 3: PARTE GENERADO -->
 <div id="w-result" class="win">
-  <button class="back" onclick="goTo('w-form')">← Volver al formulario</button>
-  <div class="card">
-    <div class="card-title">✅ Parte generado</div>
-    <div id="out"></div>
-  </div>
-  <div class="card">
-    <div class="card-title">📝 Observaciones</div>
-    <div class="field">
-      <textarea id="obs" placeholder="Observaciones adicionales (opcional)…"></textarea>
-    </div>
+  <button class="back" onclick="goTo('w-form')">&#8592; Volver al formulario</button>
+  <div class="card"><div class="card-title">&#9989; Parte generado</div><div id="out"></div></div>
+  <div class="card"><div class="card-title">&#128221; Observaciones</div>
+    <div class="field"><textarea id="obs" placeholder="Observaciones adicionales (opcional)&hellip;"></textarea></div>
     <div class="brow">
-      <button class="btn btn-p" onclick="guardar()" id="gbtn">💾 Guardar parte</button>
-      <button class="btn btn-s btn-sm" onclick="copiar()">📋 Copiar</button>
+      <button class="btn btn-p" onclick="guardar()" id="gbtn">&#128190; Guardar parte</button>
+      <button class="btn btn-s btn-sm" onclick="copiar()">&#128203; Copiar</button>
     </div>
     <div class="msg" id="msgRes" style="margin-top:10px;margin-bottom:0"></div>
   </div>
 </div>
-
-<!-- VENTANA 4: HISTORIAL -->
 <div id="w-hist" class="win">
-  <button class="back" onclick="goTo('w-menu')">← Menú principal</button>
+  <button class="back" onclick="goTo('w-menu')">&#8592; Men&uacute; principal</button>
   <div id="histList">
-    <div class="card">
-      <div class="card-title">🔍 Buscar</div>
+    <div class="card"><div class="card-title">&#128269; Buscar</div>
       <div class="g2">
-        <div class="field"><label>Centro / tienda / pedido</label><input id="busca" oninput="renderHist()" placeholder="Filtrar…"></div>
+        <div class="field"><label>Centro / tienda / pedido</label><input id="busca" oninput="renderHist()" placeholder="Filtrar&hellip;"></div>
         <div class="field"><label>Fecha</label><input id="buscaF" type="date" oninput="renderHist()"></div>
       </div>
       <div class="brow">
-        <button class="btn btn-d btn-sm" onclick="borrarHist()">🗑️ Borrar historial</button>
-        <button class="btn btn-s btn-sm" onclick="limpiarF()">✕ Limpiar filtros</button>
+        <button class="btn btn-d btn-sm" onclick="borrarHist()">&#128465;&#65039; Borrar historial</button>
+        <button class="btn btn-s btn-sm" onclick="limpiarF()">&#10005; Limpiar filtros</button>
       </div>
       <div class="brow" style="margin-top:6px">
-        <button class="btn btn-s btn-sm" onclick="exportarBackup()">📦 Exportar backup</button>
-        <label class="btn btn-s btn-sm" style="cursor:pointer">📥 Importar backup<input type="file" accept=".json" style="display:none" onchange="importarBackup(this)"></label>
+        <button class="btn btn-s btn-sm" onclick="exportarBackup()">&#128230; Exportar backup</button>
+        <label class="btn btn-s btn-sm" style="cursor:pointer">&#128229; Importar backup<input type="file" accept=".json" style="display:none" onchange="importarBackup(this)"></label>
       </div>
       <div id="confirmBox" class="hidden" style="margin-top:10px;padding:12px;background:var(--red-light);border:1px solid rgba(192,57,43,.2);border-radius:var(--r-sm)">
-        <div style="font-size:.88rem;font-weight:600;color:var(--red);margin-bottom:8px">⚠️ ¿Borrar todo el historial? No se puede deshacer.</div>
-        <div style="display:flex;gap:8px">
-          <button class="btn btn-d btn-sm" onclick="borrarConfirm(true)">Sí, borrar</button>
-          <button class="btn btn-s btn-sm" onclick="borrarConfirm(false)">Cancelar</button>
-        </div>
+        <div style="font-size:.88rem;font-weight:600;color:var(--red);margin-bottom:8px">&#9888;&#65039; &iquest;Borrar todo el historial?</div>
+        <div style="display:flex;gap:8px"><button class="btn btn-d btn-sm" onclick="borrarConfirm(true)">S&iacute;, borrar</button><button class="btn btn-s btn-sm" onclick="borrarConfirm(false)">Cancelar</button></div>
       </div>
     </div>
     <div id="historial"></div>
   </div>
   <div id="detalleView" class="hidden">
-    <button class="back" onclick="volverHist()">← Volver al historial</button>
+    <button class="back" onclick="volverHist()">&#8592; Volver al historial</button>
     <div id="detalle"></div>
   </div>
 </div>
-
 <script>
 const $=i=>document.getElementById(i);
-
-function goTo(id){
-  document.querySelectorAll('.win').forEach(w=>w.classList.remove('active'));
-  $(id).classList.add('active');
-  window.scrollTo(0,0);
-  if(id==='w-hist')renderHist();
-  if(id==='w-form'){nuevo();checkAutoEnlace();}
-}
-
-function showMsg(id,txt,type='error'){
-  const m=$(id),icons={error:'❌',success:'✅',warn:'⚠️'};
-  m.innerHTML=`<span>${icons[type]||'ℹ️'}</span><span>${txt}</span>`;
-  m.className=`msg show ${type}`;
-  setTimeout(()=>{m.className='msg'},5000);
-}
-
+function goTo(id){document.querySelectorAll('.win').forEach(w=>w.classList.remove('active'));$(id).classList.add('active');window.scrollTo(0,0);if(id==='w-hist')renderHist();if(id==='w-form'){nuevo();checkAutoEnlace();}}
+function showMsg(id,txt,type='error'){const m=$(id),icons={error:'X',success:'OK',warn:'!'};m.innerHTML='<span>'+icons[type]+'</span><span>'+txt+'</span>';m.className='msg show '+type;setTimeout(()=>{m.className='msg'},5000);}
 function cap(re,t){const m=t.match(re);return m?m[1].trim():'';}
 function tm(x){if(!x)return 0;const p=x.split(':');return+p[0]*60+ +p[1];}
 function fmt(v){const r=Math.round(v*100)/100;return Number.isInteger(r)?r.toString():r.toString().replace(/0+$/,'').replace(/\.$/,'');}
-function fmtH(v){
-  const r=Math.round(v*100)/100;
-  const whole=Math.floor(r);
-  const dec=Math.round((r-whole)*100)/100;
-  const fracs={0.25:'1/4',0.5:'1/2',0.75:'3/4'};
-  const frac=fracs[dec]||'';
-  if(frac){
-    if(whole===0) return `${frac}h`;
-    return `${whole}h ${frac}`;
-  }
-  return `${whole}h`;
-}
+function fmtH(v){const r=Math.round(v*100)/100;const whole=Math.floor(r);const dec=Math.round((r-whole)*100)/100;const fracs={0.25:'1/4',0.5:'1/2',0.75:'3/4'};const frac=fracs[dec]||'';;if(frac){if(whole===0)return frac+'h';return whole+'h '+frac;}return whole+'h';}
 function ov(s,e,a,b){return Math.max(0,Math.min(e,b)-Math.max(s,a));}
-// Redondear minutos al cuarto de hora superior (15, 30, 45, 60...)
 function redondearQ(min){return Math.ceil(min/15)*15;}
-function hoy(){const d=new Date();return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+function hoy(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 
-// ===== CÓDIGOS =====
 const COD={
-  'Conductos':{
-    'H. Normal':       {cod:'MF9404',rol:false},
-    'H. Extra':        {cod:'MF9405',rol:false},
-    'H. Nocturna':     {cod:'MF9406',rol:false},
-    'Despl. Normal':   {cod:'MK9OVB',rol:false},
-    'Despl. Extra':    {cod:'MB8723',rol:false},
-    'Despl. Nocturno': {cod:'MB8725',rol:false},
-    'Kilometraje':     {cod:'MF9412',rol:false},
-    'Media dieta':     {cod:'MF9896',rol:false},
-  },
-  'Climatización':{
-    'H. Normal':       {cod:{Oficial:'MF9344',Peón:'MF9348'},rol:true},
-    'H. Extra':        {cod:{Oficial:'MF9345',Peón:'MF9349'},rol:true},
-    'H. Nocturna':     {cod:{Oficial:'MF9346',Peón:'MF9350'},rol:true},
-    'Despl. Normal':   {cod:'M71077',rol:false},
-    'Despl. Extra':    {cod:'MB8726',rol:false},
-    'Despl. Nocturno': {cod:'MB8728',rol:false},
-    'Kilometraje':     {cod:'MF9352',rol:false},
-    'Media dieta':     {cod:'MF9895',rol:false},
-  },
-  'Obras':{
-    'H. Normal':       {cod:'MA4836',rol:false},
-    'H. Extra':        {cod:'M71088',rol:false},
-    'H. Nocturna':     {cod:'MA4837',rol:false},
-    'Despl. Normal':   {cod:'M71077',rol:false},
-    'Despl. Extra':    {cod:'MB8726',rol:false},
-    'Despl. Nocturno': {cod:'MB8728',rol:false},
-    'Kilometraje':     {cod:'MA4841',rol:false},
-    'Media dieta':     {cod:'MA4839',rol:false},
-  }
+  'Conductos':{'H. Normal':{cod:'MF9404',rol:false},'H. Extra':{cod:'MF9405',rol:false},'H. Nocturna':{cod:'MF9406',rol:false},'Despl. Normal':{cod:'MK9OVB',rol:false},'Despl. Extra':{cod:'MB8723',rol:false},'Despl. Nocturno':{cod:'MB8725',rol:false},'Kilometraje':{cod:'MF9412',rol:false},'Media dieta':{cod:'MF9896',rol:false}},
+  'Climatizacion':{'H. Normal':{cod:{Oficial:'MF9344',Peon:'MF9348'},rol:true},'H. Extra':{cod:{Oficial:'MF9345',Peon:'MF9349'},rol:true},'H. Nocturna':{cod:{Oficial:'MF9346',Peon:'MF9350'},rol:true},'Despl. Normal':{cod:'M71077',rol:false},'Despl. Extra':{cod:'MB8726',rol:false},'Despl. Nocturno':{cod:'MB8728',rol:false},'Kilometraje':{cod:'MF9352',rol:false},'Media dieta':{cod:'MF9895',rol:false}},
+  'Obras':{'H. Normal':{cod:'MA4836',rol:false},'H. Extra':{cod:'M71088',rol:false},'H. Nocturna':{cod:'MA4837',rol:false},'Despl. Normal':{cod:'M71077',rol:false},'Despl. Extra':{cod:'MB8726',rol:false},'Despl. Nocturno':{cod:'MB8728',rol:false},'Kilometraje':{cod:'MA4841',rol:false},'Media dieta':{cod:'MA4839',rol:false}}
 };
 
 function getCod(job,lab,rol){
-  const e=COD[job]&&COD[job][lab];
+  const key=job==='Climatización'?'Climatizacion':job;
+  const e=COD[key]&&COD[key][lab];
   if(!e)return lab;
   if(e.rol&&rol)return e.cod[rol]||lab;
   return e.cod||lab;
 }
 
-// ===== JOB / LINK =====
 let curJob='',curLink='No';
+function setJob(v,btn){curJob=v;$('job').value=v;document.querySelectorAll('#jobTgl button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');renderWorkers();}
+function setLink(v,btn){curLink=v;$('link').value=v;document.querySelectorAll('#lnkTgl button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');$('modeNo').classList.toggle('hidden',v==='Si');$('modeSi').classList.toggle('hidden',v==='No');}
 
-function setJob(v,btn){
-  curJob=v;$('job').value=v;
-  document.querySelectorAll('#jobTgl button').forEach(b=>b.classList.remove('active'));
-  if(btn)btn.classList.add('active');
-  renderWorkers();
-}
-
-function setLink(v,btn){
-  curLink=v;$('link').value=v;
-  document.querySelectorAll('#lnkTgl button').forEach(b=>b.classList.remove('active'));
-  if(btn)btn.classList.add('active');
-  $('modeNo').classList.toggle('hidden',v==='Sí');
-  $('modeSi').classList.toggle('hidden',v==='No');
-}
-
-// ===== TRABAJADORES =====
-let workerRoles=[];
-let workerNames=[];
-
+let workerRoles=[],workerNames=[];
 function renderWorkers(){
   const w=Math.max(1,Math.min(4,+$('w').value||0));
   if(!w){$('workersRol').classList.add('hidden');workerRoles=[];workerNames=[];return;}
   $('workersRol').classList.remove('hidden');
   const needRol=curJob==='Climatización';
-  while(workerRoles.length<w)workerRoles.push('Oficial');
-  workerRoles=workerRoles.slice(0,w);
-  workerRoles[0]='Oficial';
-  while(workerNames.length<w)workerNames.push('');
-  workerNames=workerNames.slice(0,w);
+  while(workerRoles.length<w)workerRoles.push('Oficial');workerRoles=workerRoles.slice(0,w);workerRoles[0]='Oficial';
+  while(workerNames.length<w)workerNames.push('');workerNames=workerNames.slice(0,w);
   let html='';
   for(let i=0;i<w;i++){
-    if(needRol&&i===0){
-      html+=`<div class="worker-row" style="flex-wrap:wrap;gap:6px">
-        <span class="worker-label">Trabajador 1<span class="wbadge wbadge-auto">Oficial</span></span>
-        <input type="text" placeholder="Nombre" style="flex:1;min-width:120px;padding:5px 9px;font-size:.85rem" value="${workerNames[0]||''}" oninput="workerNames[0]=this.value">
-      </div>`;
-    } else if(needRol){
-      const rol=workerRoles[i]||'Oficial';
-      html+=`<div class="worker-row" style="flex-wrap:wrap;gap:6px">
-        <span class="worker-label">Trabajador ${i+1}<span class="wbadge wbadge-sel" id="wb${i}">${rol}</span></span>
-        <input type="text" placeholder="Nombre" style="flex:1;min-width:120px;padding:5px 9px;font-size:.85rem" value="${workerNames[i]||''}" oninput="workerNames[${i}]=this.value">
-        <div class="worker-tgl">
-          <button onclick="setWR(${i},'Oficial',this)" class="${rol==='Oficial'?'active':''}">Oficial</button>
-          <button onclick="setWR(${i},'Peón',this)" class="${rol==='Peón'?'active':''}">Peón</button>
-        </div>
-      </div>`;
-    } else {
-      html+=`<div class="worker-row" style="flex-wrap:wrap;gap:6px">
-        <span class="worker-label">Trabajador ${i+1}</span>
-        <input type="text" placeholder="Nombre" style="flex:1;min-width:120px;padding:5px 9px;font-size:.85rem" value="${workerNames[i]||''}" oninput="workerNames[${i}]=this.value">
-      </div>`;
-    }
+    if(needRol&&i===0){html+='<div class="worker-row" style="flex-wrap:wrap;gap:6px"><span class="worker-label">Trabajador 1<span class="wbadge wbadge-auto">Oficial</span></span><input type="text" placeholder="Nombre" style="flex:1;min-width:120px;padding:5px 9px;font-size:.85rem" value="'+( workerNames[0]||'')+'" oninput="workerNames[0]=this.value"></div>';}
+    else if(needRol){const rol=workerRoles[i]||'Oficial';html+='<div class="worker-row" style="flex-wrap:wrap;gap:6px"><span class="worker-label">Trabajador '+(i+1)+'<span class="wbadge wbadge-sel" id="wb'+i+'">'+ rol+'</span></span><input type="text" placeholder="Nombre" style="flex:1;min-width:120px;padding:5px 9px;font-size:.85rem" value="'+(workerNames[i]||'')+'" oninput="workerNames['+ i+']=this.value"><div class="worker-tgl"><button onclick="setWR('+ i+',\'Oficial\',this)" class="'+(rol==='Oficial'?'active':'')+'">Oficial</button><button onclick="setWR('+i+',\'Peón\',this)" class="'+(rol==='Peón'?'active':'')+'">Peón</button></div></div>';}
+    else{html+='<div class="worker-row" style="flex-wrap:wrap;gap:6px"><span class="worker-label">Trabajador '+(i+1)+'</span><input type="text" placeholder="Nombre" style="flex:1;min-width:120px;padding:5px 9px;font-size:.85rem" value="'+(workerNames[i]||'')+'" oninput="workerNames['+ i+']=this.value"></div>';}
   }
   $('workersList').innerHTML=html;
 }
-
-function setWR(i,rol,btn){
-  workerRoles[i]=rol;
-  btn.closest('.worker-row').querySelectorAll('.worker-tgl button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  const wb=$('wb'+i);if(wb)wb.textContent=rol;
-}
+function setWR(i,rol,btn){workerRoles[i]=rol;btn.closest('.worker-row').querySelectorAll('.worker-tgl button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const wb=$('wb'+i);if(wb)wb.textContent=rol;}
 
 // ===== AUTOENLACE =====
+let autoEnlaceData=null;
+
 function checkAutoEnlace(){
-  const fecha=$('fecha').value;
-  const arrVal=$('arr').value;
-  // Solo comprobar si hay fecha Y hora de llegada introducida
+  const fecha=$('fecha').value,arrVal=$('arr').value;
   if(!fecha||!arrVal){resetAE();return;}
   const same=getH().filter(x=>x.fecha===fecha);
   if(!same.length){resetAE();return;}
   const last=same[same.length-1];
-  // Solo autoenlace si el parte anterior tenía enlace (manual o auto), no si era sin enlace
   if(last.linkType==='No'||!last.linkType){resetAE();return;}
-  const finPrev=last.fin+(last.trS||0);
-  // Solo autoenlace si la hora de llegada coincide exactamente
+  // Usar horaEnlace: hora real de llegada a la siguiente tienda
+  const finPrev=last.horaEnlace;
+  if(!finPrev){resetAE();return;}
   if(tm(arrVal)===finPrev){
     $('lnkToggleDiv').classList.add('hidden');
     $('modeNo').classList.add('hidden');
@@ -474,7 +308,8 @@ function checkAutoEnlace(){
     $('modeAuto').classList.remove('hidden');
     $('link').value='Auto';curLink='Auto';
     $('abn').classList.add('show');
-    $('abnTxt').textContent=`Enlace automático desde ${last.tienda} (Centro ${last.centro}). Indica solo km y despl. de salida.`;
+    $('abnTxt').textContent='Enlace automático desde '+last.tienda+' (Centro '+last.centro+'). Indica solo km y despl. de salida.';
+    autoEnlaceData={kmDif:last.kmDif||0,trDif:last.trDif||0};
   } else {resetAE();}
 }
 
@@ -482,49 +317,35 @@ function resetAE(){
   $('lnkToggleDiv').classList.remove('hidden');
   $('modeAuto').classList.add('hidden');
   $('abn').classList.remove('show');
-  const isSi=curLink==='Sí';
+  const isSi=curLink==='Si';
   $('modeNo').classList.toggle('hidden',isSi);
   $('modeSi').classList.toggle('hidden',!isSi);
   if(curLink==='Auto'){curLink='No';$('link').value='No';}
+  autoEnlaceData=null;
 }
 
-// ===== LEER =====
 function clearRaw(){$('raw').value='';}
-
 function leer(){
   const t=$('raw').value;
   if(!t.trim()){showMsg('msgForm','Pega el texto primero.','warn');return;}
-  const pedido=cap(/PEDIDO DE SERVICIO\s+N[º°ª]?[:\s]+(\d+)/i,t)||cap(/(\d{6,})/,t);
-  const centro=cap(/N[º°ª]?\s*de\s*Centro[:\s]+(\d+)/i,t)||cap(/Centro[:\s-]+(\d+)/i,t);
-  const denom=cap(/Denominaci[oó]n[:\s]+([^\n\r]+)/i,t);
-  const tel=cap(/Tel[eé]fono[^:]*:\s*(\+?[\d][\d\s\-]{6,})/i,t);
-  let dir='';
-  const dirM=t.match(/Direcci[oó]n[:\s]+([^\n\r]+)/i);
-  if(dirM){
-    dir=dirM[1].trim().replace(/\s+/g,' ');
-    dir=dir.replace(/\s*(Persona de contacto|Tel[eé]fono|Contacto|CP|Poblaci[oó]n)[:\s].*/i,'').trim();
-  }
+  const pedido=cap(/PEDIDO DE SERVICIO\s+N[\u00ba\u00b0\u00aa]?[:\s]+(\d+)/i,t)||cap(/(\d{6,})/,t);
+  const centro=cap(/N[\u00ba\u00b0\u00aa]?\s*de\s*Centro[:\s]+(\d+)/i,t)||cap(/Centro[:\s-]+(\d+)/i,t);
+  const denom=cap(/Denominaci[o\u00f3]n[:\s]+([^\n\r]+)/i,t);
+  const tel=cap(/Tel[e\u00e9]fono[^:]*:\s*(\+?[\d][\d\s\-]{6,})/i,t);
+  let dir='';const dirM=t.match(/Direcci[o\u00f3]n[:\s]+([^\n\r]+)/i);
+  if(dirM){dir=dirM[1].trim().replace(/\s+/g,' ');dir=dir.replace(/\s*(Persona de contacto|Tel[e\u00e9]fono|Contacto|CP|Poblaci[o\u00f3]n)[:\s].*/i,'').trim();}
   if(pedido&&!$('pedido').value)$('pedido').value=pedido.trim();
   if(centro&&!$('centro').value)$('centro').value=centro.trim();
-  if(!$('tienda').value){
-    let nombre='';
-    // Limpiar denom antes de usarla
-    const denomLimpia=denom?denom.replace(/\s*(Direcci[oó]n|Tel[eé]fono|Persona|Contacto|Calle|Avda|Plaza)[:\s].*/i,'').trim():'';
-    if(denomLimpia&&centro) nombre=`Mercadona ${denomLimpia} ${centro.trim()}`;
-    else if(denomLimpia) nombre=`Mercadona ${denomLimpia}`;
-    else if(centro) nombre=`Mercadona ${centro.trim()}`;
-    $('tienda').value=nombre;
-  }
+  if(!$('tienda').value){let nombre='';const denomLimpia=denom?denom.replace(/\s*(Direcci[o\u00f3]n|Tel[e\u00e9]fono|Persona|Contacto|Calle|Avda|Plaza)[:\s].*/i,'').trim():'';if(denomLimpia&&centro)nombre='Mercadona '+denomLimpia+' '+centro.trim();else if(denomLimpia)nombre='Mercadona '+denomLimpia;else if(centro)nombre='Mercadona '+centro.trim();$('tienda').value=nombre;}
   if(dir&&!$('dir').value)$('dir').value=dir;
   if(tel&&!$('tel').value)$('tel').value=tel.replace(/\s+/g,'').trim();
   if(/conducto|ventilac/i.test(t))setJob('Conductos',document.querySelectorAll('#jobTgl button')[0]);
-  else if(/aver[ií]a|climatizaci[oó]n|fuga|refriger/i.test(t))setJob('Climatización',document.querySelectorAll('#jobTgl button')[1]);
+  else if(/aver[i\u00ed]a|climatizaci[o\u00f3]n|fuga|refriger/i.test(t))setJob('Climatización',document.querySelectorAll('#jobTgl button')[1]);
   else if(/obra/i.test(t))setJob('Obras',document.querySelectorAll('#jobTgl button')[2]);
   const n=[pedido,centro,denom,dir,tel].filter(Boolean).length;
-  showMsg('msgForm',n?`${n} campo(s) autocompletados.`:'No se encontraron datos.',n?'success':'warn');
+  showMsg('msgForm',n?n+' campo(s) autocompletados.':' No se encontraron datos.',n?'success':'warn');
 }
 
-// ===== HISTORIAL =====
 function getH(){return JSON.parse(localStorage.getItem('pm_v4')||'[]');}
 function setH(d){localStorage.setItem('pm_v4',JSON.stringify(d));}
 function exists(r,d){return d.some(x=>x.fecha===r.fecha&&x.pedido===r.pedido&&x.centro===r.centro);}
@@ -536,128 +357,62 @@ function guardar(){
   if(exists(window.recTmp,h)){showMsg('msgRes','Este parte ya está guardado.','warn');return;}
   h.push(window.recTmp);setH(h);
   showMsg('msgRes','Guardado correctamente.','success');
-  $('gbtn').textContent='✅ Guardado';$('gbtn').disabled=true;$('gbtn').style.opacity='.6';
+  $('gbtn').textContent='OK Guardado';$('gbtn').disabled=true;$('gbtn').style.opacity='.6';
   setTimeout(()=>goTo('w-menu'),1200);
 }
 
 function borrarHist(){$('confirmBox').classList.remove('hidden');}
-function borrarConfirm(ok){
-  $('confirmBox').classList.add('hidden');
-  if(!ok)return;
-  localStorage.removeItem('pm_v4');
-  renderHist();
-}
-
+function borrarConfirm(ok){$('confirmBox').classList.add('hidden');if(!ok)return;localStorage.removeItem('pm_v4');renderHist();}
 function limpiarF(){$('busca').value='';$('buscaF').value='';renderHist();}
 
 function renderHist(){
   const q=($('busca').value||'').toLowerCase(),qf=$('buscaF').value||'';
   const all=getH();
-  let data=all.filter(r=>{
-    const mq=!q||(r.centro||'').toLowerCase().includes(q)||(r.tienda||'').toLowerCase().includes(q)||(r.pedido||'').includes(q);
-    return mq&&(!qf||r.fecha===qf);
-  });
-  if(!data.length){
-    $('historial').innerHTML=`<div class="empty"><div class="empty-ico">📭</div><div>${all.length?'Sin resultados.':'El historial está vacío.'}</div></div>`;
-    return;
-  }
+  let data=all.filter(r=>{const mq=!q||(r.centro||'').toLowerCase().includes(q)||(r.tienda||'').toLowerCase().includes(q)||(r.pedido||'').includes(q);return mq&&(!qf||r.fecha===qf);});
+  if(!data.length){$('historial').innerHTML='<div class="empty"><div class="empty-ico">&#128205;</div><div>'+(all.length?'Sin resultados.':'El historial está vacío.')+'</div></div>';return;}
   data=[...data].reverse();
-  $('historial').innerHTML=data.map(r=>{
-    const fF=r.fecha?r.fecha.split('-').reverse().join('/'):'–';
-    return`<div class="hist-item" onclick="ver(${all.indexOf(r)})">
-      <div><div class="hi-title">${r.tienda||'Tienda'} <span class="badge badge-g">Centro ${r.centro||'–'}</span></div>
-      <div class="hi-sub">Pedido ${r.pedido||'–'} · ${r.job||'–'}</div></div>
-      <div class="hi-date">${fF}</div>
-    </div>`;
-  }).join('');
+  $('historial').innerHTML=data.map(r=>{const fF=r.fecha?r.fecha.split('-').reverse().join('/'):'--';return'<div class="hist-item" onclick="ver('+all.indexOf(r)+')"><div><div class="hi-title">'+(r.tienda||'Tienda')+' <span class="badge badge-g">Centro '+(r.centro||'--')+'</span></div><div class="hi-sub">Pedido '+(r.pedido||'--')+' &middot; '+(r.job||'--')+'</div></div><div class="hi-date">'+fF+'</div></div>';}).join('');
 }
 
 function ver(i){
   const r=getH()[i];if(!r)return;
   window.detalleIdx=i;
   $('histList').classList.add('hidden');$('detalleView').classList.remove('hidden');
-  const fF=r.fecha?r.fecha.split('-').reverse().join('/'):'–';
-  $('detalle').innerHTML=`<div class="card"><div class="card-title">📋 ${r.tienda} · ${fF}</div>
-    ${r.detalle}
-    ${r.obs?`<div class="divider"></div><div class="rrow obs-row" style="height:auto"><span class="rc" style="align-self:flex-start;padding-top:8px">Obs.</span><span class="rl" style="white-space:pre-wrap;word-break:break-word;height:auto;flex:1">${r.obs}</span></div>`:''}
-    <div class="divider"></div>
-    <div class="brow" style="margin-bottom:8px">
-      <button class="btn btn-s btn-sm" onclick="generarPDFHist(${i})">📄 PDF</button>
-      <button class="btn btn-s btn-sm" onclick="compartirHist(${i})">📤 Compartir</button>
-      <button class="btn btn-d btn-sm" onclick="borrarParte(${i})">🗑️ Borrar</button>
-    </div>
-    <div id="confirmDel" class="hidden" style="padding:12px;background:var(--red-light);border:1px solid rgba(192,57,43,.2);border-radius:var(--r-sm);margin-top:8px">
-      <div style="font-size:.88rem;font-weight:600;color:var(--red);margin-bottom:8px">⚠️ ¿Borrar este parte? No se puede deshacer.</div>
-      <div style="display:flex;gap:8px">
-        <button class="btn btn-d btn-sm" onclick="borrarParteConfirm(true,${i})">Sí, borrar</button>
-        <button class="btn btn-s btn-sm" onclick="borrarParteConfirm(false,${i})">Cancelar</button>
-      </div>
-    </div>
-  </div>`;
+  const fF=r.fecha?r.fecha.split('-').reverse().join('/'):'--';
+  $('detalle').innerHTML='<div class="card"><div class="card-title">&#128203; '+r.tienda+' &middot; '+fF+'</div>'+r.detalle+(r.obs?'<div class="divider"></div><div class="rrow obs-row" style="height:auto"><span class="rc" style="align-self:flex-start;padding-top:8px">Obs.</span><span class="rl" style="white-space:pre-wrap;word-break:break-word;height:auto;flex:1">'+r.obs+'</span></div>':'')+'<div class="divider"></div><div class="brow" style="margin-bottom:8px"><button class="btn btn-s btn-sm" onclick="generarPDFHist('+i+')">PDF</button><button class="btn btn-s btn-sm" onclick="compartirHist('+i+')">Compartir</button><button class="btn btn-d btn-sm" onclick="borrarParte('+i+')">Borrar</button></div><div id="confirmDel" class="hidden" style="padding:12px;background:var(--red-light);border:1px solid rgba(192,57,43,.2);border-radius:var(--r-sm);margin-top:8px"><div style="font-size:.88rem;font-weight:600;color:var(--red);margin-bottom:8px">&iquest;Borrar este parte?</div><div style="display:flex;gap:8px"><button class="btn btn-d btn-sm" onclick="borrarParteConfirm(true,'+i+')">Sí, borrar</button><button class="btn btn-s btn-sm" onclick="borrarParteConfirm(false,'+i+')">Cancelar</button></div></div></div>';
 }
 
-function borrarParte(i){
-  window.detalleIdx=i;
-  $('confirmDel').classList.remove('hidden');
-}
-
-function borrarParteConfirm(ok,i){
-  if(!ok){$('confirmDel').classList.add('hidden');return;}
-  const h=getH();
-  h.splice(i!==undefined?i:window.detalleIdx,1);
-  setH(h);
-  volverHist();
-  renderHist();
-}
-
+function borrarParte(i){window.detalleIdx=i;$('confirmDel').classList.remove('hidden');}
+function borrarParteConfirm(ok,i){if(!ok){$('confirmDel').classList.add('hidden');return;}const h=getH();h.splice(i!==undefined?i:window.detalleIdx,1);setH(h);volverHist();renderHist();}
 function volverHist(){$('detalleView').classList.add('hidden');$('histList').classList.remove('hidden');}
 
 function nuevo(){
-  // Limpiar explícitamente cada campo
-  ['pedido','tienda','dir','tel','centro','raw','obs',
-   'km','tr','kmE','kmS','trE','trS','kmA','trA','arr','lea'].forEach(id=>{
-    const el=$(id); if(el) el.value='';
-  });
-  $('w').value='2';
-  $('job').value='';$('link').value='No';
+  ['pedido','tienda','dir','tel','centro','raw','obs','km','tr','kmE','kmS','trE','trS','kmA','trA','arr','lea'].forEach(id=>{const el=$(id);if(el)el.value='';});
+  $('w').value='2';$('job').value='';$('link').value='No';
   curJob='';curLink='No';workerRoles=[];workerNames=[];
   document.querySelectorAll('#jobTgl button').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('#lnkTgl button').forEach((b,i)=>b.classList.toggle('active',i===0));
-  $('workersRol').classList.add('hidden');
-  $('workersList').innerHTML='';
-  $('modeNo').classList.remove('hidden');
-  $('modeSi').classList.add('hidden');
-  $('modeAuto').classList.add('hidden');
-  $('lnkToggleDiv').classList.remove('hidden');
-  $('abn').classList.remove('show');
-  $('msgForm').className='msg';
-  $('out').innerHTML='';
-  window.recTmp=null;
-  $('gbtn').textContent='💾 Guardar parte';$('gbtn').disabled=false;$('gbtn').style.opacity='1';
-  setFechaHoy();
-  renderWorkers();
+  $('workersRol').classList.add('hidden');$('workersList').innerHTML='';
+  $('modeNo').classList.remove('hidden');$('modeSi').classList.add('hidden');$('modeAuto').classList.add('hidden');
+  $('lnkToggleDiv').classList.remove('hidden');$('abn').classList.remove('show');
+  $('msgForm').className='msg';$('out').innerHTML='';window.recTmp=null;autoEnlaceData=null;
+  $('gbtn').textContent='Guardar parte';$('gbtn').disabled=false;$('gbtn').style.opacity='1';
+  setFechaHoy();renderWorkers();
 }
 
 function copiar(){
   if(!window.recTmp)return;
   const lines=[];
-  document.querySelectorAll('#out .rrow').forEach(row=>{
-    const rc=row.querySelector('.rc')?.textContent||'';
-    const rl=row.querySelector('.rl')?.textContent||'';
-    const rv=row.querySelector('.rv')?.textContent||'';
-    lines.push([rc,rl,rv].filter(s=>s.trim()).join(' | '));
-  });
-  const obs=$('obs').value.trim();
-  if(obs)lines.push(`Obs. | ${obs}`);
+  document.querySelectorAll('#out .rrow').forEach(row=>{const rc=row.querySelector('.rc')?.textContent||'';;const rl=row.querySelector('.rl')?.textContent||'';;const rv=row.querySelector('.rv')?.textContent||'';;lines.push([rc,rl,rv].filter(s=>s.trim()).join(' | '));});
+  const obs=$('obs').value.trim();if(obs)lines.push('Obs. | '+obs);
   navigator.clipboard.writeText(lines.join('\n')).then(()=>showMsg('msgRes','Copiado.','success'));
 }
 
-// ===== ROWS =====
-function infoRow(l,v){return`<div class="rrow info-row"><span class="rc">${l}</span><span class="rl">${v}</span><span class="rv"></span></div>`;}
-function codRow(c,l,v){return`<div class="rrow"><span class="rc">${c}</span><span class="rl">${l}</span><span class="rv">${v}</span></div>`;}
-function obsRow(l,v){return`<div class="rrow obs-row"><span class="rc">${l}</span><span class="rl">${v}</span><span class="rv"></span></div>`;}
-function totalRow(v){return`<div class="rrow total-row"><span class="rc">TOTAL</span><span class="rl"></span><span class="rv">${v}</span></div>`;}
-function gt(t){return`<div class="rgroup-title">${t}</div>`;}
+function infoRow(l,v){return '<div class="rrow info-row"><span class="rc">'+l+'</span><span class="rl">'+v+'</span><span class="rv"></span></div>';}
+function codRow(c,l,v){return '<div class="rrow"><span class="rc">'+c+'</span><span class="rl">'+l+'</span><span class="rv">'+v+'</span></div>';}
+function obsRow(l,v){return '<div class="rrow obs-row"><span class="rc">'+l+'</span><span class="rl">'+v+'</span><span class="rv"></span></div>';}
+function totalRow(v){return '<div class="rrow total-row"><span class="rc">TOTAL</span><span class="rl"></span><span class="rv">'+v+'</span></div>';}
+function gt(t){return '<div class="rgroup-title">'+t+'</div>';}
 
 // ===== GENERAR =====
 function generar(){
@@ -665,510 +420,199 @@ function generar(){
   const req=['pedido','fecha','tienda','dir','tel','arr','lea'];
   for(const r of req){if(!$(r).value.trim()){showMsg('msgForm','Completa todos los campos obligatorios (*).','error');return;}}
   if(!curJob){showMsg('msgForm','Selecciona el tipo de trabajo.','error');return;}
-
   const wVal=+$('w').value||0;
   if(!wVal){showMsg('msgForm','Indica el número de trabajadores.','error');return;}
   const fecha=$('fecha').value,arr=tm($('arr').value),lea=tm($('lea').value),w=Math.max(1,Math.min(4,wVal));
   if(lea<=arr){showMsg('msgForm','La hora de salida debe ser posterior a la llegada.','error');return;}
-
   const needRol=curJob==='Climatización';
-  if(needRol){for(let i=1;i<w;i++){if(!workerRoles[i]){showMsg('msgForm',`Selecciona categoría del Trabajador ${i+1}.`,'error');return;}}}
-
+  if(needRol){for(let i=1;i<w;i++){if(!workerRoles[i]){showMsg('msgForm','Selecciona categoría del Trabajador '+(i+1)+'.','error');return;}}}
   const roles=needRol?workerRoles.slice(0,w):Array(w).fill('Oficial');
   const nOf=roles.filter(r=>r==='Oficial').length;
   const nPe=roles.filter(r=>r==='Peón').length;
   const hist=getH(),same=hist.filter(x=>x.fecha===fecha);
 
-  // KM Y DESPLAZAMIENTO (minutos redondeados al cuarto de hora superior)
+  // ===== KM Y DESPLAZAMIENTO =====
   let kmTotal=0,trIn=0,trOut=0;
+  let kmDif_guardado=0,trDif_guardado=0;
+  // horaEnlace: hora real de llegada a la siguiente tienda (en minutos desde medianoche)
+  // = hora salida tienda + desplazamiento REAL entre tiendas (sin igualar)
+  let horaEnlace_guardada=0;
+
   if(curLink==='No'){
     if(!$('km').value||!$('tr').value){showMsg('msgForm','Indica km y desplazamiento.','error');return;}
-    kmTotal=+$('km').value*2;trIn=trOut=redondearQ(+$('tr').value);
-  } else if(curLink==='Sí'){
+    const kmVal=+$('km').value;
+    const trVal=redondearQ(+$('tr').value);
+    kmTotal=kmVal*2;trIn=trVal;trOut=trVal;
+    horaEnlace_guardada=lea+trVal;
+
+  } else if(curLink==='Si'){
     if(!$('kmE').value||!$('kmS').value||!$('trE').value||!$('trS').value){showMsg('msgForm','Completa los datos de enlace.','error');return;}
-    kmTotal=+$('kmE').value + +$('kmS').value;trIn=redondearQ(+$('trE').value);trOut=redondearQ(+$('trS').value);
+    const kmEval=+$('kmE').value;
+    const kmSval=+$('kmS').value;
+    const trEval=redondearQ(+$('trE').value);
+    const trSval=+$('trS').value; // SIN redondear para horaEnlace
+
+    if(kmSval>kmEval){
+      // Igualar salida a llegada y guardar diferencia
+      kmDif_guardado=kmSval-kmEval;
+      trDif_guardado=trSval>trEval?Math.round(trSval-trEval):0;
+      kmTotal=kmEval*2;
+      trIn=trEval;trOut=trEval;
+    } else {
+      kmTotal=kmEval+kmSval;
+      trIn=trEval;trOut=redondearQ(trSval);
+    }
+    // horaEnlace = hora salida tienda + desplazamiento REAL de salida (lo que puso el usuario)
+    horaEnlace_guardada=lea+trSval;
+
   } else if(curLink==='Auto'){
     if(!$('kmA').value||!$('trA').value){showMsg('msgForm','Indica km y despl. de salida.','error');return;}
-    kmTotal=+$('kmA').value;trIn=0;trOut=redondearQ(+$('trA').value);
+    const kmVuelta=+$('kmA').value;
+    const trVuelta=redondearQ(+$('trA').value);
+    if(autoEnlaceData){
+      kmTotal=(autoEnlaceData.kmDif||0)+kmVuelta;
+      trIn=autoEnlaceData.trDif||0;
+      trOut=trVuelta;
+    } else {
+      kmTotal=kmVuelta;trIn=0;trOut=trVuelta;
+    }
+    horaEnlace_guardada=lea+trVuelta;
   }
 
-  // OBSERVACIÓN AUTO
+  // OBS AUTO
   let autoObs='';
-  if(same.length){
-    const last=same[same.length-1];
-    if((last.fin+(last.trS||0))===arr) autoObs=`Desplazamiento desde ${last.tienda} (Centro ${last.centro})`;
-  }
+  if(same.length){const last=same[same.length-1];if(last.horaEnlace&&last.horaEnlace===arr)autoObs='Desplazamiento desde '+last.tienda+' (Centro '+last.centro+')';}
 
-  const tienda=$('tienda').value;
+  const fmtT=m=>String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');
+  const tl=(a,b)=>'('+fmtT(a)+') - ('+fmtT(b)+')';
 
-  // Variables de línea de tiempo para usar como títulos de sección
-  const fmtT=m=>`${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`;
-  let tlKm='', tlTienda='', tlSalida='';
-  const tl=(a,b)=>`(${fmtT(a)}) - (${fmtT(b)})`;
-  if(curLink==='No'){
-    tlKm=`${tl(arr-trIn,arr)} · ${fmt(kmTotal/2)} km`;
-    tlTienda=`${tl(arr,lea)} Tienda`;
-    tlSalida=`${tl(lea,lea+trOut)} · ${fmt(kmTotal/2)} km`;
-  } else if(curLink==='Sí'){
-    tlKm=`${tl(arr-trIn,arr)} · ${fmt(+$('kmE').value)} km`;
-    tlTienda=`${tl(arr,lea)} Tienda`;
-    tlSalida=`${tl(lea,lea+trOut)} · ${fmt(+$('kmS').value)} km`;
-  } else if(curLink==='Auto'){
-    tlKm='';
-    tlTienda=`${tl(arr,lea)} Tienda`;
-    tlSalida=`${tl(lea,lea+trOut)} · ${fmt(kmTotal)} km`;
-  }
+  let tlKm='',tlTienda='',tlSalida='';
+  if(curLink==='No'){const kmUni=kmTotal/2;tlKm=tl(arr-trIn,arr)+' &middot; '+fmt(kmUni)+' km';tlTienda=tl(arr,lea)+' Tienda';tlSalida=tl(lea,lea+trOut)+' &middot; '+fmt(kmUni)+' km';}
+  else if(curLink==='Si'){const kmEval=+$('kmE').value;const kmSMostrado=kmDif_guardado>0?kmEval:+$('kmS').value;tlKm=tl(arr-trIn,arr)+' &middot; '+fmt(kmEval)+' km';tlTienda=tl(arr,lea)+' Tienda';tlSalida=tl(lea,lea+trOut)+' &middot; '+fmt(kmSMostrado)+' km';}
+  else if(curLink==='Auto'){const kmVuelta=+$('kmA').value;const kmDif=autoEnlaceData?autoEnlaceData.kmDif:0;const trDif=autoEnlaceData?autoEnlaceData.trDif:0;tlKm=(kmDif>0||trDif>0)?tl(arr-trIn,arr)+' &middot; '+fmt(kmDif)+' km':'';tlTienda=tl(arr,lea)+' Tienda';tlSalida=tl(lea,lea+trOut)+' &middot; '+fmt(kmVuelta)+' km';}
 
   let html='';
-
-  // 1. DATOS
   html+=gt('Datos generales');
   html+=infoRow('Fecha',fecha.split('-').reverse().join('/'));
   html+=infoRow('Nº orden',$('pedido').value);
-  html+=infoRow('Tienda',tienda);
+  html+=infoRow('Tienda',$('tienda').value);
   html+=infoRow('Dirección',$('dir').value);
   html+=infoRow('Teléfono',$('tel').value);
 
-  // 3. KILOMETRAJE - título = línea de tiempo ida
   if(tlKm)html+=gt(tlKm);
-  html+=codRow(getCod(curJob,'Kilometraje',''),'Kmje',`${fmt(kmTotal)} km`);
+  html+=codRow(getCod(curJob,'Kilometraje',''),'Kmje',fmt(kmTotal)+' km');
 
-  // 4. HORAS - título = línea de tiempo tienda
   html+=gt(tlTienda);
   let totalH=0;
   const labAbr={'H. Normal':'H.Nor','H. Extra':'H.Ext','H. Nocturna':'H.Noc'};
   [[480,1440,'H. Normal'],[360,480,'H. Extra'],[0,360,'H. Nocturna']].forEach(([ini,fin,lab])=>{
     const min=ov(arr,lea,ini,fin);if(!min)return;
-    const h=min/60;
-    const abr=labAbr[lab]||lab;
-    if(!needRol){
-      const t=h*w;totalH+=t;
-      html+=codRow(getCod(curJob,lab,''),abr,w>1?`${fmtH(h)} x${w}= ${fmtH(t)}`:`${fmtH(h)}`);
-    } else {
-      if(nOf>0){const t=h*nOf;totalH+=t;html+=codRow(getCod(curJob,lab,'Oficial'),`${abr}.Of`,nOf>1?`${fmtH(h)} × ${nOf} = ${fmtH(t)}`:`${fmtH(h)}`);}
-      if(nPe>0){const t=h*nPe;totalH+=t;html+=codRow(getCod(curJob,lab,'Peón'),`${abr}.Pn`,nPe>1?`${fmtH(h)} × ${nPe} = ${fmtH(t)}`:`${fmtH(h)}`);}
-    }
+    const h=min/60,abr=labAbr[lab]||lab;
+    if(!needRol){const t=h*w;totalH+=t;html+=codRow(getCod(curJob,lab,''),abr,w>1?fmtH(h)+' x'+w+'= '+fmtH(t):fmtH(h));}
+    else{if(nOf>0){const t=h*nOf;totalH+=t;html+=codRow(getCod(curJob,lab,'Oficial'),abr+'.Of',nOf>1?fmtH(h)+' x'+nOf+'= '+fmtH(t):fmtH(h));}if(nPe>0){const t=h*nPe;totalH+=t;html+=codRow(getCod(curJob,lab,'Peón'),abr+'.Pn',nPe>1?fmtH(h)+' x'+nPe+'= '+fmtH(t):fmtH(h));}}
   });
 
-  // 5. DESPLAZAMIENTOS - título = línea de tiempo salida
   html+=gt(tlSalida);
   const grp={};
   const addRng=(s,e)=>{[['Normal',480,1440],['Extra',360,480],['Nocturno',0,360]].forEach(r=>{const m=ov(s,e,r[1],r[2]);if(m)grp[r[0]]=(grp[r[0]]||0)+m;});};
   if(trIn>0)addRng(arr-trIn,arr);
   if(trOut>0)addRng(lea,lea+trOut);
-  ['Normal','Extra','Nocturno'].forEach(k=>{
-    if(!grp[k])return;
-    const h=grp[k]/60,t=h*w,lab=`Despl. ${k}`;
-    const abr=`Dsp.${k.substring(0,3)}`;
-    html+=codRow(getCod(curJob,lab,''),abr,w>1?`${fmtH(h)} x${w}= ${fmtH(t)}`:`${fmtH(h)}`);
-  });
+  ['Normal','Extra','Nocturno'].forEach(k=>{if(!grp[k])return;const h=grp[k]/60,t=h*w,lab='Despl. '+k,abr='Dsp.'+k.substring(0,3);html+=codRow(getCod(curJob,lab,''),abr,w>1?fmtH(h)+' x'+w+'= '+fmtH(t):fmtH(h));});
 
-  // 6. DIETA
   const totalMin=trIn+(lea-arr)+trOut;
   const dietaYa=same.some(x=>x.dieta);
   const acum=same.reduce((z,r)=>z+(r.totalMin||0),0)+totalMin;
   const dieta=acum>=300&&!dietaYa;
   const sepDieta='<div style="height:1px;background:var(--border);margin:10px 0"></div>';
-  if(dieta){
-    html+=sepDieta;
-    html+=codRow(getCod(curJob,'Media dieta',''),'½ Dieta',w>1?`× ${w}`:'× 1');
-  } else {
-    html+=sepDieta;
-    const info=dietaYa?'✅ Media dieta ya aplicada hoy':`⏳ Acumulado: ${fmt(acum/60)} h de 5 h (faltan ${fmt(Math.max(0,300-acum)/60)} h)`;
-    html+=`<div style="font-size:.82rem;color:var(--text2);padding:7px 10px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border2)">${info}</div>`;
-  }
+  if(dieta){html+=sepDieta;html+=codRow(getCod(curJob,'Media dieta',''),'½ Dieta',w>1?'× '+w:'× 1');}
+  else{html+=sepDieta;const info=dietaYa?'&#9989; Media dieta ya aplicada hoy':'&#9203; Acumulado: '+fmt(acum/60)+' h de 5 h (faltan '+fmt(Math.max(0,300-acum)/60)+' h)';html+='<div style="font-size:.82rem;color:var(--text2);padding:7px 10px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border2)">'+info+'</div>';}
 
-  // 7. OBS AUTO
   if(autoObs){html+=gt('Enlace');html+=obsRow('Auto',autoObs);}
-
-  // 8. TOTAL
   html+=totalRow(fmtH((lea-arr)/60*w).replace(/ h$/,' Horas'));
-
-  // 9. NOMBRES DE TRABAJADORES
   const nombres=workerNames.filter(n=>n&&n.trim());
-  if(nombres.length){
-    html+=`<div style="text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em">${nombres.map(n=>n.trim()).join(' · ')}</div>`;
-  }
+  if(nombres.length){html+='<div style="text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em">'+nombres.map(n=>n.trim()).join(' &middot; ')+'</div>';}
 
   $('out').innerHTML=html;
-  $('gbtn').textContent='💾 Guardar parte';$('gbtn').disabled=false;$('gbtn').style.opacity='1';
+  $('gbtn').textContent='Guardar parte';$('gbtn').disabled=false;$('gbtn').style.opacity='1';
   $('msgRes').className='msg';
 
   window.recTmp={
     fecha,pedido:$('pedido').value,centro:$('centro').value,tienda:$('tienda').value,
     job:curJob,roles,detalle:html,fin:lea,trS:trOut,totalMin,dieta,
-    arr:$('arr').value,lea:$('lea').value,obs:'',
-    linkType:curLink
+    arr:$('arr').value,lea:$('lea').value,obs:'',linkType:curLink,
+    kmDif:kmDif_guardado,trDif:trDif_guardado,
+    horaEnlace:horaEnlace_guardada
   };
   goTo('w-result');
 }
 
-// ===== PDF Y COMPARTIR DESDE HISTORIAL =====
-function generarPDFHist(i){
-  const r=getH()[i];
-  if(!r)return;
-  const fechaArg=r.fecha||new Date().toISOString().slice(0,10);
-  const centroArg=r.centro||'';
-  const pedidoArg=r.pedido||'';
-  generarPDFDesde(r.detalle, r.obs||'', fechaArg, centroArg, pedidoArg);
-}
+function generarPDFHist(i){const r=getH()[i];if(!r)return;generarPDFDesde(r.detalle,r.obs||'',r.fecha||'',r.centro||'',r.pedido||'');}
+function compartirHist(i){const r=getH()[i];if(!r)return;compartirDesde(r.detalle,r.obs||'');}
 
-function compartirHist(i){
-  const r=getH()[i];
-  if(!r)return;
-  compartirDesde(r.detalle, r.obs||'');
-}
-
-function generarPDFDesde(detalle, obsVal, fechaArg, centroArg, pedidoArg){
-  if(!window.jspdf){
-    alert('PDF no disponible. Usa el botón Compartir.');
-    return;
-  }
-  const {jsPDF}=window.jspdf;
-  const doc=new jsPDF({unit:'mm',format:'a4',orientation:'portrait'});
+function generarPDFDesde(detalle,obsVal,fechaArg,centroArg,pedidoArg){
+  if(!window.jspdf){alert('PDF no disponible.');return;}
+  const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'mm',format:'a4',orientation:'portrait'});
   const W=doc.internal.pageSize.getWidth();
-  const verde=[26,107,58];
-  const verdeLight=[232,245,238];
-  const gris=[247,249,251];
-  const bordeGris=[214,220,229];
-  const texto=[24,32,46];
-  const muted=[75,85,99];
-  let y=10;
-
-  // Márgenes amplios para contenido compacto centrado
-  const margin=55;
-  const contentW=W-margin*2; // ~130mm de ancho útil
-
-  // HEADER
-  doc.setFillColor(...verde);
-  doc.roundedRect(margin,y,contentW,18,3,3,'F');
+  const verde=[26,107,58],verdeLight=[232,245,238],gris=[247,249,251],bordeGris=[214,220,229],texto=[24,32,46],muted=[75,85,99];
+  let y=10;const margin=55,contentW=W-margin*2;
+  doc.setFillColor(...verde);doc.roundedRect(margin,y,contentW,18,3,3,'F');
   doc.setFontSize(12);doc.setFont('helvetica','bold');doc.setTextColor(255,255,255);
-  doc.text('Parte de Trabajo – Mercadona',margin+4,y+8);
-  doc.setFontSize(8);doc.setFont('helvetica','normal');
-  doc.text('Soluciones Electrónicas y Climatización R&V',margin+4,y+14);
-  y+=24;
-
-  // Parsear detalle
-  const tmp=document.createElement('div');
-  tmp.innerHTML=detalle;
-
-  // Proporciones similares a la app
-  const codCol=20;
-  const descCol=24;
-  const valCol=contentW-codCol-descCol;
-
-  // Convertir decimales a fracciones
-  function fmtFrac(str){
-    return str
-      .replace(/(\d+)\.25h/g,'$1¼h').replace(/^0¼h$/,'¼h')
-      .replace(/(\d+)\.5h/g,'$1½h').replace(/^0½h$/,'½h')
-      .replace(/(\d+)\.75h/g,'$1¾h').replace(/^0¾h$/,'¾h')
-      .replace(/0\.25h/g,'¼h')
-      .replace(/0\.5h/g,'½h')
-      .replace(/0\.75h/g,'¾h');
-  }
-
+  doc.text('Parte de Trabajo - Mercadona',margin+4,y+8);
+  doc.setFontSize(8);doc.setFont('helvetica','normal');doc.text('Soluciones Electronicas y Climatizacion R&V',margin+4,y+14);y+=24;
+  const tmp=document.createElement('div');tmp.innerHTML=detalle;
+  const codCol=20,descCol=24,valCol=contentW-codCol-descCol;
+  function fmtFrac(str){return str.replace(/(\d+)\.25h/g,'$1 1/4h').replace(/(\d+)\.5h/g,'$1 1/2h').replace(/(\d+)\.75h/g,'$1 3/4h').replace(/0\.25h/g,'1/4h').replace(/0\.5h/g,'1/2h').replace(/0\.75h/g,'3/4h');}
   [...tmp.children].forEach(el=>{
     if(y>270){doc.addPage();y=10;}
-
-    if(el.classList.contains('rgroup-title')){
-      const secTxt=el.textContent.trim();
-      // Separación antes de Dieta
-      if(secTxt.toLowerCase().includes('dieta')) y+=4;
-      doc.setFontSize(7.5);doc.setFont('helvetica','bold');
-      doc.setTextColor(...muted);
-      doc.text(secTxt.toUpperCase(),margin,y+3.5);
-      y+=6.5;
-
-    } else if(el.classList.contains('rrow')){
-      const rc=el.querySelector('.rc')?.textContent?.trim()||'';
-      const rl=el.querySelector('.rl')?.textContent?.trim()||'';
-      const rv=fmtFrac(el.querySelector('.rv')?.textContent?.trim()||'');
-      const rowH=7;
-
-      if(el.classList.contains('info-row')){
-        doc.setFillColor(...gris);
-        doc.rect(margin,y,contentW,rowH,'F');
-        doc.setDrawColor(...bordeGris);doc.rect(margin,y,contentW,rowH);
-        doc.setFontSize(7.5);doc.setFont('helvetica','bold');doc.setTextColor(...muted);
-        doc.text(rc,margin+2,y+5);
-        doc.setFontSize(9.5);doc.setFont('helvetica','normal');doc.setTextColor(...texto);
-        doc.text(rl,margin+codCol+2,y+5);
-      } else if(el.classList.contains('total-row')){
-        y+=2;
-        doc.setFillColor(...verde);
-        doc.roundedRect(margin,y,contentW,rowH,1,1,'F');
-        doc.setFontSize(10);doc.setFont('helvetica','bold');doc.setTextColor(255,255,255);
-        doc.text('TOTAL',margin+2,y+5);
-        doc.text(rv,margin+contentW-2,y+5,{align:'right'});
-      } else if(el.classList.contains('obs-row')){
-        doc.setFillColor(255,251,235);
-        doc.rect(margin,y,contentW,rowH,'F');
-        doc.setFontSize(6.5);doc.setFont('helvetica','bold');doc.setTextColor(180,83,9);
-        doc.text(rc,margin+2,y+5);
-        doc.setFontSize(8.5);doc.setFont('helvetica','normal');
-        const obsLines=doc.splitTextToSize(rl,descCol+valCol-2);
-        doc.text(obsLines,margin+codCol+2,y+5);
-      } else {
-        // Fila normal con código estrecho
-        doc.setFillColor(...verde);
-        doc.rect(margin,y,codCol,rowH,'F');
-        doc.setFillColor(...verdeLight);
-        doc.rect(margin+codCol,y,descCol,rowH,'F');
-        doc.setFillColor(...gris);
-        doc.rect(margin+codCol+descCol,y,valCol,rowH,'F');
-        doc.setDrawColor(...bordeGris);
-        doc.rect(margin,y,contentW,rowH);
-        doc.setFontSize(8);doc.setFont('helvetica','bold');doc.setTextColor(255,255,255);
-        doc.text(rc,margin+codCol/2,y+5,{align:'center'});
-        doc.setTextColor(...verde);
-        doc.setFontSize(8);
-        doc.text(rl,margin+codCol+2,y+5);
-        doc.setTextColor(...texto);
-        doc.setFontSize(9);
-        doc.text(rv,margin+codCol+descCol+2,y+5);
-      }
+    if(el.classList.contains('rgroup-title')){const secTxt=el.textContent.trim();if(secTxt.toLowerCase().includes('dieta'))y+=4;doc.setFontSize(7.5);doc.setFont('helvetica','bold');doc.setTextColor(...muted);doc.text(secTxt.toUpperCase(),margin,y+3.5);y+=6.5;}
+    else if(el.classList.contains('rrow')){
+      const rc=el.querySelector('.rc')?.textContent?.trim()||'';;const rl=el.querySelector('.rl')?.textContent?.trim()||'';;const rv=fmtFrac(el.querySelector('.rv')?.textContent?.trim()||'');const rowH=7;
+      if(el.classList.contains('info-row')){doc.setFillColor(...gris);doc.rect(margin,y,contentW,rowH,'F');doc.setDrawColor(...bordeGris);doc.rect(margin,y,contentW,rowH);doc.setFontSize(7.5);doc.setFont('helvetica','bold');doc.setTextColor(...muted);doc.text(rc,margin+2,y+5);doc.setFontSize(9.5);doc.setFont('helvetica','normal');doc.setTextColor(...texto);doc.text(rl,margin+codCol+2,y+5);}
+      else if(el.classList.contains('total-row')){y+=2;doc.setFillColor(...verde);doc.roundedRect(margin,y,contentW,rowH,1,1,'F');doc.setFontSize(10);doc.setFont('helvetica','bold');doc.setTextColor(255,255,255);doc.text('TOTAL',margin+2,y+5);doc.text(rv,margin+contentW-2,y+5,{align:'right'});}
+      else if(el.classList.contains('obs-row')){doc.setFillColor(255,251,235);doc.rect(margin,y,contentW,rowH,'F');doc.setFontSize(6.5);doc.setFont('helvetica','bold');doc.setTextColor(180,83,9);doc.text(rc,margin+2,y+5);doc.setFontSize(8.5);doc.setFont('helvetica','normal');const obsLines=doc.splitTextToSize(rl,descCol+valCol-2);doc.text(obsLines,margin+codCol+2,y+5);}
+      else{doc.setFillColor(...verde);doc.rect(margin,y,codCol,rowH,'F');doc.setFillColor(...verdeLight);doc.rect(margin+codCol,y,descCol,rowH,'F');doc.setFillColor(...gris);doc.rect(margin+codCol+descCol,y,valCol,rowH,'F');doc.setDrawColor(...bordeGris);doc.rect(margin,y,contentW,rowH);doc.setFontSize(8);doc.setFont('helvetica','bold');doc.setTextColor(255,255,255);doc.text(rc,margin+codCol/2,y+5,{align:'center'});doc.setTextColor(...verde);doc.setFontSize(8);doc.text(rl,margin+codCol+2,y+5);doc.setTextColor(...texto);doc.setFontSize(9);doc.text(rv,margin+codCol+descCol+2,y+5);}
       y+=rowH+0.5;
-
     } else {
-      // Ignorar separadores (div con height:1px)
-      const styleAttr=el.getAttribute('style')||'';
-      if(styleAttr.includes('height:1px')||styleAttr.includes('height: 1px'))return;
+      const styleAttr=el.getAttribute('style')||'';;if(styleAttr.includes('height:1px'))return;
       const txt=el.textContent?.trim();
-      if(txt){
-        // Texto informativo de dieta - fondo amarillo claro
-        const isDieta=txt.includes('Acumulado')||txt.includes('dieta');
-        if(isDieta){
-          const lines=doc.splitTextToSize(txt,contentW-6);
-          const h=Math.max(8,lines.length*4+4);
-          doc.setFillColor(255,251,235);
-          doc.rect(margin,y,contentW,h,'F');
-          doc.setDrawColor(214,220,229);
-          doc.rect(margin,y,contentW,h);
-          doc.setFontSize(7.5);doc.setFont('helvetica','normal');doc.setTextColor(180,83,9);
-          doc.text(lines,margin+3,y+5);
-          y+=h+2;
-        } else {
-          doc.setFontSize(7.5);doc.setFont('helvetica','normal');doc.setTextColor(...muted);
-          doc.text(txt,margin,y+3.5);
-          y+=5.5;
-        }
-      }
+      if(txt){const isDieta=txt.includes('Acumulado')||txt.includes('dieta');if(isDieta){const lines=doc.splitTextToSize(txt,contentW-6);const h=Math.max(8,lines.length*4+4);doc.setFillColor(255,251,235);doc.rect(margin,y,contentW,h,'F');doc.setDrawColor(214,220,229);doc.rect(margin,y,contentW,h);doc.setFontSize(7.5);doc.setFont('helvetica','normal');doc.setTextColor(180,83,9);doc.text(lines,margin+3,y+5);y+=h+2;}else{doc.setFontSize(7.5);doc.setFont('helvetica','normal');doc.setTextColor(...muted);doc.text(txt,margin,y+3.5);y+=5.5;}}
     }
   });
-
-  // Observaciones - altura dinámica para no cortar texto
-  if(obsVal){
-    y+=2;
-    if(y>260){doc.addPage();y=10;}
-    doc.setFontSize(7);doc.setFont('helvetica','bold');doc.setTextColor(...muted);
-    doc.text('OBSERVACIONES',margin,y+4);y+=7;
-    doc.setFontSize(9);doc.setFont('helvetica','normal');doc.setTextColor(180,83,9);
-    const obsLines=doc.splitTextToSize(obsVal,contentW-6);
-    const obsH=Math.max(10, obsLines.length*4.5+4);
-    doc.setFillColor(255,251,235);
-    doc.rect(margin,y,contentW,obsH,'F');
-    doc.setDrawColor(214,220,229);
-    doc.rect(margin,y,contentW,obsH);
-    doc.text(obsLines,margin+3,y+5);
-    y+=obsH+3;
-  }
-
-  const fd=fechaArg||new Date().toISOString().slice(0,10);
-  const parts=[fd];
-  if(centroArg)parts.push(centroArg);
-  if(pedidoArg)parts.push(pedidoArg);
-  doc.save(parts.join('_')+'.pdf');
+  if(obsVal){y+=2;if(y>260){doc.addPage();y=10;}doc.setFontSize(7);doc.setFont('helvetica','bold');doc.setTextColor(...muted);doc.text('OBSERVACIONES',margin,y+4);y+=7;doc.setFontSize(9);doc.setFont('helvetica','normal');doc.setTextColor(180,83,9);const obsLines=doc.splitTextToSize(obsVal,contentW-6);const obsH=Math.max(10,obsLines.length*4.5+4);doc.setFillColor(255,251,235);doc.rect(margin,y,contentW,obsH,'F');doc.setDrawColor(214,220,229);doc.rect(margin,y,contentW,obsH);doc.text(obsLines,margin+3,y+5);y+=obsH+3;}
+  const fd=fechaArg||new Date().toISOString().slice(0,10);const parts=[fd];if(centroArg)parts.push(centroArg);if(pedidoArg)parts.push(pedidoArg);doc.save(parts.join('_')+'.pdf');
 }
 
-async function compartirDesde(detalle, obsVal){
-  const tmp=document.createElement('div');
-  tmp.innerHTML=detalle;
-  const sep='━━━━━━━━━━━━━━━━━━━━';
-  const lines=['📋 PARTE DE TRABAJO', sep];
-
-  // Procesar elementos en orden directo (hijos directos del div)
+async function compartirDesde(detalle,obsVal){
+  const tmp=document.createElement('div');tmp.innerHTML=detalle;
+  const sep='===================="';const lines=['PARTE DE TRABAJO',sep];
   [...tmp.children].forEach(el=>{
-    if(el.classList.contains('rgroup-title')){
-      const txt=el.textContent.trim();
-      if(txt==='Datos generales') return; // no añadir cabecera de datos generales
-      lines.push('');
-      lines.push(txt);
-    } else if(el.classList.contains('rrow')){
-      const rc=el.querySelector('.rc')?.textContent?.trim()||'';
-      const rl=el.querySelector('.rl')?.textContent?.trim()||'';
-      const rv=el.querySelector('.rv')?.textContent?.trim()||'';
-      if(el.classList.contains('info-row')){
-        lines.push(`${rc}: ${rl}`);
-      } else if(el.classList.contains('total-row')){
-        lines.push('');
-        lines.push(sep);
-        lines.push(`TOTAL: ${rv}`);
-      } else if(el.classList.contains('obs-row')){
-        lines.push(`📌 ${rc}: ${rl}`);
-      } else {
-        // Separar dieta del resto con línea en blanco
-        if(rl.toLowerCase().includes('dieta')){
-          lines.push('');
-          lines.push(`${rc} | ${rl} ${rv}`);
-        } else if(rv){
-          lines.push(`${rc} | ${rl}\n${rv}`);
-        } else {
-          lines.push(`${rc} | ${rl}`);
-        }
-      }
-    } else {
-      // Info de dieta u otros elementos
-      const txt=el.textContent.trim();
-      if(txt) lines.push(`ℹ️ ${txt}`);
-    }
+    if(el.classList.contains('rgroup-title')){const txt=el.textContent.trim();if(txt==='Datos generales')return;lines.push('');lines.push(txt);}
+    else if(el.classList.contains('rrow')){const rc=el.querySelector('.rc')?.textContent?.trim()||'';;const rl=el.querySelector('.rl')?.textContent?.trim()||'';;const rv=el.querySelector('.rv')?.textContent?.trim()||'';;if(el.classList.contains('info-row'))lines.push(rc+': '+rl);else if(el.classList.contains('total-row')){lines.push('');lines.push(sep);lines.push('TOTAL: '+rv);}else if(el.classList.contains('obs-row'))lines.push(rc+': '+rl);else{if(rl.toLowerCase().includes('dieta')){lines.push('');lines.push(rc+' | '+rl+' '+rv);}else if(rv)lines.push(rc+' | '+rl+'\n'+rv);else lines.push(rc+' | '+rl);}}
+    else{const txt=el.textContent.trim();if(txt)lines.push(txt);}
   });
-
-  if(obsVal){lines.push('');lines.push(`📝 Obs.: ${obsVal}`);}
+  if(obsVal){lines.push('');lines.push('Obs.: '+obsVal);}
   const texto=lines.join('\n').trim();
-
-  if(navigator.share){
-    try{
-      await navigator.share({title:'Parte de Trabajo',text:texto});
-      return;
-    }catch(e){
-      if(e.name==='AbortError')return;
-    }
-  }
-  try{
-    await navigator.clipboard.writeText(texto);
-    alert('✅ Texto copiado. Pégalo en WhatsApp u otra app.');
-  }catch(e){
-    alert('No se pudo compartir. Usa el botón Copiar.');
-  }
+  if(navigator.share){try{await navigator.share({title:'Parte de Trabajo',text:texto});return;}catch(e){if(e.name==='AbortError')return;}}
+  try{await navigator.clipboard.writeText(texto);alert('Texto copiado.');}catch(e){alert('No se pudo compartir.');}
 }
 
-// ===== COMPARTIR =====
 async function compartir(){
   if(!window.recTmp){alert('Genera el parte primero.');return;}
-  const obsVal=$('obs').value.trim();
-
-  // Construir texto plano del parte
-  const lines=[];
-  document.querySelectorAll('#out > *').forEach(el=>{
-    if(el.classList.contains('rgroup-title')){
-      lines.push('');
-      lines.push('── '+el.textContent+' ──');
-    } else if(el.classList.contains('rrow')){
-      const rc=el.querySelector('.rc')?.textContent?.trim()||'';
-      const rl=el.querySelector('.rl')?.textContent?.trim()||'';
-      const rv=el.querySelector('.rv')?.textContent?.trim()||'';
-      if(el.classList.contains('info-row')){
-        lines.push(`${rc}: ${rl}`);
-      } else if(el.classList.contains('total-row')){
-        lines.push(`TOTAL: ${rv}`);
-      } else if(el.classList.contains('obs-row')){
-        lines.push(`${rc}: ${rl}`);
-      } else {
-        lines.push(rv?`${rc} | ${rl} | ${rv}`:`${rc} | ${rl}`);
-      }
-    } else {
-      const txt=el.textContent?.trim();
-      if(txt)lines.push(txt);
-    }
-  });
-  if(obsVal)lines.push('','Obs.: '+obsVal);
-
-  const texto=lines.join('\n').trim();
-
-  // Intentar Web Share API
-  if(navigator.share){
-    try{
-      await navigator.share({
-        title:'Parte de Trabajo Mercadona',
-        text:texto
-      });
-    }catch(e){
-      if(e.name!=='AbortError') compartirFallback(texto);
-    }
-  } else {
-    compartirFallback(texto);
-  }
+  const obsVal=$('obs').value.trim();const lines=[];
+  document.querySelectorAll('#out > *').forEach(el=>{if(el.classList.contains('rgroup-title')){lines.push('');lines.push('-- '+el.textContent+' --');}else if(el.classList.contains('rrow')){const rc=el.querySelector('.rc')?.textContent?.trim()||'';;const rl=el.querySelector('.rl')?.textContent?.trim()||'';;const rv=el.querySelector('.rv')?.textContent?.trim()||'';;if(el.classList.contains('info-row'))lines.push(rc+': '+rl);else if(el.classList.contains('total-row'))lines.push('TOTAL: '+rv);else if(el.classList.contains('obs-row'))lines.push(rc+': '+rl);else lines.push(rv?rc+' | '+rl+' | '+rv:rc+' | '+rl);}else{const txt=el.textContent?.trim();if(txt)lines.push(txt);}});
+  if(obsVal)lines.push('','Obs.: '+obsVal);const texto=lines.join('\n').trim();
+  if(navigator.share){try{await navigator.share({title:'Parte Mercadona',text:texto});}catch(e){if(e.name!=='AbortError')navigator.clipboard.writeText(texto).then(()=>showMsg('msgRes','Copiado.','success'));}}
+  else{navigator.clipboard.writeText(texto).then(()=>showMsg('msgRes','Copiado.','success')).catch(()=>showMsg('msgRes','Usa el botón Copiar.','warn'));}
 }
 
-function compartirFallback(texto){
-  // Copiar al portapapeles y avisar
-  navigator.clipboard.writeText(texto).then(()=>{
-    showMsg('msgRes','Texto copiado. Pégalo en WhatsApp o donde quieras.','success');
-  }).catch(()=>{
-    showMsg('msgRes','Usa el botón Copiar para copiar el parte.','warn');
-  });
-}
-
-// ===== BACKUP =====
-function exportarBackup(){
-  const h=getH();
-  if(!h.length){alert("⚠️ No hay partes guardados para exportar.");return;}
-  const d=new Date();
-  const fn=`backup_mercadona_${d.getFullYear()}${String(d.getMonth()+1).padStart(2,"0")}${String(d.getDate()).padStart(2,"0")}.json`;
-  const blob=new Blob([JSON.stringify({version:"v6",fecha:d.toISOString(),partes:h})],{type:"application/json"});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement("a");
-  a.href=url;
-  a.download=fn;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  setTimeout(()=>URL.revokeObjectURL(url),10000);
-  alert(`✅ Backup de ${h.length} partes exportado. Busca "${fn}" en Descargas.`);
-}
-
-function importarBackup(input){
-  const f=input.files[0];if(!f)return;
-  const r=new FileReader();
-  r.onload=e=>{
-    try{
-      const data=JSON.parse(e.target.result);
-      const partes=data.partes||data;
-      if(!Array.isArray(partes))throw new Error('Formato inválido');
-      const actual=getH();
-      // Merge sin duplicados
-      partes.forEach(p=>{
-        if(!exists(p,actual))actual.push(p);
-      });
-      setH(actual);
-      renderHist();
-      alert(`✅ Backup importado: ${partes.length} partes restaurados.`);
-    }catch(e){
-      alert('❌ Error al importar. Verifica que el archivo sea un backup válido.');
-    }
-  };
-  r.readAsText(f);
-  input.value='';
-}
-
-// ===== PDF =====
-function generarPDF(){
-  if(!window.recTmp){alert('Genera el parte primero.');return;}
-  const obsVal=$('obs').value.trim();
-  const fechaFn=window.recTmp?.fecha||new Date().toISOString().slice(0,10);
-  const centroFn=window.recTmp?.centro||'';
-  const pedidoFn=window.recTmp?.pedido||'';
-  generarPDFDesde($('out').innerHTML, obsVal, fechaFn, centroFn, pedidoFn);
-}
-
-// ===== INIT =====
+function exportarBackup(){const h=getH();if(!h.length){alert('No hay partes guardados.');return;}const d=new Date();const fn='backup_mercadona_'+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'.json';const blob=new Blob([JSON.stringify({version:'v6',fecha:d.toISOString(),partes:h})],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=fn;document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(()=>URL.revokeObjectURL(url),10000);alert('Backup de '+h.length+' partes exportado.');}
+function importarBackup(input){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{try{const data=JSON.parse(e.target.result);const partes=data.partes||data;if(!Array.isArray(partes))throw new Error('Formato invalido');const actual=getH();partes.forEach(p=>{if(!exists(p,actual))actual.push(p);});setH(actual);renderHist();alert('Backup importado: '+partes.length+' partes.');}catch(e){alert('Error al importar.');}};r.readAsText(f);input.value='';}
+function generarPDF(){if(!window.recTmp){alert('Genera el parte primero.');return;}generarPDFDesde($('out').innerHTML,$('obs').value.trim(),window.recTmp?.fecha||'',window.recTmp?.centro||'',window.recTmp?.pedido||'');}
 function setFechaHoy(){$('fecha').value=hoy();}
-setFechaHoy();
-renderWorkers();
-
-
+setFechaHoy();renderWorkers();
 </script>
 <script>
-if('serviceWorker' in navigator){
-  const sw=`
-    self.addEventListener('install',e=>self.skipWaiting());
-    self.addEventListener('fetch',e=>e.respondWith(fetch(e.request).catch(()=>caches.match(e.request))));
-  `;
-  const blob=new Blob([sw],{type:'application/javascript'});
-  const swUrl=URL.createObjectURL(blob);
-  navigator.serviceWorker.register(swUrl).catch(()=>{});
-}
+if('serviceWorker' in navigator){const sw='self.addEventListener(\'install\',e=>self.skipWaiting());self.addEventListener(\'fetch\',e=>e.respondWith(fetch(e.request).catch(()=>caches.match(e.request))))';const blob=new Blob([sw],{type:'application/javascript'});const swUrl=URL.createObjectURL(blob);navigator.serviceWorker.register(swUrl).catch(()=>{});}
 </script>
 </body>
 </html>
