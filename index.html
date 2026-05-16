@@ -3,26 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Parte Mercadona</title>
+<title>Partes IRV-10</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
-<meta name="application-name" content="Parte Mercadona">
+<meta name="application-name" content="Partes IRV-10">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Partes">
+<meta name="apple-mobile-web-app-title" content="IRV-10">
 <meta name="theme-color" content="#1a6b3a">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.json">
-<meta name="apple-mobile-web-app-title" content="IRV-10">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
 :root{
   --bg:#f0f2f5;--surface:#fff;--surface2:#f7f9fb;
   --border:#dde2ea;--border2:#eaecf0;
-  --green:#1a6b3a;--green-light:#e8f5ee;--green-pale:#f2fbf5;
+  --green:#1a6b3a;--green-light:#e8f5ee;
   --red:#c0392b;--red-light:#fdf0ef;
   --amber:#b45309;--amber-light:#fffbeb;
   --blue:#1d4ed8;--blue-light:#eff6ff;
+  --purple:#7c3aed;--purple-light:#f5f3ff;
   --text:#18202e;--text2:#4b5563;--text3:#9ca3af;
   --r:12px;--r-sm:7px;
   --sh:0 1px 3px rgba(0,0,0,.07),0 1px 2px rgba(0,0,0,.04);
@@ -54,13 +54,14 @@ input,textarea,select{width:100%;padding:8px 11px;border:1.5px solid var(--borde
 input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(26,107,58,.1);background:#fff}
 textarea{resize:vertical;min-height:72px}#obs{min-height:150px;}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-@media(max-width:500px){.g2,.g3{grid-template-columns:1fr}}
+@media(max-width:500px){.g2{grid-template-columns:1fr}}
 .tgl{display:flex;border:1.5px solid var(--border);border-radius:var(--r-sm);overflow:hidden}
 .tgl button{flex:1;padding:7px 4px;border:none;border-right:1px solid var(--border);background:var(--surface2);font-family:inherit;font-size:.82rem;font-weight:600;color:var(--text2);cursor:pointer;transition:all .14s}
 .tgl button:last-child{border-right:none}
 .tgl button.active{background:var(--green);color:#fff}
 .tgl button:not(.active):hover{background:var(--green-light);color:var(--green)}
+.tgl-festivo button.active{background:var(--purple);color:#fff}
+.tgl-festivo button:not(.active):hover{background:var(--purple-light);color:var(--purple)}
 .worker-row{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--r-sm);margin-bottom:6px}
 .worker-label{font-size:.85rem;font-weight:600;flex:1}
 .wbadge{font-size:.72rem;font-weight:700;padding:2px 7px;border-radius:20px;margin-left:6px}
@@ -72,7 +73,7 @@ textarea{resize:vertical;min-height:72px}#obs{min-height:150px;}
 .worker-tgl button.active{background:var(--green);color:#fff}
 .worker-tgl button:not(.active):hover{background:var(--green-light);color:var(--green)}
 .btn{padding:9px 16px;border:none;border-radius:var(--r-sm);font-family:inherit;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .16s;display:inline-flex;align-items:center;gap:6px}
-.btn-p{background:var(--green);color:#fff}.btn-p:hover{background:#155a30;box-shadow:0 3px 10px rgba(26,107,58,.28)}
+.btn-p{background:var(--green);color:#fff}.btn-p:hover{background:#155a30}
 .btn-s{background:var(--surface);color:var(--text);border:1.5px solid var(--border)}.btn-s:hover{border-color:var(--green);color:var(--green);background:var(--green-light)}
 .btn-d{background:var(--red-light);color:var(--red);border:1.5px solid rgba(192,57,43,.18)}.btn-d:hover{background:var(--red);color:#fff}
 .btn-sm{padding:5px 11px;font-size:.8rem}
@@ -99,6 +100,9 @@ textarea{resize:vertical;min-height:72px}#obs{min-height:150px;}
 .rrow.obs-row .rc{background:var(--amber);color:#fff;font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em}
 .rrow.obs-row .rl{background:var(--amber-light);color:var(--amber);font-family:'DM Sans',sans-serif;font-size:.85rem;white-space:normal;word-break:break-word;flex:1}
 .rrow.obs-row .rv{display:none}
+.rrow.tipo-row .rc{background:var(--purple);color:#fff;font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:700;text-transform:uppercase}
+.rrow.tipo-row .rl{background:var(--purple-light);color:var(--purple);font-family:'DM Sans',sans-serif;font-size:.85rem;flex:1;font-weight:700}
+.rrow.tipo-row .rv{display:none}
 .hist-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:12px 15px;margin-bottom:8px;cursor:pointer;transition:border .16s,box-shadow .16s;display:flex;justify-content:space-between;align-items:center;gap:10px}
 .hist-item:hover{border-color:var(--green);box-shadow:0 2px 10px rgba(26,107,58,.1)}
 .hi-title{font-weight:600;font-size:.9rem}
@@ -110,26 +114,39 @@ textarea{resize:vertical;min-height:72px}#obs{min-height:150px;}
 .badge{display:inline-block;padding:2px 7px;border-radius:20px;font-size:.72rem;font-weight:600}
 .badge-g{background:var(--green-light);color:var(--green)}
 .hidden{display:none!important}
-.tl-row{font-size:.88rem;font-weight:500;color:var(--text2);padding:6px 0;border-bottom:1px solid var(--border2);margin-bottom:4px}
-.tl-row:last-of-type{border-bottom:none}
+.ac-box{background:var(--surface);border:1.5px solid var(--green);border-radius:var(--r-sm);overflow:hidden;margin-top:2px;display:none}
+.ac-box.show{display:block}
+.ac-item{padding:8px 11px;border-bottom:1px solid var(--border2);cursor:pointer;font-size:.88rem}
+.ac-item:last-child{border-bottom:none}
+.ac-item:hover{background:var(--green-light);color:var(--green)}
+.dialogo-orden{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center;padding:20px}
+.dialogo-orden.show{display:flex}
+.dialogo-box{background:var(--surface);border-radius:var(--r);padding:20px;max-width:360px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,.2)}
+.dialogo-titulo{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:8px}
+.dialogo-sub{font-size:.88rem;color:var(--text2);margin-bottom:16px}
+.dialogo-orden-num{font-size:1rem;font-weight:700;color:var(--green);background:var(--green-light);padding:8px 12px;border-radius:var(--r-sm);margin-bottom:16px;text-align:center}
+.contador-partes{font-size:.78rem;color:var(--text2);padding:6px 0 10px 0;display:flex;gap:12px;flex-wrap:wrap}
+.contador-partes span{background:var(--surface2);border:1px solid var(--border2);border-radius:20px;padding:3px 10px}
 </style>
 </head>
 <body>
 <div class="app">
 <div class="hdr">
   <div class="hdr-ico">&#127978;</div>
-  <div><h1>Parte de Trabajo &ndash; Mercadona</h1><p>Generador de partes con c&aacute;lculo autom&aacute;tico</p></div>
+  <div><h1>Partes IRV-10</h1><p>Generador de partes con c&aacute;lculo autom&aacute;tico</p></div>
 </div>
+
 <div id="w-menu" class="win active">
   <div class="menu-grid">
     <div class="menu-card" onclick="goTo('w-form')"><div class="mc-ico">&#9999;&#65039;</div><div class="mc-title">Generar parte</div><div class="mc-sub">Nuevo parte de trabajo</div></div>
     <div class="menu-card" onclick="goTo('w-hist')"><div class="mc-ico">&#128203;</div><div class="mc-title">Historial</div><div class="mc-sub">Ver partes guardados</div></div>
   </div>
 </div>
+
 <div id="w-form" class="win">
   <button class="back" onclick="goTo('w-menu')">&#8592; Men&uacute; principal</button>
   <div class="card"><div class="card-title">&#128196; Lectura de orden</div>
-    <div class="field"><label>Pegar texto de la orden</label><textarea id="raw" placeholder="Pega aqu&iacute; el texto de la orden de trabajo&hellip;" rows="5"></textarea></div>
+    <div class="field"><label>Pegar texto de la orden</label><textarea id="raw" placeholder="Pega aqu&iacute; el texto de la orden&hellip;" rows="5"></textarea></div>
     <div class="brow"><button class="btn btn-p" onclick="leer()">&#128269; Autocompletar</button><button class="btn btn-s" onclick="clearRaw()">&#128465;&#65039; Limpiar</button></div>
   </div>
   <div class="card"><div class="card-title">&#128295; Tipo de trabajo</div>
@@ -144,11 +161,23 @@ textarea{resize:vertical;min-height:72px}#obs{min-height:150px;}
   </div>
   <div class="card"><div class="card-title">&#128203; Datos de la orden</div>
     <div class="g2">
-      <div class="field"><label>Fecha <span class="req">*</span></label><input id="fecha" type="date" onchange="checkAutoEnlace()" onkeydown="if(event.key==='Enter')this.blur()"></div>
-      <div class="field"><label>N&ordm; orden <span class="req">*</span></label><input id="pedido" placeholder="Ej: 119137"></div>
+      <div class="field"><label>Fecha <span class="req">*</span></label><input id="fecha" type="date" onchange="onFechaChange()" onkeydown="if(event.key==='Enter')this.blur()"></div>
+      <div class="field"><label>Tipo de d&iacute;a</label>
+        <div class="tgl tgl-festivo" id="festivoTgl">
+          <button class="active" onclick="setFestivo(false,this)">Normal</button>
+          <button onclick="setFestivo(true,this)">Festivo</button>
+        </div>
+      </div>
+    </div>
+    <div class="field"><label>N&ordm; orden <span class="req">*</span></label>
+      <input id="pedido" placeholder="Ej: 119137" oninput="buscarPorOrden(this.value)">
+      <div class="ac-box" id="acOrden"></div>
+    </div>
+    <div class="field"><label>N&ordm; centro</label>
+      <input id="centro" placeholder="Ej: 2721" oninput="buscarPorCentro(this.value)">
+      <div class="ac-box" id="acCentro"></div>
     </div>
     <div class="field"><label>Tienda <span class="req">*</span></label><input id="tienda" placeholder="Mercadona SAN JAVIER 2721"></div>
-    <input type="hidden" id="centro">
     <div class="field"><label>Direcci&oacute;n <span class="req">*</span></label><input id="dir"></div>
     <div class="field"><label>Tel&eacute;fono <span class="req">*</span></label><input id="tel" type="tel"></div>
   </div>
@@ -200,6 +229,7 @@ textarea{resize:vertical;min-height:72px}#obs{min-height:150px;}
     <button class="btn btn-s" onclick="nuevo()" style="flex:1">&#128260; Nuevo</button>
   </div>
 </div>
+
 <div id="w-result" class="win">
   <button class="back" onclick="goTo('w-form')">&#8592; Volver al formulario</button>
   <div class="card"><div class="card-title">&#9989; Parte generado</div><div id="out"></div></div>
@@ -212,6 +242,7 @@ textarea{resize:vertical;min-height:72px}#obs{min-height:150px;}
     <div class="msg" id="msgRes" style="margin-top:10px;margin-bottom:0"></div>
   </div>
 </div>
+
 <div id="w-hist" class="win">
   <button class="back" onclick="goTo('w-menu')">&#8592; Men&uacute; principal</button>
   <div id="histList">
@@ -226,7 +257,7 @@ textarea{resize:vertical;min-height:72px}#obs{min-height:150px;}
       </div>
       <div class="brow" style="margin-top:6px">
         <button class="btn btn-s btn-sm" onclick="exportarBackup()">&#128230; Exportar backup</button>
-        <label class="btn btn-s btn-sm" style="cursor:pointer">&#128229; Importar backup<input type="file" accept=".json" style="display:none" onchange="importarBackup(this)"></label>
+        <label class="btn btn-s btn-sm" style="cursor:pointer;position:relative;overflow:hidden">&#128229; Importar backup<input type="file" accept=".json" style="position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;cursor:pointer" onchange="importarBackup(this)"></label>
       </div>
       <div id="confirmBox" class="hidden" style="margin-top:10px;padding:12px;background:var(--red-light);border:1px solid rgba(192,57,43,.2);border-radius:var(--r-sm)">
         <div style="font-size:.88rem;font-weight:600;color:var(--red);margin-bottom:8px">&#9888;&#65039; &iquest;Borrar todo el historial?</div>
@@ -240,379 +271,872 @@ textarea{resize:vertical;min-height:72px}#obs{min-height:150px;}
     <div id="detalle"></div>
   </div>
 </div>
-<script>
-const $=i=>document.getElementById(i);
-function goTo(id){document.querySelectorAll('.win').forEach(w=>w.classList.remove('active'));$(id).classList.add('active');window.scrollTo(0,0);if(id==='w-hist')renderHist();if(id==='w-form'){nuevo();checkAutoEnlace();}}
-function showMsg(id,txt,type='error'){const m=$(id),icons={error:'X',success:'OK',warn:'!'};m.innerHTML='<span>'+icons[type]+'</span><span>'+txt+'</span>';m.className='msg show '+type;setTimeout(()=>{m.className='msg'},5000);}
-function cap(re,t){const m=t.match(re);return m?m[1].trim():'';}
-function tm(x){if(!x)return 0;const p=x.split(':');return+p[0]*60+ +p[1];}
-function fmt(v){const r=Math.round(v*100)/100;return Number.isInteger(r)?r.toString():r.toString().replace(/0+$/,'').replace(/\.$/,'');}
-function fmtH(v){const r=Math.round(v*100)/100;const whole=Math.floor(r);const dec=Math.round((r-whole)*100)/100;const fracs={0.25:'1/4',0.5:'1/2',0.75:'3/4'};const frac=fracs[dec]||'';;if(frac){if(whole===0)return frac+'h';return whole+'h '+frac;}return whole+'h';}
-function ov(s,e,a,b){return Math.max(0,Math.min(e,b)-Math.max(s,a));}
-function redondearQ(min){return Math.ceil(min/15)*15;}
-function hoy(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 
-const COD={
-  'Conductos':{'H. Normal':{cod:'MF9404',rol:false},'H. Extra':{cod:'MF9405',rol:false},'H. Nocturna':{cod:'MF9406',rol:false},'Despl. Normal':{cod:'MK9OVB',rol:false},'Despl. Extra':{cod:'MB8723',rol:false},'Despl. Nocturno':{cod:'MB8725',rol:false},'Kilometraje':{cod:'MF9412',rol:false},'Media dieta':{cod:'MF9896',rol:false}},
-  'Climatizacion':{'H. Normal':{cod:{Oficial:'MF9344',Peon:'MF9348'},rol:true},'H. Extra':{cod:{Oficial:'MF9345',Peon:'MF9349'},rol:true},'H. Nocturna':{cod:{Oficial:'MF9346',Peon:'MF9350'},rol:true},'Despl. Normal':{cod:'M71077',rol:false},'Despl. Extra':{cod:'MB8726',rol:false},'Despl. Nocturno':{cod:'MB8728',rol:false},'Kilometraje':{cod:'MF9352',rol:false},'Media dieta':{cod:'MF9895',rol:false}},
-  'Obras':{'H. Normal':{cod:'MA4836',rol:false},'H. Extra':{cod:'M71088',rol:false},'H. Nocturna':{cod:'MA4837',rol:false},'Despl. Normal':{cod:'M71077',rol:false},'Despl. Extra':{cod:'MB8726',rol:false},'Despl. Nocturno':{cod:'MB8728',rol:false},'Kilometraje':{cod:'MA4841',rol:false},'Media dieta':{cod:'MA4839',rol:false}}
+<!-- DIALOGO CONFIRMACION ORDEN -->
+<div class="dialogo-orden" id="dialogoOrden">
+  <div class="dialogo-box">
+    <div class="dialogo-titulo">&#128203; &iquest;Misma orden o nueva?</div>
+    <div class="dialogo-sub">Última orden usada en este centro:</div>
+    <div class="dialogo-orden-num" id="dialogoOrdenNum"></div>
+    <div class="brow">
+      <button class="btn btn-p" style="flex:1" onclick="responderOrden(true)">Misma orden</button>
+      <button class="btn btn-s" style="flex:1" onclick="responderOrden(false)">Nueva orden</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var $ = function(id){ return document.getElementById(id); };
+
+// ===== DATOS INICIALES =====
+var DATOS_INICIALES = [{"fecha": "2026-04-27", "pedido": "117650", "centro": "4771", "tienda": "Mercadona FUENTE ÁLAMO 4771", "dir": "C/ RUBI-CORVERICA NORTE", "tel": "968132451", "km": 45, "tr": 45, "job": "Conductos", "roles": ["Oficial", "Oficial"], "fin": 450, "trS": 45, "totalMin": 165, "dieta": false, "arr": "06:15", "lea": "07:30", "obs": "Hay que reemplazar cuatro tramos de conducto de 80 x 80 x 120 de largo", "linkType": "No", "kmDif": 0, "trDif": 0, "horaEnlace": 495, "detalle": "<div class=\"rgroup-title\">Datos generales</div><div class=\"rrow info-row\"><span class=\"rc\">Fecha</span><span class=\"rl\">27/04/2026</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Nº orden</span><span class=\"rl\">117650</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Tienda</span><span class=\"rl\">Mercadona FUENTE ÁLAMO 4771</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Dirección</span><span class=\"rl\">C/ RUBI-CORVERICA NORTE</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Teléfono</span><span class=\"rl\">968132451</span><span class=\"rv\"></span></div><div class=\"rgroup-title\">(05:30) - (06:15) · 45 km</div><div class=\"rrow\"><span class=\"rc\">MF9412</span><span class=\"rl\">Kmje</span><span class=\"rv\">90 km</span></div><div class=\"rgroup-title\">(06:15) - (07:30) Tienda</div><div class=\"rrow\"><span class=\"rc\">MF9405</span><span class=\"rl\">H.Ext</span><span class=\"rv\">1h 1/4 x2= 2h 1/2</span></div><div class=\"rgroup-title\">(07:30) - (08:15) · 45 km</div><div class=\"rrow\"><span class=\"rc\">MK9OVB</span><span class=\"rl\">Dsp.Nor</span><span class=\"rv\">1/4h x2= 1/2h</span></div><div class=\"rrow\"><span class=\"rc\">MB8723</span><span class=\"rl\">Dsp.Ext</span><span class=\"rv\">3/4h x2= 1h 1/2</span></div><div class=\"rrow\"><span class=\"rc\">MB8725</span><span class=\"rl\">Dsp.Noc</span><span class=\"rv\">1/2h x2= 1h</span></div><div style=\"height:1px;background:var(--border);margin:10px 0\"></div><div style=\"font-size:.82rem;color:var(--text2);padding:7px 10px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border2)\">⧓ Acumulado: 2.75 h de 5 h (faltan 2.25 h)</div><div class=\"rrow total-row\"><span class=\"rc\">TOTAL</span><span class=\"rl\"></span><span class=\"rv\">2h 1/2</span></div><div style=\"text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em\">Manuel · Pedro</div>"}, {"fecha": "2026-04-27", "pedido": "116988", "centro": "2599", "tienda": "Mercadona ARCHENA 2599", "dir": "C/ AZALEA", "tel": "968674400", "km": 40, "tr": 45, "job": "Climatización", "roles": ["Oficial", "Oficial"], "fin": 990, "trS": 45, "totalMin": 495, "dieta": true, "arr": "09:45", "lea": "16:30", "obs": "Se eliminan latiguillos de anti vibración de una y tres octavos y siete octavos al llegar la presión no había variado se carga con líquido trazador y 10 kilos de gas refrigerante R407 se deja operativa\nSe trabaja en la hace dos etapa 1 perdió completamente el gas se mete el líquido trazador para detectar fuga y se carga con 5 kilos de gas para que trabaje así y salga la fuga y desde luego corregirlo queda trabajando en esas condiciones", "linkType": "No", "kmDif": 0, "trDif": 0, "horaEnlace": 1035, "detalle": "<div class=\"rgroup-title\">Datos generales</div><div class=\"rrow info-row\"><span class=\"rc\">Fecha</span><span class=\"rl\">27/04/2026</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Nº orden</span><span class=\"rl\">116988</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Tienda</span><span class=\"rl\">Mercadona ARCHENA 2599</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Dirección</span><span class=\"rl\">C/ AZALEA</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Teléfono</span><span class=\"rl\">968674400</span><span class=\"rv\"></span></div><div class=\"rgroup-title\">(09:00) - (09:45) · 40 km</div><div class=\"rrow\"><span class=\"rc\">MF9352</span><span class=\"rl\">Kmje</span><span class=\"rv\">80 km</span></div><div class=\"rgroup-title\">(09:45) - (16:30) Tienda</div><div class=\"rrow\"><span class=\"rc\">MF9344</span><span class=\"rl\">H.Nor.De</span><span class=\"rv\">6h 3/4 × 2 = 13h 1/2</span></div><div class=\"rgroup-title\">(16:30) - (17:15) · 40 km</div><div class=\"rrow\"><span class=\"rc\">M71077</span><span class=\"rl\">Dsp.Nor</span><span class=\"rv\">1h 1/2 x2= 3h</span></div><div style=\"height:1px;background:var(--border);margin:10px 0\"></div><div class=\"rrow\"><span class=\"rc\">MF9895</span><span class=\"rl\">½ Dieta</span><span class=\"rv\">× 2</span></div><div class=\"rrow total-row\"><span class=\"rc\">TOTAL</span><span class=\"rl\"></span><span class=\"rv\">13h 1/2</span></div><div style=\"text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em\">Pedro · Manuel</div>"}, {"fecha": "2026-03-27", "pedido": "S/n", "centro": "2738", "tienda": "Mercadorna Teclado 2738", "dir": "Av de la Paz 2 Yecla", "tel": "******", "km": 100, "tr": 90, "job": "Obras", "roles": ["Oficial", "Oficial"], "fin": 810, "trS": 90, "totalMin": 270, "dieta": false, "arr": "12:00", "lea": "13:30", "obs": "Desmontaje de A/A split en oficina", "linkType": "No", "kmDif": 0, "trDif": 0, "horaEnlace": 900, "detalle": "<div class=\"rgroup-title\">Datos generales</div><div class=\"rrow info-row\"><span class=\"rc\">Fecha</span><span class=\"rl\">27/03/2026</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Nº orden</span><span class=\"rl\">S/n</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Tienda</span><span class=\"rl\">Mercadorna Teclado CT 2738</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Dirección</span><span class=\"rl\">Av de la Paz 2 Yecla</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Teléfono</span><span class=\"rl\">******</span><span class=\"rv\"></span></div><div class=\"rgroup-title\">(10:30) - (12:00) · 100 km</div><div class=\"rrow\"><span class=\"rc\">MA4841</span><span class=\"rl\">Kmje</span><span class=\"rv\">200 km</span></div><div class=\"rgroup-title\">(12:00) - (13:30) Tienda</div><div class=\"rrow\"><span class=\"rc\">MA4836</span><span class=\"rl\">H.Nor</span><span class=\"rv\">1h 1/2 x2= 3h</span></div><div class=\"rgroup-title\">(13:30) - (15:00) · 100 km</div><div class=\"rrow\"><span class=\"rc\">M71077</span><span class=\"rl\">Dsp.Nor</span><span class=\"rv\">3h x2= 6h</span></div><div style=\"height:1px;background:var(--border);margin:10px 0\"></div><div style=\"font-size:.82rem;color:var(--text2);padding:7px 10px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border2)\">⧓ Acumulado: 4.5 h de 5 h (faltan 0.5 h)</div><div class=\"rrow total-row\"><span class=\"rc\">TOTAL</span><span class=\"rl\"></span><span class=\"rv\">3h</span></div><div style=\"text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em\">Manuel · Pedro</div>"}, {"fecha": "2026-03-30", "pedido": "113201", "centro": "4777", "tienda": "Mercadona CC la Rambla 4777", "dir": "Rambla de Benipila", "tel": "968132450", "km": 50, "tr": 45, "job": "Climatización", "roles": ["Oficial", "Oficial"], "fin": 960, "trS": 45, "totalMin": 510, "dieta": true, "arr": "09:00", "lea": "16:00", "obs": "Se cambia de lugar 02 unidades externas de split", "linkType": "No", "kmDif": 0, "trDif": 0, "horaEnlace": 1005, "detalle": "<div class=\"rgroup-title\">Datos generales</div><div class=\"rrow info-row\"><span class=\"rc\">Fecha</span><span class=\"rl\">30/03/2026</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Nº orden</span><span class=\"rl\">113201</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Tienda</span><span class=\"rl\">Mercadona CC la Rambla CT 4777</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Dirección</span><span class=\"rl\">Rambla de Benipila</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Teléfono</span><span class=\"rl\">968132450</span><span class=\"rv\"></span></div><div class=\"rgroup-title\">(08:15) - (09:00) · 50 km</div><div class=\"rrow\"><span class=\"rc\">MF9352</span><span class=\"rl\">Kmje</span><span class=\"rv\">100 km</span></div><div class=\"rgroup-title\">(09:00) - (16:00) Tienda</div><div class=\"rrow\"><span class=\"rc\">MF9344</span><span class=\"rl\">H.Nor.Of</span><span class=\"rv\">7h × 2 = 14h</span></div><div class=\"rgroup-title\">(16:00) - (16:45) · 50 km</div><div class=\"rrow\"><span class=\"rc\">M71077</span><span class=\"rl\">Dsp.Nor</span><span class=\"rv\">1h 1/2 x2= 3h</span></div><div style=\"height:1px;background:var(--border);margin:10px 0\"></div><div class=\"rrow\"><span class=\"rc\">MF9895</span><span class=\"rl\">½ Dieta</span><span class=\"rv\">× 2</span></div><div class=\"rrow total-row\"><span class=\"rc\">TOTAL</span><span class=\"rl\"></span><span class=\"rv\">14h</span></div><div style=\"text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em\">Manuel · Pedro</div>"}, {"fecha": "2026-04-06", "pedido": "111821", "centro": "4466", "tienda": "Mercadona Mazarron Puerto 4466", "dir": "C/A del PP la Charca", "tel": "868454984", "km": 74, "tr": 60, "job": "Conductos", "roles": ["Oficial", "Oficial"], "fin": 555, "trS": 60, "totalMin": 180, "dieta": false, "arr": "08:15", "lea": "09:15", "obs": "Reparación de conducto caído y despegado", "linkType": "No", "kmDif": 0, "trDif": 0, "horaEnlace": 615, "detalle": "<div class=\"rgroup-title\">Datos generales</div><div class=\"rrow info-row\"><span class=\"rc\">Fecha</span><span class=\"rl\">04/06/2026</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Nº orden</span><span class=\"rl\">111821</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Tienda</span><span class=\"rl\">Mercadona Mazarron Puerto 4466</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Dirección</span><span class=\"rl\">C/A del PP la Charca</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Teléfono</span><span class=\"rl\">868454984</span><span class=\"rv\"></span></div><div class=\"rgroup-title\">(07:15) - (08:15) · 74 km</div><div class=\"rrow\"><span class=\"rc\">MF9412</span><span class=\"rl\">Kmje</span><span class=\"rv\">148 km</span></div><div class=\"rgroup-title\">(08:15) - (09:15) Tienda</div><div class=\"rrow\"><span class=\"rc\">MF9404</span><span class=\"rl\">H.Nor</span><span class=\"rv\">1h x2= 2h</span></div><div class=\"rgroup-title\">(09:15) - (10:15) · 74 km</div><div class=\"rrow\"><span class=\"rc\">MK9OVB</span><span class=\"rl\">Dsp.Nor</span><span class=\"rv\">1h 1/4 x2= 2h 1/2</span></div><div class=\"rrow\"><span class=\"rc\">MB8723</span><span class=\"rl\">Dsp.Ext</span><span class=\"rv\">3/4h x2= 1h 1/2</span></div><div style=\"height:1px;background:var(--border);margin:10px 0\"></div><div style=\"font-size:.82rem;color:var(--text2);padding:7px 10px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border2)\">⧓ Acumulado: 3 h de 5 h (faltan 2 h)</div><div class=\"rrow total-row\"><span class=\"rc\">TOTAL</span><span class=\"rl\"></span><span class=\"rv\">2h</span></div><div style=\"text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em\">Manuel · Pedro</div>"}, {"fecha": "2026-04-06", "pedido": "114915", "centro": "2745", "tienda": "Mercadona Torres de Cotilla 2745", "dir": "Calle Mayor 12 Torres de Cotilla", "tel": "968623167", "km": 20, "tr": 30, "job": "Climatización", "roles": ["Oficial", "Oficial"], "fin": 1005, "trS": 30, "totalMin": 435, "dieta": true, "arr": "10:30", "lea": "16:45", "obs": "Se cambia válvula de bola de soldar de 1⅛\n5 Obús internos\n3 tapas de obús de latón\n2 cargas de nitrógeno\n2 varillas de plata\nOxígeno y propano\nSe cambia obús y válvulas que presentaban fuga. Pendiente por descartar condensador", "linkType": "No", "kmDif": 0, "trDif": 0, "horaEnlace": 1035, "detalle": "<div class=\"rgroup-title\">Datos generales</div><div class=\"rrow info-row\"><span class=\"rc\">Fecha</span><span class=\"rl\">06/04/2026</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Nº orden</span><span class=\"rl\">114915</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Tienda</span><span class=\"rl\">Mercadona Torres de Cotilla 2745</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Dirección</span><span class=\"rl\">Calle Mayor 12 Torres de Cotilla</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Teléfono</span><span class=\"rl\">968623167</span><span class=\"rv\"></span></div><div class=\"rgroup-title\">(10:00) - (10:30) · 20 km</div><div class=\"rrow\"><span class=\"rc\">MF9352</span><span class=\"rl\">Kmje</span><span class=\"rv\">40 km</span></div><div class=\"rgroup-title\">(10:30) - (16:45) Tienda</div><div class=\"rrow\"><span class=\"rc\">MF9344</span><span class=\"rl\">H.Nor.De</span><span class=\"rv\">6h 1/4 × 2 = 12h 1/2</span></div><div class=\"rgroup-title\">(16:45) - (17:15) · 20 km</div><div class=\"rrow\"><span class=\"rc\">M71077</span><span class=\"rl\">Dsp.Nor</span><span class=\"rv\">1h x2= 2h</span></div><div style=\"height:1px;background:var(--border);margin:10px 0\"></div><div class=\"rrow\"><span class=\"rc\">MF9895</span><span class=\"rl\">½ Dieta</span><span class=\"rv\">× 2</span></div><div class=\"rrow total-row\"><span class=\"rc\">TOTAL</span><span class=\"rl\"></span><span class=\"rv\">12h 1/2</span></div><div style=\"text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em\">Manuel · Pedro</div>"}, {"fecha": "2026-04-30", "pedido": "120080", "centro": "4497", "tienda": "Mercadona LOS JARDINES 4497", "dir": "C/ ALMUDENA GRANDES", "tel": "968789394", "km": 108, "tr": 90, "job": "Conductos", "roles": ["Oficial", "Oficial"], "fin": 540, "trS": 90, "totalMin": 270, "dieta": false, "arr": "07:30", "lea": "09:00", "obs": "El que se reparó el ducto de salida del aire acondicionado que estaba roto se gastó medio rollo de cinta de aluminio", "linkType": "No", "kmDif": 0, "trDif": 0, "horaEnlace": 630, "detalle": "<div class=\"rgroup-title\">Datos generales</div><div class=\"rrow info-row\"><span class=\"rc\">Fecha</span><span class=\"rl\">30/04/2026</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Nº orden</span><span class=\"rl\">120080</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Tienda</span><span class=\"rl\">Mercadona LOS JARDINES 4497</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Dirección</span><span class=\"rl\">C/ ALMUDENA GRANDES</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Teléfono</span><span class=\"rl\">968789394</span><span class=\"rv\"></span></div><div class=\"rgroup-title\">(06:00) - (07:30) · 108 km</div><div class=\"rrow\"><span class=\"rc\">MF9412</span><span class=\"rl\">Kmje</span><span class=\"rv\">216 km</span></div><div class=\"rgroup-title\">(07:30) - (09:00) Tienda</div><div class=\"rrow\"><span class=\"rc\">MF9404</span><span class=\"rl\">H.Nor</span><span class=\"rv\">1h x2= 2h</span></div><div class=\"rrow\"><span class=\"rc\">MF9405</span><span class=\"rl\">H.Ext</span><span class=\"rv\">1/2h x2= 1h</span></div><div class=\"rgroup-title\">(09:00) - (10:30) · 108 km</div><div class=\"rrow\"><span class=\"rc\">MK9OVB</span><span class=\"rl\">Dsp.Nor</span><span class=\"rv\">1h 1/2 x2= 3h</span></div><div class=\"rrow\"><span class=\"rc\">MB8723</span><span class=\"rl\">Dsp.Ext</span><span class=\"rv\">1h 1/2 x2= 3h</span></div><div style=\"height:1px;background:var(--border);margin:10px 0\"></div><div style=\"font-size:.82rem;color:var(--text2);padding:7px 10px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border2)\">⧓ Acumulado: 4.5 h de 5 h (faltan 0.5 h)</div><div class=\"rrow total-row\"><span class=\"rc\">TOTAL</span><span class=\"rl\"></span><span class=\"rv\">3h</span></div><div style=\"text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em\">Fidel · Manuel</div>"}, {"fecha": "2026-05-04", "pedido": "116988", "centro": "2599", "tienda": "Mercadona ARCHENA 2599", "dir": "C/ AZALEA", "tel": "968674400", "km": 40, "tr": 30, "job": "Climatización", "roles": ["Oficial", "Oficial"], "fin": 885, "trS": 30, "totalMin": 405, "dieta": true, "arr": "09:00", "lea": "14:45", "obs": "Se usan cuatro cargas de nitrógeno y se deja presurizado para ver dónde están las fugas", "linkType": "No", "kmDif": 0, "trDif": 0, "horaEnlace": 915, "detalle": "<div class=\"rgroup-title\">Datos generales</div><div class=\"rrow info-row\"><span class=\"rc\">Fecha</span><span class=\"rl\">04/05/2026</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Nº orden</span><span class=\"rl\">116988</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Tienda</span><span class=\"rl\">Mercadona ARCHENA 2599</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Dirección</span><span class=\"rl\">C/ AZALEA</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Teléfono</span><span class=\"rl\">968674400</span><span class=\"rv\"></span></div><div class=\"rgroup-title\">(08:30) - (09:00) · 40 km</div><div class=\"rrow\"><span class=\"rc\">MF9352</span><span class=\"rl\">Kmje</span><span class=\"rv\">80 km</span></div><div class=\"rgroup-title\">(09:00) - (14:45) Tienda</div><div class=\"rrow\"><span class=\"rc\">MF9344</span><span class=\"rl\">H.Nor.Of</span><span class=\"rv\">5h 3/4 × 2 = 11h 1/2</span></div><div class=\"rgroup-title\">(14:45) - (15:15) · 40 km</div><div class=\"rrow\"><span class=\"rc\">M71077</span><span class=\"rl\">Dsp.Nor</span><span class=\"rv\">1h x2= 2h</span></div><div style=\"height:1px;background:var(--border);margin:10px 0\"></div><div class=\"rrow\"><span class=\"rc\">MF9895</span><span class=\"rl\">½ Dieta</span><span class=\"rv\">× 2</span></div><div class=\"rrow total-row\"><span class=\"rc\">TOTAL</span><span class=\"rl\"></span><span class=\"rv\">11h 1/2</span></div><div style=\"text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em\">Manuel · Pedro</div>"}, {"fecha": "2026-05-05", "pedido": "119137", "centro": "2721", "tienda": "Mercadona San Javier 2721", "dir": "Avda. del Recuerdo, San Javier (Murcia, 30730)", "tel": "968192448", "km": 45, "tr": 45, "job": "Climatización", "roles": ["Oficial", "Oficial"], "fin": 960, "trS": 45, "totalMin": 465, "dieta": true, "arr": "09:45", "lea": "16:00", "obs": "Se observan fuga en las dos válvulas de una ion octava una y un octavo de la máquina AC-1 primera etapa observa que las presiones en funcionamiento no corresponden y se recuperan aproximadamente 22 kg de gas R410\nPosible obstrucción en la válvula restrictora de expansión o en el filtro pendiente para solucionar cuando se regrese", "linkType": "No", "kmDif": 0, "trDif": 0, "horaEnlace": 1005, "detalle": "<div class=\"rgroup-title\">Datos generales</div><div class=\"rrow info-row\"><span class=\"rc\">Fecha</span><span class=\"rl\">05/05/2026</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Nº orden</span><span class=\"rl\">119137</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Tienda</span><span class=\"rl\">Mercadona San Javier 2721</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Dirección</span><span class=\"rl\">Avda. del Recuerdo, San Javier (Murcia, 30730)</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Teléfono</span><span class=\"rl\">968192448</span><span class=\"rv\"></span></div><div class=\"rgroup-title\">(09:00) - (09:45) · 45 km</div><div class=\"rrow\"><span class=\"rc\">MF9352</span><span class=\"rl\">Kmje</span><span class=\"rv\">90 km</span></div><div class=\"rgroup-title\">(09:45) - (16:00) Tienda</div><div class=\"rrow\"><span class=\"rc\">MF9344</span><span class=\"rl\">H.Nor.Of</span><span class=\"rv\">6h 1/4 × 2 = 12h 1/2</span></div><div class=\"rgroup-title\">(16:00) - (16:45) · 45 km</div><div class=\"rrow\"><span class=\"rc\">M71077</span><span class=\"rl\">Dsp.Nor</span><span class=\"rv\">1h 1/2 x2= 3h</span></div><div style=\"height:1px;background:var(--border);margin:10px 0\"></div><div class=\"rrow\"><span class=\"rc\">MF9895</span><span class=\"rl\">½ Dieta</span><span class=\"rv\">× 2</span></div><div class=\"rrow total-row\"><span class=\"rc\">TOTAL</span><span class=\"rl\"></span><span class=\"rv\">12h 1/2</span></div><div style=\"text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em\">Manuel · Pedro</div>"}, {"fecha": "2026-05-06", "pedido": "119137", "centro": "2721", "tienda": "Mercadona San Javier 2721", "dir": "Avda. del Recuerdo, San Javier (Murcia, 30730)", "tel": "968192448", "km": 45, "tr": 45, "job": "Climatización", "roles": ["Oficial", "Oficial"], "fin": 765, "trS": 45, "totalMin": 450, "dieta": true, "arr": "06:45", "lea": "12:45", "obs": "Se cambian tres válvulas de bola de 1⅛\n01 válvula de 5/8\nSe usan 06 varillada de plata\n06 obús completos con su tapa de latón 1/2 rollo de Coquilla negra con adhesivo\n01 filtro de 5 y 1/8", "linkType": "No", "kmDif": 0, "trDif": 0, "horaEnlace": 810, "detalle": "<div class=\"rgroup-title\">Datos generales</div><div class=\"rrow info-row\"><span class=\"rc\">Fecha</span><span class=\"rl\">06/05/2026</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Nº orden</span><span class=\"rl\">119137</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Tienda</span><span class=\"rl\">Mercadona San Javier 2721</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Dirección</span><span class=\"rl\">Avda. del Recuerdo, San Javier (Murcia, 30730)</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Teléfono</span><span class=\"rl\">968192448</span><span class=\"rv\"></span></div><div class=\"rgroup-title\">(06:00) - (06:45) · 45 km</div><div class=\"rrow\"><span class=\"rc\">MF9352</span><span class=\"rl\">Kmje</span><span class=\"rv\">90 km</span></div><div class=\"rgroup-title\">(06:45) - (12:45) Tienda</div><div class=\"rrow\"><span class=\"rc\">MF9344</span><span class=\"rl\">H.Nor.Of</span><span class=\"rv\">4h 3/4 × 2 = 9h 1/2</span></div><div class=\"rrow\"><span class=\"rc\">MF9345</span><span class=\"rl\">H.Ext.Of</span><span class=\"rv\">1h 1/4 × 2 = 2h 1/2</span></div><div class=\"rgroup-title\">(12:45) - (13:30) · 45 km</div><div class=\"rrow\"><span class=\"rc\">M71077</span><span class=\"rl\">Dsp.Nor</span><span class=\"rv\">3/4h x2= 1h 1/2</span></div><div class=\"rrow\"><span class=\"rc\">MB8726</span><span class=\"rl\">Dsp.Ext</span><span class=\"rv\">3/4h x2= 1h 1/2</span></div><div style=\"height:1px;background:var(--border);margin:10px 0\"></div><div class=\"rrow\"><span class=\"rc\">MF9895</span><span class=\"rl\">½ Dieta</span><span class=\"rv\">× 2</span></div><div class=\"rrow total-row\"><span class=\"rc\">TOTAL</span><span class=\"rl\"></span><span class=\"rv\">12h</span></div><div style=\"text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em\">Manuel · Pedro</div>"}, {"fecha": "2026-05-07", "pedido": "Xxxx", "centro": "4657", "tienda": "Mercadona La Noria 4657", "dir": "CC La Noria", "tel": "968605075", "km": 20, "tr": 30, "job": "Obras", "roles": ["Oficial", "Oficial"], "fin": 750, "trS": 45, "totalMin": 330, "dieta": true, "arr": "08:15", "lea": "12:30", "obs": "Se unidad mueve exterior del aire acondicionado de la zona de baños de las mujeres aproximadamente 8 metros en este no se puede terminar el trabajo por la lluvia queda pendiente de conectar la parte eléctrica, desagüe y colocar cinta de aluminio", "linkType": "Sí", "kmDif": 31, "trDif": 15, "horaEnlace": 795, "detalle": "<div class=\"rgroup-title\">Datos generales</div><div class=\"rrow info-row\"><span class=\"rc\">Fecha</span><span class=\"rl\">07/05/2026</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Nº orden</span><span class=\"rl\">Xxxx</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Tienda</span><span class=\"rl\">Mercadona La Noria 4657</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Dirección</span><span class=\"rl\">CC La Noria</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Teléfono</span><span class=\"rl\">968605075</span><span class=\"rv\"></span></div><div class=\"rgroup-title\">(07:45) - (08:15) · 20 km</div><div class=\"rrow\"><span class=\"rc\">MA4841</span><span class=\"rl\">Kmje</span><span class=\"rv\">71 km</span></div><div class=\"rgroup-title\">(08:15) - (12:30) Tienda</div><div class=\"rrow\"><span class=\"rc\">MA4836</span><span class=\"rl\">H.Nor</span><span class=\"rv\">4h 1/4 x2= 8h 1/2</span></div><div class=\"rgroup-title\">(12:30) - (13:15) · 51 km</div><div class=\"rrow\"><span class=\"rc\">M71077</span><span class=\"rl\">Dsp.Nor</span><span class=\"rv\">1h x2= 2h</span></div><div class=\"rrow\"><span class=\"rc\">MB8726</span><span class=\"rl\">Dsp.Ext</span><span class=\"rv\">1/4h x2= 1/2h</span></div><div style=\"height:1px;background:var(--border);margin:10px 0\"></div><div class=\"rrow\"><span class=\"rc\">MA4839</span><span class=\"rl\">½ Dieta</span><span class=\"rv\">× 2</span></div><div class=\"rrow total-row\"><span class=\"rc\">TOTAL</span><span class=\"rl\"></span><span class=\"rv\">8h 1/2</span></div><div style=\"text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em\">Manuel · Pedro</div>"}, {"fecha": "2026-05-07", "pedido": "119137", "centro": "2721", "tienda": "Mercadona San Javier 2721", "dir": "Avda. del Recuerdo, San Javier (Murcia, 30730)", "tel": "968192448", "km": 45, "tr": 45, "job": "Climatización", "roles": ["Oficial", "Oficial"], "fin": 855, "trS": 45, "totalMin": 105, "dieta": false, "arr": "13:15", "lea": "14:15", "obs": "Se completa con 25 barras de nitrógeno queda pendiente por descartar fugas y poner la máquina en funcionamiento", "linkType": "Auto", "kmDif": 0, "trDif": 0, "horaEnlace": 900, "detalle": "<div class=\"rgroup-title\">Datos generales</div><div class=\"rrow info-row\"><span class=\"rc\">Fecha</span><span class=\"rl\">05/07/2026</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Nº orden</span><span class=\"rl\">119137</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Tienda</span><span class=\"rl\">Mercadona San Javier 2721</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Dirección</span><span class=\"rl\">Avda. del Recuerdo, San Javier (Murcia, 30730)</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Teléfono</span><span class=\"rl\">968192448</span><span class=\"rv\"></span></div><div class=\"rrow\"><span class=\"rc\">MF9352</span><span class=\"rl\">Kmje</span><span class=\"rv\">45 km</span></div><div class=\"rgroup-title\">(13:15) - (14:15) Tienda</div><div class=\"rrow\"><span class=\"rc\">MF9344</span><span class=\"rl\">H.Nor.Of</span><span class=\"rv\">1h × 2 = 2h</span></div><div class=\"rgroup-title\">(14:15) - (15:00) · 45 km</div><div class=\"rrow\"><span class=\"rc\">M71077</span><span class=\"rl\">Dsp.Nor</span><span class=\"rv\">3/4h x2= 1h 1/2</span></div><div style=\"height:1px;background:var(--border);margin:10px 0\"></div><div style=\"font-size:.82rem;color:var(--text2);padding:7px 10px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border2)\">✅ Media dieta ya aplicada hoy</div><div class=\"rgroup-title\">Enlace</div><div class=\"rrow obs-row\"><span class=\"rc\">Auto</span><span class=\"rl\">Desplazamiento desde Mercadona La Noria 4657 (Centro )</span><span class=\"rv\"></span></div><div class=\"rrow total-row\"><span class=\"rc\">TOTAL</span><span class=\"rl\"></span><span class=\"rv\">2h</span></div><div style=\"text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em\">Pedro · Manuel</div>"}, {"fecha": "2026-05-08", "pedido": "XXxxx", "centro": "4657", "tienda": "Mercadona La Noria 4657", "dir": "CC La Noria", "tel": "968605075", "km": 20, "tr": 30, "job": "Obras", "roles": ["Oficial", "Oficial"], "fin": 585, "trS": 30, "totalMin": 150, "dieta": false, "arr": "08:15", "lea": "09:45", "obs": "Desplazamiento para mercadona de archena\nSe carga con 200 gr de refrigerante R32\n1½ metro de hidrotubo de 20\nTe de pvc de20\n01 rollo de cinta de lumínico", "linkType": "Sí", "kmDif": 0, "trDif": 0, "horaEnlace": 615, "detalle": "<div class=\"rgroup-title\">Datos generales</div><div class=\"rrow info-row\"><span class=\"rc\">Fecha</span><span class=\"rl\">08/05/2026</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Nº orden</span><span class=\"rl\">XXxxx</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Tienda</span><span class=\"rl\">Mercadona La Noria 4657</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Dirección</span><span class=\"rl\">CC La Noria</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Teléfono</span><span class=\"rl\">968605075</span><span class=\"rv\"></span></div><div class=\"rgroup-title\">(07:45) - (08:15) · 20 km</div><div class=\"rrow\"><span class=\"rc\">MA4841</span><span class=\"rl\">Kmje</span><span class=\"rv\">47 km</span></div><div class=\"rgroup-title\">(08:15) - (09:45) Tienda</div><div class=\"rrow\"><span class=\"rc\">MA4836</span><span class=\"rl\">H.Nor</span><span class=\"rv\">1h 1/2 x2= 3h</span></div><div class=\"rgroup-title\">(09:45) - (10:15) · 27 km</div><div class=\"rrow\"><span class=\"rc\">M71077</span><span class=\"rl\">Dsp.Nor</span><span class=\"rv\">3/4h x2= 1h 1/2</span></div><div class=\"rrow\"><span class=\"rc\">MB8726</span><span class=\"rl\">Dsp.Ext</span><span class=\"rv\">1/4h x2= 1/2h</span></div><div style=\"height:1px;background:var(--border);margin:10px 0\"></div><div style=\"font-size:.82rem;color:var(--text2);padding:7px 10px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border2)\">⧓ Acumulado: 2.5 h de 5 h (faltan 2.5 h)</div><div class=\"rrow total-row\"><span class=\"rc\">TOTAL</span><span class=\"rl\"></span><span class=\"rv\">3h</span></div><div style=\"text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em\">Manuel · Pedro</div>"}, {"fecha": "2026-05-08", "pedido": "122610", "centro": "2599", "tienda": "Mercadona ARCHENA 2599", "dir": "C/ AZALEA", "tel": "968674400", "km": 40, "tr": 30, "job": "Climatización", "roles": ["Oficial", "Oficial"], "fin": 810, "trS": 45, "totalMin": 240, "dieta": true, "arr": "10:15", "lea": "13:30", "obs": "Se encontró que perdió la presión en la parte de la unidad interior se identificó la fuga se aisló la parte del condensador dañada y se volvió apresurizar de nuevo esperando a venir el lunes para volver a revisar fuga y descartar que no haya otra fuga por ahí escondida", "linkType": "Auto", "kmDif": 0, "trDif": 0, "horaEnlace": 855, "detalle": "<div class=\"rgroup-title\">Datos generales</div><div class=\"rrow info-row\"><span class=\"rc\">Fecha</span><span class=\"rl\">08/05/2026</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Nº orden</span><span class=\"rl\">122610</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Tienda</span><span class=\"rl\">Mercadona ARCHENA 2599</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Dirección</span><span class=\"rl\">C/ AZALEA</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Teléfono</span><span class=\"rl\">968674400</span><span class=\"rv\"></span></div><div class=\"rrow\"><span class=\"rc\">MF9352</span><span class=\"rl\">Kmje</span><span class=\"rv\">40 km</span></div><div class=\"rgroup-title\">(10:15) - (13:30) Tienda</div><div class=\"rrow\"><span class=\"rc\">MF9344</span><span class=\"rl\">H.Nor.Of</span><span class=\"rv\">3h 1/4 × 2 = 6h 1/2</span></div><div class=\"rgroup-title\">(13:30) - (14:15) · 40 km</div><div class=\"rrow\"><span class=\"rc\">M71077</span><span class=\"rl\">Dsp.Nor</span><span class=\"rv\">3/4h x2= 1h 1/2</span></div><div style=\"height:1px;background:var(--border);margin:10px 0\"></div><div class=\"rrow\"><span class=\"rc\">MF9895</span><span class=\"rl\">½ Dieta</span><span class=\"rv\">× 2</span></div><div class=\"rgroup-title\">Enlace</div><div class=\"rrow obs-row\"><span class=\"rc\">Auto</span><span class=\"rl\">Desplazamiento desde Mercadona La Noria 4657 (Centro )</span><span class=\"rv\"></span></div><div class=\"rrow total-row\"><span class=\"rc\">TOTAL</span><span class=\"rl\"></span><span class=\"rv\">6h 1/2</span></div><div style=\"text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em\">Manuel · Pedro</div>"}, {"fecha": "2026-05-11", "pedido": "119137", "centro": "2721", "tienda": "Mercadona San Javier 2721", "dir": "Avda. del Recuerdo, San Javier (Murcia, 30730)", "tel": "968192448", "km": 45, "tr": 30, "job": "Climatización", "roles": ["Oficial", "Oficial"], "fin": 615, "trS": 30, "totalMin": 150, "dieta": false, "arr": "08:45", "lea": "10:15", "obs": "Se midió la presión y baja, lo más probable es que estén comunicándose las tuberías por fuga entre las válvulas que no cierran bien hay que reemplazarlas para aislar bien el circuito identificar la fuga", "linkType": "Si", "kmDif": 22, "trDif": 30, "horaEnlace": 675, "detalle": "<div class=\"rgroup-title\">Datos generales</div><div class=\"rrow info-row\"><span class=\"rc\">Fecha</span><span class=\"rl\">11/05/2026</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Nº orden</span><span class=\"rl\">119137</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Tienda</span><span class=\"rl\">Mercadona San Javier ct 2721</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Dirección</span><span class=\"rl\">Avda. del Recuerdo, San Javier (Murcia, 30730)</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Teléfono</span><span class=\"rl\">968192448</span><span class=\"rv\"></span></div><div class=\"rgroup-title\">(08:15) - (08:45) · 45 km</div><div class=\"rrow\"><span class=\"rc\">MF9352</span><span class=\"rl\">Kmje</span><span class=\"rv\">90 km</span></div><div class=\"rgroup-title\">(08:45) - (10:15) Tienda</div><div class=\"rrow\"><span class=\"rc\">MF9344</span><span class=\"rl\">H.Nor.Of</span><span class=\"rv\">1h 1/2 x2= 3h</span></div><div class=\"rgroup-title\">(10:15) - (10:45) · 45 km</div><div class=\"rrow\"><span class=\"rc\">M71077</span><span class=\"rl\">Dsp.Nor</span><span class=\"rv\">1h x2= 2h</span></div><div style=\"height:1px;background:var(--border);margin:10px 0\"></div><div style=\"font-size:.82rem;color:var(--text2);padding:7px 10px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border2)\">⧓ Acumulado: 2.5 h de 5 h (faltan 2.5 h)</div><div class=\"rrow total-row\"><span class=\"rc\">TOTAL</span><span class=\"rl\"></span><span class=\"rv\">3h</span></div><div style=\"text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em\">Manuel · Pedro</div>"}, {"fecha": "2026-05-11", "pedido": "122610", "centro": "2599", "tienda": "Mercadona ARCHENA 2599", "dir": "C/ AZALEA", "tel": "968674400", "km": 40, "tr": 45, "job": "Climatización", "roles": ["Oficial", "Oficial"], "fin": 960, "trS": 45, "totalMin": 360, "dieta": true, "arr": "11:15", "lea": "16:00", "obs": "Al llegar se consigue que la unidad interior había perdido todo el nitrógeno que se le había metido se procede a desarmar el evaporador y apresurizar a cada circuito por separado con 22 bar de nitrógeno para identificar la fuga", "linkType": "Auto", "kmDif": 0, "trDif": 0, "horaEnlace": 1005, "detalle": "<div class=\"rgroup-title\">Datos generales</div><div class=\"rrow info-row\"><span class=\"rc\">Fecha</span><span class=\"rl\">11/05/2026</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Nº orden</span><span class=\"rl\">122610</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Tienda</span><span class=\"rl\">Mercadona ARCHENA 2599</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Dirección</span><span class=\"rl\">C/ AZALEA</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Teléfono</span><span class=\"rl\">968674400</span><span class=\"rv\"></span></div><div class=\"rgroup-title\">(10:45) - (11:15) · 22 km</div><div class=\"rrow\"><span class=\"rc\">MF9352</span><span class=\"rl\">Kmje</span><span class=\"rv\">62 km</span></div><div class=\"rgroup-title\">(11:15) - (16:00) Tienda</div><div class=\"rrow\"><span class=\"rc\">MF9344</span><span class=\"rl\">H.Nor.Of</span><span class=\"rv\">4h 3/4 x2= 9h 1/2</span></div><div class=\"rgroup-title\">(16:00) - (16:45) · 40 km</div><div class=\"rrow\"><span class=\"rc\">M71077</span><span class=\"rl\">Dsp.Nor</span><span class=\"rv\">1h 1/4 x2= 2h 1/2</span></div><div style=\"height:1px;background:var(--border);margin:10px 0\"></div><div class=\"rrow\"><span class=\"rc\">MF9895</span><span class=\"rl\">½ Dieta</span><span class=\"rv\">× 2</span></div><div class=\"rgroup-title\">Enlace</div><div class=\"rrow obs-row\"><span class=\"rc\">Auto</span><span class=\"rl\">Desplazamiento desde Mercadona San Javier ct 2721 (Centro )</span><span class=\"rv\"></span></div><div class=\"rrow total-row\"><span class=\"rc\">TOTAL</span><span class=\"rl\"></span><span class=\"rv\">9h 1/2</span></div><div style=\"text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em\">Manuel · Pedro</div>"}, {"fecha": "2026-05-12", "pedido": "122610", "centro": "2599", "tienda": "Mercadona ARCHENA 2599", "dir": "C/ AZALEA", "tel": "968674400", "km": 40, "tr": 45, "job": "Climatización", "roles": ["Oficial", "Oficial"], "fin": 945, "trS": 45, "totalMin": 495, "dieta": true, "arr": "09:00", "lea": "15:45", "obs": "Se arma el evaporador se corrige fuga en la válvula de expansión pero está pendiente por cambiar se arma todo el sistema y se deja presurizado con 22 bar", "linkType": "No", "kmDif": 0, "trDif": 0, "horaEnlace": 990, "detalle": "<div class=\"rgroup-title\">Datos generales</div><div class=\"rrow info-row\"><span class=\"rc\">Fecha</span><span class=\"rl\">12/05/2026</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Nº orden</span><span class=\"rl\">122610</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Tienda</span><span class=\"rl\">Mercadona ARCHENA 2599</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Dirección</span><span class=\"rl\">C/ AZALEA</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Teléfono</span><span class=\"rl\">968674400</span><span class=\"rv\"></span></div><div class=\"rgroup-title\">(08:15) - (09:00) · 40 km</div><div class=\"rrow\"><span class=\"rc\">MF9352</span><span class=\"rl\">Kmje</span><span class=\"rv\">80 km</span></div><div class=\"rgroup-title\">(09:00) - (15:45) Tienda</div><div class=\"rrow\"><span class=\"rc\">MF9344</span><span class=\"rl\">H.Nor.Of</span><span class=\"rv\">6h 3/4 x2= 13h 1/2</span></div><div class=\"rgroup-title\">(15:45) - (16:30) · 40 km</div><div class=\"rrow\"><span class=\"rc\">M71077</span><span class=\"rl\">Dsp.Nor</span><span class=\"rv\">1h 1/2 x2= 3h</span></div><div style=\"height:1px;background:var(--border);margin:10px 0\"></div><div class=\"rrow\"><span class=\"rc\">MF9895</span><span class=\"rl\">½ Dieta</span><span class=\"rv\">× 2</span></div><div class=\"rrow total-row\"><span class=\"rc\">TOTAL</span><span class=\"rl\"></span><span class=\"rv\">13h 1/2</span></div><div style=\"text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em\">Manuel · Pedro</div>"}, {"fecha": "2026-05-13", "pedido": "Xxxxxx", "centro": "3765", "tienda": "Mercadona Av El Príncipe 3765", "dir": "Av del Príncipe Alcantariloa", "tel": "648894739", "km": 17, "tr": 15, "job": "Obras", "roles": ["Oficial", "Oficial"], "fin": 1080, "trS": 15, "totalMin": 420, "dieta": true, "arr": "11:30", "lea": "18:00", "obs": "Se instala aire acondicionado en el área del cgbt", "linkType": "No", "kmDif": 0, "trDif": 0, "horaEnlace": 1095, "detalle": "<div class=\"rgroup-title\">Datos generales</div><div class=\"rrow info-row\"><span class=\"rc\">Fecha</span><span class=\"rl\">13/05/2026</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Nº orden</span><span class=\"rl\">Xxxxxx</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Tienda</span><span class=\"rl\">Mercadona Av El Príncipe 3765</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Dirección</span><span class=\"rl\">Av del Príncipe Alcantariloa</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Teléfono</span><span class=\"rl\">648894739</span><span class=\"rv\"></span></div><div class=\"rgroup-title\">(11:15) - (11:30) · 17 km</div><div class=\"rrow\"><span class=\"rc\">MA4841</span><span class=\"rl\">Kmje</span><span class=\"rv\">34 km</span></div><div class=\"rgroup-title\">(11:30) - (18:00) Tienda</div><div class=\"rrow\"><span class=\"rc\">MA4836</span><span class=\"rl\">H.Nor</span><span class=\"rv\">6h 1/2 x2= 13h</span></div><div class=\"rgroup-title\">(18:00) - (18:15) · 17 km</div><div class=\"rrow\"><span class=\"rc\">M71077</span><span class=\"rl\">Dsp.Nor</span><span class=\"rv\">1/2h x2= 1h</span></div><div style=\"height:1px;background:var(--border);margin:10px 0\"></div><div class=\"rrow\"><span class=\"rc\">MA4839</span><span class=\"rl\">½ Dieta</span><span class=\"rv\">× 2</span></div><div class=\"rrow total-row\"><span class=\"rc\">TOTAL</span><span class=\"rl\"></span><span class=\"rv\">13h</span></div><div style=\"text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em\">Manuel · Pedro</div>"}, {"fecha": "2026-05-14", "pedido": "119137", "centro": "2721", "tienda": "Mercadona San Javier 2721", "dir": "Avda. del Recuerdo, San Javier (Murcia, 30730)", "tel": "968192448", "km": 45, "tr": 45, "job": "Climatización", "roles": ["Oficial", "Oficial"], "fin": 615, "trS": 45, "totalMin": 285, "dieta": false, "arr": "07:00", "lea": "10:15", "obs": "Se cambian válvulas de cinco octavos dos house completo y se dejó presurizado con 400 psi", "linkType": "No", "kmDif": 0, "trDif": 0, "horaEnlace": 660, "detalle": "<div class=\"rgroup-title\">Datos generales</div><div class=\"rrow info-row\"><span class=\"rc\">Fecha</span><span class=\"rl\">14/05/2026</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Nº orden</span><span class=\"rl\">119137</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Tienda</span><span class=\"rl\">Mercadona San Javier 2721</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Dirección</span><span class=\"rl\">Avda. del Recuerdo, San Javier (Murcia, 30730)</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Teléfono</span><span class=\"rl\">968192448</span><span class=\"rv\"></span></div><div class=\"rgroup-title\">(06:15) - (07:00) · 45 km</div><div class=\"rrow\"><span class=\"rc\">MF9352</span><span class=\"rl\">Kmje</span><span class=\"rv\">90 km</span></div><div class=\"rgroup-title\">(07:00) - (10:15) Tienda</div><div class=\"rrow\"><span class=\"rc\">MF9344</span><span class=\"rl\">H.Nor.Of</span><span class=\"rv\">2h 1/4 x2= 4h 1/2</span></div><div class=\"rrow\"><span class=\"rc\">MF9345</span><span class=\"rl\">H.Ext.Of</span><span class=\"rv\">1h x2= 2h</span></div><div class=\"rgroup-title\">(10:15) - (11:00) · 45 km</div><div class=\"rrow\"><span class=\"rc\">M71077</span><span class=\"rl\">Dsp.Nor</span><span class=\"rv\">3/4h x2= 1h 1/2</span></div><div class=\"rrow\"><span class=\"rc\">MB8726</span><span class=\"rl\">Dsp.Ext</span><span class=\"rv\">3/4h x2= 1h 1/2</span></div><div style=\"height:1px;background:var(--border);margin:10px 0\"></div><div style=\"font-size:.82rem;color:var(--text2);padding:7px 10px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border2)\">⧓ Acumulado: 4.75 h de 5 h (faltan 0.25 h)</div><div class=\"rrow total-row\"><span class=\"rc\">TOTAL</span><span class=\"rl\"></span><span class=\"rv\">6h 1/2</span></div><div style=\"text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em\">Manuel · Pedro</div>"}, {"fecha": "2026-05-15", "pedido": "123909", "centro": "2125", "tienda": "Mercadona Juan Carlos Primero 2125", "dir": "Calle Estación Cieza", "tel": "968453486", "km": 47, "tr": 45, "job": "Climatización", "roles": ["Oficial", "Oficial"], "fin": 525, "trS": 45, "totalMin": 255, "dieta": false, "arr": "06:00", "lea": "08:45", "obs": "Se cambia la turbina de la unidad interior del aire acondicionado del área de las carnes", "linkType": "No", "kmDif": 0, "trDif": 0, "horaEnlace": 570, "detalle": "<div class=\"rgroup-title\">Datos generales</div><div class=\"rrow info-row\"><span class=\"rc\">Fecha</span><span class=\"rl\">15/05/2026</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Nº orden</span><span class=\"rl\">123909</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Tienda</span><span class=\"rl\">Mercadona Juan Carlos Primero 2125</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Dirección</span><span class=\"rl\">Calle Estación Cieza</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Teléfono</span><span class=\"rl\">968453486</span><span class=\"rv\"></span></div><div class=\"rgroup-title\">(05:15) - (06:00) · 47 km</div><div class=\"rrow\"><span class=\"rc\">MF9352</span><span class=\"rl\">Kmje</span><span class=\"rv\">94 km</span></div><div class=\"rgroup-title\">(06:00) - (08:45) Tienda</div><div class=\"rrow\"><span class=\"rc\">MF9344</span><span class=\"rl\">H.Nor.De</span><span class=\"rv\">3/4h x2= 1h 1/2</span></div><div class=\"rrow\"><span class=\"rc\">MF9345</span><span class=\"rl\">H.Ext.De</span><span class=\"rv\">2h x2= 4h</span></div><div class=\"rgroup-title\">(08:45) - (09:30) · 47 km</div><div class=\"rrow\"><span class=\"rc\">M71077</span><span class=\"rl\">Dsp.Nor</span><span class=\"rv\">3/4h x2= 1h 1/2</span></div><div class=\"rrow\"><span class=\"rc\">MB8728</span><span class=\"rl\">Dsp.Noc</span><span class=\"rv\">3/4h x2= 1h 1/2</span></div><div style=\"height:1px;background:var(--border);margin:10px 0\"></div><div style=\"font-size:.82rem;color:var(--text2);padding:7px 10px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border2)\">⧓ Acumulado: 4.25 h de 5 h (faltan 0.75 h)</div><div class=\"rrow total-row\"><span class=\"rc\">TOTAL</span><span class=\"rl\"></span><span class=\"rv\">5h 1/2</span></div><div style=\"text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em\">Manuel · Fidel</div>"}, {"fecha": "2026-05-15", "pedido": "124228", "centro": "4288", "tienda": "Mercadona Atalayas 4288", "dir": "Carretera Alicante, Atalayas", "tel": "968788855", "km": 5, "tr": 15, "job": "Climatización", "roles": ["Oficial", "Oficial"], "fin": 765, "trS": 15, "totalMin": 225, "dieta": true, "arr": "09:30", "lea": "12:45", "obs": "Se cambia el aire acondicionado split del área de oficina de ordenadores", "linkType": "No", "kmDif": 0, "trDif": 0, "horaEnlace": 780, "detalle": "<div class=\"rgroup-title\">Datos generales</div><div class=\"rrow info-row\"><span class=\"rc\">Fecha</span><span class=\"rl\">15/05/2026</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Nº orden</span><span class=\"rl\">124228</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Tienda</span><span class=\"rl\">Mercadona Atalayas 4288</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Dirección</span><span class=\"rl\">Carretera Alicante, Atalayas</span><span class=\"rv\"></span></div><div class=\"rrow info-row\"><span class=\"rc\">Teléfono</span><span class=\"rl\">968788855</span><span class=\"rv\"></span></div><div class=\"rgroup-title\">(09:15) - (09:30) · 5 km</div><div class=\"rrow\"><span class=\"rc\">MF9352</span><span class=\"rl\">Kmje</span><span class=\"rv\">10 km</span></div><div class=\"rgroup-title\">(09:30) - (12:45) Tienda</div><div class=\"rrow\"><span class=\"rc\">MF9344</span><span class=\"rl\">H.Nor.Of</span><span class=\"rv\">3h 1/4 x2= 6h 1/2</span></div><div class=\"rgroup-title\">(12:45) - (13:00) · 5 km</div><div class=\"rrow\"><span class=\"rc\">M71077</span><span class=\"rl\">Dsp.Nor</span><span class=\"rv\">1/2h x2= 1h</span></div><div style=\"height:1px;background:var(--border);margin:10px 0\"></div><div class=\"rrow\"><span class=\"rc\">MF9895</span><span class=\"rl\">½ Dieta</span><span class=\"rv\">× 2</span></div><div class=\"rgroup-title\">Enlace</div><div class=\"rrow obs-row\"><span class=\"rc\">Auto</span><span class=\"rl\">Desplazamiento desde Mercadona Juan Carlos Primero 2125 (Centro )</span><span class=\"rv\"></span></div><div class=\"rrow total-row\"><span class=\"rc\">TOTAL</span><span class=\"rl\"></span><span class=\"rv\">6h 1/2</span></div><div style=\"text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em\">Manuel · Fidel</div>"}];
+
+function initDatos(){
+  var h = getH();
+  if(h.length === 0){
+    setH(DATOS_INICIALES);
+    console.log('Historial inicializado con ' + DATOS_INICIALES.length + ' partes.');
+  }
+}
+
+// ===== NAVEGACION =====
+function goTo(id){
+  document.querySelectorAll('.win').forEach(function(w){ w.classList.remove('active'); });
+  $(id).classList.add('active');
+  window.scrollTo(0,0);
+  if(id === 'w-hist') renderHist();
+  if(id === 'w-form'){ nuevo(); checkAutoEnlace(); }
+}
+
+function showMsg(id, txt, type){
+  type = type || 'error';
+  var m = $(id);
+  m.innerHTML = '<span>' + (type==='error'?'X':type==='success'?'OK':'!') + '</span><span>' + txt + '</span>';
+  m.className = 'msg show ' + type;
+  setTimeout(function(){ m.className = 'msg'; }, 5000);
+}
+
+// ===== UTILIDADES =====
+function cap(re,t){ var m=t.match(re); return m?m[1].trim():''; }
+function tm(x){ if(!x) return 0; var p=x.split(':'); return +p[0]*60 + +p[1]; }
+function fmt(v){ var r=Math.round(v*100)/100; return Number.isInteger(r)?r.toString():r.toString().replace(/0+$/,'').replace(/[.]$/,''); }
+function fmtH(v){
+  var r=Math.round(v*100)/100;
+  var whole=Math.floor(r);
+  var dec=Math.round((r-whole)*100)/100;
+  var fracs={0.25:'1/4',0.5:'1/2',0.75:'3/4'};
+  var frac=fracs[dec]||'';
+  if(frac){ if(whole===0) return frac+'h'; return whole+'h '+frac; }
+  return whole+'h';
+}
+function ov(s,e,a,b){ return Math.max(0, Math.min(e,b) - Math.max(s,a)); }
+function redondearQ(min){ return Math.ceil(min/15)*15; }
+function hoy(){ var d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function fmtT(m){ return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0'); }
+function tl(a,b){ return '('+fmtT(a)+') - ('+fmtT(b)+')'; }
+
+// ===== TIPO DE DIA =====
+var esFestivo = false;
+
+function getTipoDia(fecha){
+  if(!fecha) return 'normal';
+  if(esFestivo) return 'festivo';
+  var d = new Date(fecha+'T12:00:00');
+  var dow = d.getDay();
+  if(dow === 0) return 'festivo';
+  if(dow === 6) return 'sabado';
+  return 'normal';
+}
+
+function setFestivo(val, btn){
+  esFestivo = val;
+  document.querySelectorAll('#festivoTgl button').forEach(function(b){ b.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
+}
+
+function onFechaChange(){
+  var fecha = $('fecha').value;
+  if(fecha){
+    var d = new Date(fecha+'T12:00:00');
+    if(d.getDay() === 0){
+      esFestivo = true;
+      document.querySelectorAll('#festivoTgl button').forEach(function(b,i){ b.classList.toggle('active', i===1); });
+    } else {
+      esFestivo = false;
+      document.querySelectorAll('#festivoTgl button').forEach(function(b,i){ b.classList.toggle('active', i===0); });
+    }
+  }
+  checkAutoEnlace();
+}
+
+// ===== FRANJAS HORARIAS =====
+function getFranjas(tipoDia){
+  if(tipoDia === 'festivo') return [{tipo:'Festiva',ini:0,fin:1440}];
+  if(tipoDia === 'sabado') return [
+    {tipo:'Nocturna',ini:0,fin:360},
+    {tipo:'Extra',ini:360,fin:1320},
+    {tipo:'Nocturna',ini:1320,fin:1440}
+  ];
+  return [
+    {tipo:'Nocturna',ini:0,fin:360},
+    {tipo:'Extra',ini:360,fin:480},
+    {tipo:'Normal',ini:480,fin:1140},
+    {tipo:'Extra',ini:1140,fin:1320},
+    {tipo:'Nocturna',ini:1320,fin:1440}
+  ];
+}
+
+function calcMinPorTipo(ini, fin, tipoDia){
+  var franjas = getFranjas(tipoDia);
+  var res = {Normal:0, Extra:0, Nocturna:0, Festiva:0};
+  franjas.forEach(function(f){
+    var m = ov(ini, fin, f.ini, f.fin);
+    if(m > 0) res[f.tipo] = (res[f.tipo]||0) + m;
+  });
+  return res;
+}
+
+// ===== CODIGOS =====
+var COD = {
+  'Conductos':{
+    'H. Normal':{cod:'MF9404',rol:false}, 'H. Extra':{cod:'MF9405',rol:false},
+    'H. Nocturna':{cod:'MF9406',rol:false}, 'H. Festiva':{cod:'MF9407',rol:false},
+    'Despl. Normal':{cod:'MK9OVB',rol:false}, 'Despl. Extra':{cod:'MB8723',rol:false},
+    'Despl. Nocturno':{cod:'MB8725',rol:false}, 'Despl. Festivo':{cod:'MB8724',rol:false},
+    'Kilometraje':{cod:'MF9412',rol:false}, 'Media dieta':{cod:'MF9896',rol:false}
+  },
+  'Climatizacion':{
+    'H. Normal':{cod:{Oficial:'MF9344',Peon:'MF9348'},rol:true}, 'H. Extra':{cod:{Oficial:'MF9345',Peon:'MF9349'},rol:true},
+    'H. Nocturna':{cod:{Oficial:'MF9346',Peon:'MF9350'},rol:true}, 'H. Festiva':{cod:{Oficial:'MF9347',Peon:'MF9351'},rol:true},
+    'Despl. Normal':{cod:'M71077',rol:false}, 'Despl. Extra':{cod:'MB8726',rol:false},
+    'Despl. Nocturno':{cod:'MB8728',rol:false}, 'Despl. Festivo':{cod:'MB8727',rol:false},
+    'Kilometraje':{cod:'MF9352',rol:false}, 'Media dieta':{cod:'MF9895',rol:false}
+  },
+  'Obras':{
+    'H. Normal':{cod:'MA4836',rol:false}, 'H. Extra':{cod:'M71088',rol:false},
+    'H. Nocturna':{cod:'MA4837',rol:false}, 'H. Festiva':{cod:'MA4838',rol:false},
+    'Despl. Normal':{cod:'M71077',rol:false}, 'Despl. Extra':{cod:'MB8726',rol:false},
+    'Despl. Nocturno':{cod:'MB8728',rol:false}, 'Despl. Festivo':{cod:'MB8727',rol:false},
+    'Kilometraje':{cod:'MA4841',rol:false}, 'Media dieta':{cod:'MA4839',rol:false}
+  }
 };
 
-function getCod(job,lab,rol){
-  const key=job==='Climatización'?'Climatizacion':job;
-  const e=COD[key]&&COD[key][lab];
-  if(!e)return lab;
-  if(e.rol&&rol)return e.cod[rol]||lab;
-  return e.cod||lab;
+function jobKey(job){ return job===('Climatización')?'Climatizacion':job; }
+
+function getCod(job, lab, rol){
+  var e = COD[jobKey(job)] && COD[jobKey(job)][lab];
+  if(!e) return lab;
+  if(e.rol && rol) return e.cod[rol] || lab;
+  return e.cod || lab;
 }
 
-let curJob='',curLink='No';
-function setJob(v,btn){curJob=v;$('job').value=v;document.querySelectorAll('#jobTgl button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');renderWorkers();}
-function setLink(v,btn){curLink=v;$('link').value=v;document.querySelectorAll('#lnkTgl button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');$('modeNo').classList.toggle('hidden',v==='Si');$('modeSi').classList.toggle('hidden',v==='No');}
+// ===== JOB / LINK =====
+var curJob = '', curLink = 'No';
 
-let workerRoles=[],workerNames=[];
+function setJob(v, btn){
+  curJob = v; $('job').value = v;
+  document.querySelectorAll('#jobTgl button').forEach(function(b){ b.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
+  renderWorkers();
+}
+
+function setLink(v, btn){
+  curLink = v; $('link').value = v;
+  document.querySelectorAll('#lnkTgl button').forEach(function(b){ b.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
+  $('modeNo').classList.toggle('hidden', v==='Si');
+  $('modeSi').classList.toggle('hidden', v==='No');
+}
+
+// ===== TRABAJADORES =====
+var workerRoles = [], workerNames = [];
+
 function renderWorkers(){
-  const w=Math.max(1,Math.min(4,+$('w').value||0));
-  if(!w){$('workersRol').classList.add('hidden');workerRoles=[];workerNames=[];return;}
+  var w = Math.max(1, Math.min(4, +$('w').value||0));
+  if(!w){ $('workersRol').classList.add('hidden'); workerRoles=[]; workerNames=[]; return; }
   $('workersRol').classList.remove('hidden');
-  const needRol=curJob==='Climatización';
-  while(workerRoles.length<w)workerRoles.push('Oficial');workerRoles=workerRoles.slice(0,w);workerRoles[0]='Oficial';
-  while(workerNames.length<w)workerNames.push('');workerNames=workerNames.slice(0,w);
-  let html='';
-  for(let i=0;i<w;i++){
-    if(needRol&&i===0){html+='<div class="worker-row" style="flex-wrap:wrap;gap:6px"><span class="worker-label">Trabajador 1<span class="wbadge wbadge-auto">Oficial</span></span><input type="text" placeholder="Nombre" style="flex:1;min-width:120px;padding:5px 9px;font-size:.85rem" value="'+( workerNames[0]||'')+'" oninput="workerNames[0]=this.value"></div>';}
-    else if(needRol){const rol=workerRoles[i]||'Oficial';html+='<div class="worker-row" style="flex-wrap:wrap;gap:6px"><span class="worker-label">Trabajador '+(i+1)+'<span class="wbadge wbadge-sel" id="wb'+i+'">'+ rol+'</span></span><input type="text" placeholder="Nombre" style="flex:1;min-width:120px;padding:5px 9px;font-size:.85rem" value="'+(workerNames[i]||'')+'" oninput="workerNames['+ i+']=this.value"><div class="worker-tgl"><button onclick="setWR('+ i+',\'Oficial\',this)" class="'+(rol==='Oficial'?'active':'')+'">Oficial</button><button onclick="setWR('+i+',\'Peón\',this)" class="'+(rol==='Peón'?'active':'')+'">Peón</button></div></div>';}
-    else{html+='<div class="worker-row" style="flex-wrap:wrap;gap:6px"><span class="worker-label">Trabajador '+(i+1)+'</span><input type="text" placeholder="Nombre" style="flex:1;min-width:120px;padding:5px 9px;font-size:.85rem" value="'+(workerNames[i]||'')+'" oninput="workerNames['+ i+']=this.value"></div>';}
+  var needRol = curJob === 'Climatización';
+  while(workerRoles.length < w) workerRoles.push('Oficial');
+  workerRoles = workerRoles.slice(0,w); workerRoles[0] = 'Oficial';
+  while(workerNames.length < w) workerNames.push('');
+  workerNames = workerNames.slice(0,w);
+  var html = '';
+  for(var i=0; i<w; i++){
+    if(needRol && i===0){
+      html += '<div class="worker-row" style="flex-wrap:wrap;gap:6px"><span class="worker-label">Trabajador 1<span class="wbadge wbadge-auto">Oficial</span></span><input type="text" placeholder="Nombre" style="flex:1;min-width:120px;padding:5px 9px;font-size:.85rem" value="'+(workerNames[0]||'')+'" oninput="workerNames[0]=this.value"></div>';
+    } else if(needRol){
+      var rol = workerRoles[i]||'Oficial';
+      html += '<div class="worker-row" style="flex-wrap:wrap;gap:6px"><span class="worker-label">Trabajador '+(i+1)+'<span class="wbadge wbadge-sel" id="wb'+i+'">'+rol+'</span></span><input type="text" placeholder="Nombre" style="flex:1;min-width:120px;padding:5px 9px;font-size:.85rem" value="'+(workerNames[i]||'')+'" oninput="workerNames['+i+']=this.value"><div class="worker-tgl"><button onclick="setWR('+i+',&quot;Oficial&quot;,this)" class="'+(rol==='Oficial'?'active':'')+'">Oficial</button><button onclick="setWR('+i+',&quot;Peón&quot;,this)" class="'+(rol==='Peón'?'active':'')+'">Peón</button></div></div>';
+    } else {
+      html += '<div class="worker-row" style="flex-wrap:wrap;gap:6px"><span class="worker-label">Trabajador '+(i+1)+'</span><input type="text" placeholder="Nombre" style="flex:1;min-width:120px;padding:5px 9px;font-size:.85rem" value="'+(workerNames[i]||'')+'" oninput="workerNames['+i+']=this.value"></div>';
+    }
   }
-  $('workersList').innerHTML=html;
+  $('workersList').innerHTML = html;
 }
-function setWR(i,rol,btn){workerRoles[i]=rol;btn.closest('.worker-row').querySelectorAll('.worker-tgl button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const wb=$('wb'+i);if(wb)wb.textContent=rol;}
+
+function setWR(i, rol, btn){
+  workerRoles[i] = rol;
+  btn.closest('.worker-row').querySelectorAll('.worker-tgl button').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  var wb = $('wb'+i); if(wb) wb.textContent = rol;
+}
+
+// ===== AUTOCOMPLETADO =====
+// Variable para recordar si se usó autocompletado por centro
+var _centroAutocompletado = null;
+var _ultimaOrdenCentro = null;
+
+function buscarPorOrden(val){
+  var box = $('acOrden');
+  if(!val || val.length < 3){ box.classList.remove('show'); box.innerHTML=''; return; }
+  var h = getH();
+  var vistos = {}, res = [];
+  for(var i=h.length-1; i>=0; i--){
+    var r = h[i];
+    if(r.pedido && r.pedido.toLowerCase().includes(val.toLowerCase())){
+      var key = r.pedido+'|'+r.tienda;
+      if(!vistos[key]){ vistos[key]=true; res.push({r:r,idx:i}); if(res.length>=5) break; }
+    }
+  }
+  if(!res.length){ box.classList.remove('show'); box.innerHTML=''; return; }
+  box.innerHTML = res.map(function(item){
+    return '<div class="ac-item" onclick="rellenarDesde('+item.idx+',true)">'+item.r.pedido+' &mdash; '+item.r.tienda+'</div>';
+  }).join('');
+  box.classList.add('show');
+}
+
+function buscarPorCentro(val){
+  var box = $('acCentro');
+  if(!val || val.length < 2){ box.classList.remove('show'); box.innerHTML=''; return; }
+  var h = getH();
+  var vistos = {}, res = [];
+  for(var i=h.length-1; i>=0; i--){
+    var r = h[i];
+    if(r.centro && r.centro.includes(val)){
+      var key = r.centro+'|'+r.tienda;
+      if(!vistos[key]){ vistos[key]=true; res.push({r:r,idx:i}); if(res.length>=5) break; }
+    }
+  }
+  if(!res.length){ box.classList.remove('show'); box.innerHTML=''; return; }
+  box.innerHTML = res.map(function(item){
+    return '<div class="ac-item" onclick="rellenarDesde('+item.idx+',false)">Centro '+item.r.centro+' &mdash; '+item.r.tienda+'</div>';
+  }).join('');
+  box.classList.add('show');
+}
+
+function rellenarDesde(idx, porOrden){
+  var h = getH();
+  var r = h[idx];
+  if(!r) return;
+  // Si es por orden, rellenar también el número de orden
+  if(porOrden) $('pedido').value = r.pedido || '';
+  // Si es por centro, NO rellenar el número de orden, solo datos de tienda
+  $('centro').value = r.centro || '';
+  $('tienda').value = r.tienda || '';
+  $('dir').value = r.dir || '';
+  $('tel').value = r.tel || '';
+  // Rellenar km y desplazamiento si es parte sin enlace
+  if(r.linkType === 'No' && r.km){
+    $('km').value = r.km || '';
+    $('tr').value = r.tr || '';
+  }
+  $('acOrden').classList.remove('show');
+  $('acCentro').classList.remove('show');
+  // Recordar si se usó centro para preguntar la orden al generar
+  if(!porOrden){
+    _centroAutocompletado = r.centro;
+    _ultimaOrdenCentro = r.pedido || '';
+  } else {
+    _centroAutocompletado = null;
+    _ultimaOrdenCentro = null;
+  }
+}
 
 // ===== AUTOENLACE =====
-let autoEnlaceData=null;
+var autoEnlaceData = null;
 
 function checkAutoEnlace(){
-  const fecha=$('fecha').value,arrVal=$('arr').value;
-  if(!fecha||!arrVal){resetAE();return;}
-  const same=getH().filter(x=>x.fecha===fecha);
-  if(!same.length){resetAE();return;}
-  const last=same[same.length-1];
-  if(last.linkType==='No'||!last.linkType){resetAE();return;}
-  // Usar horaEnlace: hora real de llegada a la siguiente tienda
-  const finPrev=last.horaEnlace;
-  if(!finPrev){resetAE();return;}
-  if(tm(arrVal)===finPrev){
+  var fecha = $('fecha').value;
+  var arrVal = $('arr').value;
+  if(!fecha || !arrVal){ resetAE(); return; }
+  var same = getH().filter(function(x){ return x.fecha === fecha; });
+  if(!same.length){ resetAE(); return; }
+  var last = same[same.length-1];
+  if(last.linkType === 'No' || !last.linkType){ resetAE(); return; }
+  var finPrev = last.horaEnlace;
+  if(!finPrev){ resetAE(); return; }
+  if(tm(arrVal) === finPrev){
     $('lnkToggleDiv').classList.add('hidden');
     $('modeNo').classList.add('hidden');
     $('modeSi').classList.add('hidden');
     $('modeAuto').classList.remove('hidden');
-    $('link').value='Auto';curLink='Auto';
+    $('link').value = 'Auto'; curLink = 'Auto';
     $('abn').classList.add('show');
-    $('abnTxt').textContent='Enlace automático desde '+last.tienda+' (Centro '+last.centro+'). Indica solo km y despl. de salida.';
-    autoEnlaceData={kmDif:last.kmDif||0,trDif:last.trDif||0};
-  } else {resetAE();}
+    $('abnTxt').textContent = 'Enlace automático desde ' + last.tienda + ' (Centro ' + last.centro + '). Indica solo km y despl. de salida.';
+    autoEnlaceData = {kmDif: last.kmDif||0, trDif: last.trDif||0};
+  } else { resetAE(); }
 }
 
 function resetAE(){
   $('lnkToggleDiv').classList.remove('hidden');
   $('modeAuto').classList.add('hidden');
   $('abn').classList.remove('show');
-  const isSi=curLink==='Si';
-  $('modeNo').classList.toggle('hidden',isSi);
-  $('modeSi').classList.toggle('hidden',!isSi);
-  if(curLink==='Auto'){curLink='No';$('link').value='No';}
-  autoEnlaceData=null;
+  var isSi = curLink === 'Si';
+  $('modeNo').classList.toggle('hidden', isSi);
+  $('modeSi').classList.toggle('hidden', !isSi);
+  if(curLink === 'Auto'){ curLink = 'No'; $('link').value = 'No'; }
+  autoEnlaceData = null;
 }
 
-function clearRaw(){$('raw').value='';}
+// ===== LEER ORDEN =====
+function clearRaw(){ $('raw').value = ''; }
+
 function leer(){
-  const t=$('raw').value;
-  if(!t.trim()){showMsg('msgForm','Pega el texto primero.','warn');return;}
-  const pedido=cap(/PEDIDO DE SERVICIO\s+N[\u00ba\u00b0\u00aa]?[:\s]+(\d+)/i,t)||cap(/(\d{6,})/,t);
-  const centro=cap(/N[\u00ba\u00b0\u00aa]?\s*de\s*Centro[:\s]+(\d+)/i,t)||cap(/Centro[:\s-]+(\d+)/i,t);
-  const denom=cap(/Denominaci[o\u00f3]n[:\s]+([^\n\r]+)/i,t);
-  const tel=cap(/Tel[e\u00e9]fono[^:]*:\s*(\+?[\d][\d\s\-]{6,})/i,t);
-  let dir='';const dirM=t.match(/Direcci[o\u00f3]n[:\s]+([^\n\r]+)/i);
-  if(dirM){dir=dirM[1].trim().replace(/\s+/g,' ');dir=dir.replace(/\s*(Persona de contacto|Tel[e\u00e9]fono|Contacto|CP|Poblaci[o\u00f3]n)[:\s].*/i,'').trim();}
-  if(pedido&&!$('pedido').value)$('pedido').value=pedido.trim();
-  if(centro&&!$('centro').value)$('centro').value=centro.trim();
-  if(!$('tienda').value){let nombre='';const denomLimpia=denom?denom.replace(/\s*(Direcci[o\u00f3]n|Tel[e\u00e9]fono|Persona|Contacto|Calle|Avda|Plaza)[:\s].*/i,'').trim():'';if(denomLimpia&&centro)nombre='Mercadona '+denomLimpia+' '+centro.trim();else if(denomLimpia)nombre='Mercadona '+denomLimpia;else if(centro)nombre='Mercadona '+centro.trim();$('tienda').value=nombre;}
-  if(dir&&!$('dir').value)$('dir').value=dir;
-  if(tel&&!$('tel').value)$('tel').value=tel.replace(/\s+/g,'').trim();
-  if(/conducto|ventilac/i.test(t))setJob('Conductos',document.querySelectorAll('#jobTgl button')[0]);
-  else if(/aver[i\u00ed]a|climatizaci[o\u00f3]n|fuga|refriger/i.test(t))setJob('Climatización',document.querySelectorAll('#jobTgl button')[1]);
-  else if(/obra/i.test(t))setJob('Obras',document.querySelectorAll('#jobTgl button')[2]);
-  const n=[pedido,centro,denom,dir,tel].filter(Boolean).length;
-  showMsg('msgForm',n?n+' campo(s) autocompletados.':' No se encontraron datos.',n?'success':'warn');
+  var t = $('raw').value;
+  if(!t.trim()){ showMsg('msgForm','Pega el texto primero.','warn'); return; }
+  var pedido = cap(/PEDIDO DE SERVICIO\s+N[º°ª]?[:\s]+(\d+)/i,t) || cap(/(\d{6,})/,t);
+  var centro = cap(/N[º°ª]?\s*de\s*Centro[:\s]+(\d+)/i,t) || cap(/Centro[:\s-]+(\d+)/i,t);
+  var denom = cap(/Denominaci[oó]n[:\s]+([^\n\n]+)/i,t);
+  var tel = cap(/Tel[eé]fono[^:]*:\s*(\+?[\d][\d\s\-]{6,})/i,t);
+  var dir = '';
+  var dirM = t.match(/Direcci[oó]n[:\s]+([^\n\n]+)/i);
+  if(dirM){ dir=dirM[1].trim().replace(/\s+/g,' '); dir=dir.replace(/\s*(Persona de contacto|Tel[eé]fono|Contacto|CP|Poblaci[oó]n)[:\s].*/i,'').trim(); }
+  if(pedido && !$('pedido').value) $('pedido').value = pedido.trim();
+  if(centro && !$('centro').value) $('centro').value = centro.trim();
+  if(!$('tienda').value){
+    var nombre = '';
+    var denomLimpia = denom ? denom.replace(/\s*(Direcci[oó]n|Tel[eé]fono|Persona|Contacto|Calle|Avda|Plaza)[:\s].*/i,'').trim() : '';
+    if(denomLimpia && centro) nombre = 'Mercadona '+denomLimpia+' '+centro.trim();
+    else if(denomLimpia) nombre = 'Mercadona '+denomLimpia;
+    else if(centro) nombre = 'Mercadona '+centro.trim();
+    $('tienda').value = nombre;
+  }
+  if(dir && !$('dir').value) $('dir').value = dir;
+  if(tel && !$('tel').value) $('tel').value = tel.replace(/\s+/g,'').trim();
+  if(/conducto|ventilac/i.test(t)) setJob('Conductos', document.querySelectorAll('#jobTgl button')[0]);
+  else if(/aver[ií]a|climatizaci[oó]n|fuga|refriger/i.test(t)) setJob('Climatización', document.querySelectorAll('#jobTgl button')[1]);
+  else if(/obra/i.test(t)) setJob('Obras', document.querySelectorAll('#jobTgl button')[2]);
+  var n = [pedido,centro,denom,dir,tel].filter(Boolean).length;
+  showMsg('msgForm', n ? n+' campo(s) autocompletados.' : 'No se encontraron datos.', n?'success':'warn');
 }
 
-function getH(){return JSON.parse(localStorage.getItem('pm_v4')||'[]');}
-function setH(d){localStorage.setItem('pm_v4',JSON.stringify(d));}
-function exists(r,d){return d.some(x=>x.fecha===r.fecha&&x.pedido===r.pedido&&x.centro===r.centro);}
+// ===== HISTORIAL =====
+function getH(){ return JSON.parse(localStorage.getItem('pm_v4')||'[]'); }
+function setH(d){ localStorage.setItem('pm_v4', JSON.stringify(d)); }
+function exists(r,d){ return d.some(function(x){ return x.fecha===r.fecha && x.pedido===r.pedido && x.centro===r.centro; }); }
 
 function guardar(){
-  if(!window.recTmp){showMsg('msgRes','Genera el parte primero.','warn');return;}
-  window.recTmp.obs=$('obs').value.trim();
-  const h=getH();
-  if(exists(window.recTmp,h)){showMsg('msgRes','Este parte ya está guardado.','warn');return;}
-  h.push(window.recTmp);setH(h);
+  if(!window.recTmp){ showMsg('msgRes','Genera el parte primero.','warn'); return; }
+  window.recTmp.obs = $('obs').value.trim();
+  var h = getH();
+  if(exists(window.recTmp, h)){ showMsg('msgRes','Este parte ya está guardado.','warn'); return; }
+  h.push(window.recTmp); setH(h);
   showMsg('msgRes','Guardado correctamente.','success');
-  $('gbtn').textContent='OK Guardado';$('gbtn').disabled=true;$('gbtn').style.opacity='.6';
-  setTimeout(()=>goTo('w-menu'),1200);
+  $('gbtn').textContent = 'OK Guardado'; $('gbtn').disabled = true; $('gbtn').style.opacity = '.6';
+  setTimeout(function(){ goTo('w-menu'); }, 1200);
 }
 
-function borrarHist(){$('confirmBox').classList.remove('hidden');}
-function borrarConfirm(ok){$('confirmBox').classList.add('hidden');if(!ok)return;localStorage.removeItem('pm_v4');renderHist();}
-function limpiarF(){$('busca').value='';$('buscaF').value='';renderHist();}
+function borrarHist(){ $('confirmBox').classList.remove('hidden'); }
+function borrarConfirm(ok){
+  $('confirmBox').classList.add('hidden');
+  if(!ok) return;
+  localStorage.removeItem('pm_v4');
+  renderHist();
+}
+function limpiarF(){ $('busca').value=''; $('buscaF').value=''; renderHist(); }
 
 function renderHist(){
-  const q=($('busca').value||'').toLowerCase(),qf=$('buscaF').value||'';
-  const all=getH();
-  let data=all.filter(r=>{const mq=!q||(r.centro||'').toLowerCase().includes(q)||(r.tienda||'').toLowerCase().includes(q)||(r.pedido||'').includes(q);return mq&&(!qf||r.fecha===qf);});
-  if(!data.length){$('historial').innerHTML='<div class="empty"><div class="empty-ico">&#128205;</div><div>'+(all.length?'Sin resultados.':'El historial está vacío.')+'</div></div>';return;}
-  data=[...data].reverse();
-  $('historial').innerHTML=data.map(r=>{const fF=r.fecha?r.fecha.split('-').reverse().join('/'):'--';return'<div class="hist-item" onclick="ver('+all.indexOf(r)+')"><div><div class="hi-title">'+(r.tienda||'Tienda')+' <span class="badge badge-g">Centro '+(r.centro||'--')+'</span></div><div class="hi-sub">Pedido '+(r.pedido||'--')+' &middot; '+(r.job||'--')+'</div></div><div class="hi-date">'+fF+'</div></div>';}).join('');
+  var q = ($('busca').value||'').toLowerCase();
+  var qf = $('buscaF').value||'';
+  var all = getH();
+  var data = all.filter(function(r){
+    var mq = !q || (r.centro||'').toLowerCase().includes(q) || (r.tienda||'').toLowerCase().includes(q) || (r.pedido||'').includes(q);
+    return mq && (!qf || r.fecha===qf);
+  });
+  if(!data.length){
+    $('historial').innerHTML = '<div class="empty"><div class="empty-ico">&#128205;</div><div>'+(all.length?'Sin resultados.':'El historial está vacío.')+'</div></div>';
+    return;
+  }
+  var dataRev = data.slice().reverse();
+  $('historial').innerHTML = dataRev.map(function(r){
+    var fF = r.fecha ? r.fecha.split('-').reverse().join('/') : '--';
+    var idx = all.indexOf(r);
+    return '<div class="hist-item" onclick="ver('+idx+')"><div><div class="hi-title">'+(r.tienda||'Tienda')+' <span class="badge badge-g">Centro '+(r.centro||'--')+'</span></div><div class="hi-sub">Pedido '+(r.pedido||'--')+' &middot; '+(r.job||'--')+'</div></div><div class="hi-date">'+fF+'</div></div>';
+  }).join('');
 }
 
 function ver(i){
-  const r=getH()[i];if(!r)return;
-  window.detalleIdx=i;
-  $('histList').classList.add('hidden');$('detalleView').classList.remove('hidden');
-  const fF=r.fecha?r.fecha.split('-').reverse().join('/'):'--';
-  $('detalle').innerHTML='<div class="card"><div class="card-title">&#128203; '+r.tienda+' &middot; '+fF+'</div>'+r.detalle+(r.obs?'<div class="divider"></div><div class="rrow obs-row" style="height:auto"><span class="rc" style="align-self:flex-start;padding-top:8px">Obs.</span><span class="rl" style="white-space:pre-wrap;word-break:break-word;height:auto;flex:1">'+r.obs+'</span></div>':'')+'<div class="divider"></div><div class="brow" style="margin-bottom:8px"><button class="btn btn-s btn-sm" onclick="generarPDFHist('+i+')">PDF</button><button class="btn btn-s btn-sm" onclick="compartirHist('+i+')">Compartir</button><button class="btn btn-d btn-sm" onclick="borrarParte('+i+')">Borrar</button></div><div id="confirmDel" class="hidden" style="padding:12px;background:var(--red-light);border:1px solid rgba(192,57,43,.2);border-radius:var(--r-sm);margin-top:8px"><div style="font-size:.88rem;font-weight:600;color:var(--red);margin-bottom:8px">&iquest;Borrar este parte?</div><div style="display:flex;gap:8px"><button class="btn btn-d btn-sm" onclick="borrarParteConfirm(true,'+i+')">Sí, borrar</button><button class="btn btn-s btn-sm" onclick="borrarParteConfirm(false,'+i+')">Cancelar</button></div></div></div>';
+  var all = getH();
+  var r = all[i];
+  if(!r) return;
+  window.detalleIdx = i;
+  $('histList').classList.add('hidden');
+  $('detalleView').classList.remove('hidden');
+  var fF = r.fecha ? r.fecha.split('-').reverse().join('/') : '--';
+
+  // Calcular contadores por orden y por tienda
+  var partesMismaOrden = r.pedido ? all.filter(function(x){ return x.pedido===r.pedido; }) : [];
+  var partesMismaTienda = r.tienda ? all.filter(function(x){ return x.tienda===r.tienda; }) : [];
+  var numOrden = partesMismaOrden.indexOf(r) + 1;
+  var numTienda = partesMismaTienda.indexOf(r) + 1;
+
+  var contadorHTML = '';
+  if(partesMismaOrden.length > 1) contadorHTML += '<span>Orden: '+numOrden+' de '+partesMismaOrden.length+'</span>';
+  if(partesMismaTienda.length > 1) contadorHTML += '<span>Tienda: '+numTienda+' de '+partesMismaTienda.length+'</span>';
+
+  var verRelHTML = '';
+  if(partesMismaOrden.length > 1) verRelHTML += '<button class="btn btn-s btn-sm" onclick="filtrarHistorial(&quot;'+r.pedido+'&quot;)">Ver orden</button>';
+  if(partesMismaTienda.length > 1) verRelHTML += '<button class="btn btn-s btn-sm" onclick="filtrarHistorial(&quot;'+r.tienda+'&quot;)">Ver tienda</button>';
+
+  var detalleHTML = r.detalle || '<div style="color:var(--text2);padding:10px">Este parte no tiene detalle guardado.</div>';
+
+  $('detalle').innerHTML = '<div class="card"><div class="card-title">&#128203; '+r.tienda+' &middot; '+fF+'</div>'
+    + (contadorHTML ? '<div class="contador-partes">'+contadorHTML+'</div>' : '')
+    + detalleHTML
+    + (r.obs ? '<div class="divider"></div><div class="rrow obs-row" style="height:auto"><span class="rc" style="align-self:flex-start;padding-top:8px">Obs.</span><span class="rl" style="white-space:pre-wrap;word-break:break-word;height:auto;flex:1">'+r.obs+'</span></div>' : '')
+    + '<div class="divider"></div><div class="brow" style="margin-bottom:8px">'
+    + '<button class="btn btn-s btn-sm" onclick="generarPDFHist('+i+')">PDF</button>'
+    + '<button class="btn btn-s btn-sm" onclick="compartirHist('+i+')">Compartir</button>'
+    + verRelHTML
+    + '<button class="btn btn-d btn-sm" onclick="borrarParte('+i+')">Borrar</button></div>'
+    + '<div id="confirmDel" class="hidden" style="padding:12px;background:var(--red-light);border:1px solid rgba(192,57,43,.2);border-radius:var(--r-sm);margin-top:8px">'
+    + '<div style="font-size:.88rem;font-weight:600;color:var(--red);margin-bottom:8px">&iquest;Borrar este parte?</div>'
+    + '<div style="display:flex;gap:8px"><button class="btn btn-d btn-sm" onclick="borrarParteConfirm(true,'+i+')">Sí, borrar</button><button class="btn btn-s btn-sm" onclick="borrarParteConfirm(false,'+i+')">Cancelar</button></div>'
+    + '</div></div>';
 }
 
-function borrarParte(i){window.detalleIdx=i;$('confirmDel').classList.remove('hidden');}
-function borrarParteConfirm(ok,i){if(!ok){$('confirmDel').classList.add('hidden');return;}const h=getH();h.splice(i!==undefined?i:window.detalleIdx,1);setH(h);volverHist();renderHist();}
-function volverHist(){$('detalleView').classList.add('hidden');$('histList').classList.remove('hidden');}
+function filtrarHistorial(valor){
+  $('detalleView').classList.add('hidden');
+  $('histList').classList.remove('hidden');
+  $('busca').value = valor;
+  renderHist();
+}
+
+function borrarParte(i){ window.detalleIdx = i; $('confirmDel').classList.remove('hidden'); }
+function borrarParteConfirm(ok, i){
+  if(!ok){ $('confirmDel').classList.add('hidden'); return; }
+  var h = getH();
+  h.splice(i!==undefined ? i : window.detalleIdx, 1);
+  setH(h); volverHist(); renderHist();
+}
+function volverHist(){ $('detalleView').classList.add('hidden'); $('histList').classList.remove('hidden'); }
 
 function nuevo(){
-  ['pedido','tienda','dir','tel','centro','raw','obs','km','tr','kmE','kmS','trE','trS','kmA','trA','arr','lea'].forEach(id=>{const el=$(id);if(el)el.value='';});
-  $('w').value='2';$('job').value='';$('link').value='No';
-  curJob='';curLink='No';workerRoles=[];workerNames=[];
-  document.querySelectorAll('#jobTgl button').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('#lnkTgl button').forEach((b,i)=>b.classList.toggle('active',i===0));
-  $('workersRol').classList.add('hidden');$('workersList').innerHTML='';
-  $('modeNo').classList.remove('hidden');$('modeSi').classList.add('hidden');$('modeAuto').classList.add('hidden');
-  $('lnkToggleDiv').classList.remove('hidden');$('abn').classList.remove('show');
-  $('msgForm').className='msg';$('out').innerHTML='';window.recTmp=null;autoEnlaceData=null;
-  $('gbtn').textContent='Guardar parte';$('gbtn').disabled=false;$('gbtn').style.opacity='1';
-  setFechaHoy();renderWorkers();
+  ['pedido','tienda','dir','tel','centro','raw','obs','km','tr','kmE','kmS','trE','trS','kmA','trA','arr','lea'].forEach(function(id){ var el=$(id); if(el) el.value=''; });
+  $('w').value = '2'; $('job').value = ''; $('link').value = 'No';
+  curJob = ''; curLink = 'No'; workerRoles = []; workerNames = []; esFestivo = false;
+  _centroAutocompletado = null; _ultimaOrdenCentro = null;
+  document.querySelectorAll('#jobTgl button').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('#lnkTgl button').forEach(function(b,i){ b.classList.toggle('active', i===0); });
+  document.querySelectorAll('#festivoTgl button').forEach(function(b,i){ b.classList.toggle('active', i===0); });
+  $('workersRol').classList.add('hidden'); $('workersList').innerHTML = '';
+  $('modeNo').classList.remove('hidden'); $('modeSi').classList.add('hidden'); $('modeAuto').classList.add('hidden');
+  $('lnkToggleDiv').classList.remove('hidden'); $('abn').classList.remove('show');
+  $('acOrden').classList.remove('show'); $('acCentro').classList.remove('show');
+  $('msgForm').className = 'msg'; $('out').innerHTML = ''; window.recTmp = null; autoEnlaceData = null;
+  $('gbtn').textContent = 'Guardar parte'; $('gbtn').disabled = false; $('gbtn').style.opacity = '1';
+  setFechaHoy(); renderWorkers();
 }
 
 function copiar(){
-  if(!window.recTmp)return;
-  const lines=[];
-  document.querySelectorAll('#out .rrow').forEach(row=>{const rc=row.querySelector('.rc')?.textContent||'';;const rl=row.querySelector('.rl')?.textContent||'';;const rv=row.querySelector('.rv')?.textContent||'';;lines.push([rc,rl,rv].filter(s=>s.trim()).join(' | '));});
-  const obs=$('obs').value.trim();if(obs)lines.push('Obs. | '+obs);
-  navigator.clipboard.writeText(lines.join('\n')).then(()=>showMsg('msgRes','Copiado.','success'));
+  if(!window.recTmp) return;
+  var lines = [];
+  document.querySelectorAll('#out .rrow').forEach(function(row){
+    var rc = row.querySelector('.rc') ? row.querySelector('.rc').textContent : '';
+    var rl = row.querySelector('.rl') ? row.querySelector('.rl').textContent : '';
+    var rv = row.querySelector('.rv') ? row.querySelector('.rv').textContent : '';
+    lines.push([rc,rl,rv].filter(function(s){ return s.trim(); }).join(' | '));
+  });
+  var obs = $('obs').value.trim();
+  if(obs) lines.push('Obs. | '+obs);
+  navigator.clipboard.writeText(lines.join('\n')).then(function(){ showMsg('msgRes','Copiado.','success'); });
 }
 
-function infoRow(l,v){return '<div class="rrow info-row"><span class="rc">'+l+'</span><span class="rl">'+v+'</span><span class="rv"></span></div>';}
-function codRow(c,l,v){return '<div class="rrow"><span class="rc">'+c+'</span><span class="rl">'+l+'</span><span class="rv">'+v+'</span></div>';}
-function obsRow(l,v){return '<div class="rrow obs-row"><span class="rc">'+l+'</span><span class="rl">'+v+'</span><span class="rv"></span></div>';}
-function totalRow(v){return '<div class="rrow total-row"><span class="rc">TOTAL</span><span class="rl"></span><span class="rv">'+v+'</span></div>';}
-function gt(t){return '<div class="rgroup-title">'+t+'</div>';}
+// ===== ROWS =====
+function infoRow(l,v){ return '<div class="rrow info-row"><span class="rc">'+l+'</span><span class="rl">'+v+'</span><span class="rv"></span></div>'; }
+function codRow(c,l,v){ return '<div class="rrow"><span class="rc">'+c+'</span><span class="rl">'+l+'</span><span class="rv">'+v+'</span></div>'; }
+function obsRow(l,v){ return '<div class="rrow obs-row"><span class="rc">'+l+'</span><span class="rl">'+v+'</span><span class="rv"></span></div>'; }
+function tipoRow(v){ return '<div class="rrow tipo-row"><span class="rc">Tipo</span><span class="rl">'+v+'</span><span class="rv"></span></div>'; }
+function totalRow(v){ return '<div class="rrow total-row"><span class="rc">TOTAL</span><span class="rl"></span><span class="rv">'+v+'</span></div>'; }
+function gt(t){ return '<div class="rgroup-title">'+t+'</div>'; }
 
 // ===== GENERAR =====
 function generar(){
-  $('msgForm').className='msg';
-  const req=['pedido','fecha','tienda','dir','tel','arr','lea'];
-  for(const r of req){if(!$(r).value.trim()){showMsg('msgForm','Completa todos los campos obligatorios (*).','error');return;}}
-  if(!curJob){showMsg('msgForm','Selecciona el tipo de trabajo.','error');return;}
-  const wVal=+$('w').value||0;
-  if(!wVal){showMsg('msgForm','Indica el número de trabajadores.','error');return;}
-  const fecha=$('fecha').value,arr=tm($('arr').value),lea=tm($('lea').value),w=Math.max(1,Math.min(4,wVal));
-  if(lea<=arr){showMsg('msgForm','La hora de salida debe ser posterior a la llegada.','error');return;}
-  const needRol=curJob==='Climatización';
-  if(needRol){for(let i=1;i<w;i++){if(!workerRoles[i]){showMsg('msgForm','Selecciona categoría del Trabajador '+(i+1)+'.','error');return;}}}
-  const roles=needRol?workerRoles.slice(0,w):Array(w).fill('Oficial');
-  const nOf=roles.filter(r=>r==='Oficial').length;
-  const nPe=roles.filter(r=>r==='Peón').length;
-  const hist=getH(),same=hist.filter(x=>x.fecha===fecha);
+  $('msgForm').className = 'msg';
 
-  // ===== KM Y DESPLAZAMIENTO =====
-  let kmTotal=0,trIn=0,trOut=0;
-  let kmDif_guardado=0,trDif_guardado=0;
-  // horaEnlace: hora real de llegada a la siguiente tienda (en minutos desde medianoche)
-  // = hora salida tienda + desplazamiento REAL entre tiendas (sin igualar)
-  let horaEnlace_guardada=0;
-
-  if(curLink==='No'){
-    if(!$('km').value||!$('tr').value){showMsg('msgForm','Indica km y desplazamiento.','error');return;}
-    const kmVal=+$('km').value;
-    const trVal=redondearQ(+$('tr').value);
-    kmTotal=kmVal*2;trIn=trVal;trOut=trVal;
-    horaEnlace_guardada=lea+trVal;
-
-  } else if(curLink==='Si'){
-    if(!$('kmE').value||!$('kmS').value||!$('trE').value||!$('trS').value){showMsg('msgForm','Completa los datos de enlace.','error');return;}
-    const kmEval=+$('kmE').value;
-    const kmSval=+$('kmS').value;
-    const trEval=redondearQ(+$('trE').value);
-    const trSval=+$('trS').value; // SIN redondear para horaEnlace
-
-    if(kmSval>kmEval){
-      // Igualar salida a llegada y guardar diferencia
-      kmDif_guardado=kmSval-kmEval;
-      trDif_guardado=trSval>trEval?Math.round(trSval-trEval):0;
-      kmTotal=kmEval*2;
-      trIn=trEval;trOut=trEval;
-    } else {
-      kmTotal=kmEval+kmSval;
-      trIn=trEval;trOut=redondearQ(trSval);
-    }
-    // horaEnlace = hora salida tienda + desplazamiento REAL de salida (lo que puso el usuario)
-    horaEnlace_guardada=lea+trSval;
-
-  } else if(curLink==='Auto'){
-    if(!$('kmA').value||!$('trA').value){showMsg('msgForm','Indica km y despl. de salida.','error');return;}
-    const kmVuelta=+$('kmA').value;
-    const trVuelta=redondearQ(+$('trA').value);
-    if(autoEnlaceData){
-      kmTotal=(autoEnlaceData.kmDif||0)+kmVuelta;
-      trIn=autoEnlaceData.trDif||0;
-      trOut=trVuelta;
-    } else {
-      kmTotal=kmVuelta;trIn=0;trOut=trVuelta;
-    }
-    horaEnlace_guardada=lea+trVuelta;
+  // Si se autocompletó por centro y no hay orden, mostrar dialogo
+  if(_centroAutocompletado && !$('pedido').value.trim()){
+    $('dialogoOrdenNum').textContent = _ultimaOrdenCentro || '(sin orden previa)';
+    $('dialogoOrden').classList.add('show');
+    return; // Esperar respuesta del dialogo
   }
 
-  // OBS AUTO
-  let autoObs='';
-  if(same.length){const last=same[same.length-1];if(last.horaEnlace&&last.horaEnlace===arr)autoObs='Desplazamiento desde '+last.tienda+' (Centro '+last.centro+')';}
+  var req = ['pedido','fecha','tienda','dir','tel','arr','lea'];
+  for(var ri=0; ri<req.length; ri++){
+    if(!$(req[ri]).value.trim()){ showMsg('msgForm','Completa todos los campos obligatorios (*).','error'); return; }
+  }
+  if(!curJob){ showMsg('msgForm','Selecciona el tipo de trabajo.','error'); return; }
+  var wVal = +$('w').value||0;
+  if(!wVal){ showMsg('msgForm','Indica el número de trabajadores.','error'); return; }
 
-  const fmtT=m=>String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');
-  const tl=(a,b)=>'('+fmtT(a)+') - ('+fmtT(b)+')';
+  var fecha = $('fecha').value;
+  var arr = tm($('arr').value);
+  var lea = tm($('lea').value);
+  var w = Math.max(1, Math.min(4, wVal));
+  if(lea <= arr){ showMsg('msgForm','La hora de salida debe ser posterior a la llegada.','error'); return; }
 
-  let tlKm='',tlTienda='',tlSalida='';
-  if(curLink==='No'){const kmUni=kmTotal/2;tlKm=tl(arr-trIn,arr)+' &middot; '+fmt(kmUni)+' km';tlTienda=tl(arr,lea)+' Tienda';tlSalida=tl(lea,lea+trOut)+' &middot; '+fmt(kmUni)+' km';}
-  else if(curLink==='Si'){const kmEval=+$('kmE').value;const kmSMostrado=kmDif_guardado>0?kmEval:+$('kmS').value;tlKm=tl(arr-trIn,arr)+' &middot; '+fmt(kmEval)+' km';tlTienda=tl(arr,lea)+' Tienda';tlSalida=tl(lea,lea+trOut)+' &middot; '+fmt(kmSMostrado)+' km';}
-  else if(curLink==='Auto'){const kmVuelta=+$('kmA').value;const kmDif=autoEnlaceData?autoEnlaceData.kmDif:0;const trDif=autoEnlaceData?autoEnlaceData.trDif:0;tlKm=(kmDif>0||trDif>0)?tl(arr-trIn,arr)+' &middot; '+fmt(kmDif)+' km':'';tlTienda=tl(arr,lea)+' Tienda';tlSalida=tl(lea,lea+trOut)+' &middot; '+fmt(kmVuelta)+' km';}
+  var tipoDia = getTipoDia(fecha);
+  var needRol = curJob === 'Climatización';
+  if(needRol){
+    for(var wi=1; wi<w; wi++){
+      if(!workerRoles[wi]){ showMsg('msgForm','Selecciona categoría del Trabajador '+(wi+1)+'.','error'); return; }
+    }
+  }
 
-  let html='';
-  html+=gt('Datos generales');
-  html+=infoRow('Fecha',fecha.split('-').reverse().join('/'));
-  html+=infoRow('Nº orden',$('pedido').value);
-  html+=infoRow('Tienda',$('tienda').value);
-  html+=infoRow('Dirección',$('dir').value);
-  html+=infoRow('Teléfono',$('tel').value);
+  var roles = needRol ? workerRoles.slice(0,w) : Array(w).fill('Oficial');
+  var nOf = roles.filter(function(r){ return r==='Oficial'; }).length;
+  var nPe = roles.filter(function(r){ return r==='Peón'; }).length;
+  var hist = getH();
+  var same = hist.filter(function(x){ return x.fecha===fecha; });
 
-  if(tlKm)html+=gt(tlKm);
-  html+=codRow(getCod(curJob,'Kilometraje',''),'Kmje',fmt(kmTotal)+' km');
+  // ===== KM Y DESPLAZAMIENTO =====
+  var kmTotal=0, trIn=0, trOut=0;
+  var kmDif_guardado=0, trDif_guardado=0, horaEnlace_guardada=0;
+  var kmGuardado=0, trGuardado=0;
 
-  html+=gt(tlTienda);
-  let totalH=0;
-  const labAbr={'H. Normal':'H.Nor','H. Extra':'H.Ext','H. Nocturna':'H.Noc'};
-  [[480,1440,'H. Normal'],[360,480,'H. Extra'],[0,360,'H. Nocturna']].forEach(([ini,fin,lab])=>{
-    const min=ov(arr,lea,ini,fin);if(!min)return;
-    const h=min/60,abr=labAbr[lab]||lab;
-    if(!needRol){const t=h*w;totalH+=t;html+=codRow(getCod(curJob,lab,''),abr,w>1?fmtH(h)+' x'+w+'= '+fmtH(t):fmtH(h));}
-    else{if(nOf>0){const t=h*nOf;totalH+=t;html+=codRow(getCod(curJob,lab,'Oficial'),abr+'.Of',nOf>1?fmtH(h)+' x'+nOf+'= '+fmtH(t):fmtH(h));}if(nPe>0){const t=h*nPe;totalH+=t;html+=codRow(getCod(curJob,lab,'Peón'),abr+'.Pn',nPe>1?fmtH(h)+' x'+nPe+'= '+fmtH(t):fmtH(h));}}
+  if(curLink === 'No'){
+    if(!$('km').value || !$('tr').value){ showMsg('msgForm','Indica km y desplazamiento.','error'); return; }
+    var kmVal = +$('km').value;
+    var trVal = redondearQ(+$('tr').value);
+    kmTotal = kmVal*2; trIn = trVal; trOut = trVal;
+    horaEnlace_guardada = lea + trVal;
+    kmGuardado = kmVal; trGuardado = trVal;
+
+  } else if(curLink === 'Si'){
+    if(!$('kmE').value || !$('kmS').value || !$('trE').value || !$('trS').value){ showMsg('msgForm','Completa los datos de enlace.','error'); return; }
+    var kmEval = +$('kmE').value;
+    var kmSval = +$('kmS').value;
+    var trEval = redondearQ(+$('trE').value);
+    var trSval = +$('trS').value;
+    if(kmSval > kmEval){
+      kmDif_guardado = kmSval - kmEval;
+      trDif_guardado = trSval > trEval ? Math.round(trSval - trEval) : 0;
+      kmTotal = kmEval*2; trIn = trEval; trOut = trEval;
+    } else {
+      kmTotal = kmEval + kmSval; trIn = trEval; trOut = redondearQ(trSval);
+    }
+    horaEnlace_guardada = lea + trSval;
+    kmGuardado = kmEval; trGuardado = trEval;
+
+  } else if(curLink === 'Auto'){
+    if(!$('kmA').value || !$('trA').value){ showMsg('msgForm','Indica km y despl. de salida.','error'); return; }
+    var kmVuelta = +$('kmA').value;
+    var trVuelta = redondearQ(+$('trA').value);
+    if(autoEnlaceData){
+      kmTotal = (autoEnlaceData.kmDif||0) + kmVuelta;
+      trIn = autoEnlaceData.trDif||0;
+      trOut = trVuelta;
+    } else {
+      kmTotal = kmVuelta; trIn = 0; trOut = trVuelta;
+    }
+    horaEnlace_guardada = lea + trVuelta;
+    kmGuardado = 0; trGuardado = 0;
+  }
+
+  // OBS AUTO ENLACE
+  var autoObs = '';
+  if(same.length){
+    var last = same[same.length-1];
+    if(last.horaEnlace && last.horaEnlace === arr) autoObs = 'Desplazamiento desde '+last.tienda+' (Centro '+last.centro+')';
+  }
+
+  // LINEAS DE TIEMPO
+  var tlKm='', tlTienda='', tlSalida='';
+  if(curLink === 'No'){
+    var kmUni = kmTotal/2;
+    tlKm = tl(arr-trIn,arr)+' &middot; '+fmt(kmUni)+' km';
+    tlTienda = tl(arr,lea)+' Tienda';
+    tlSalida = tl(lea,lea+trOut)+' &middot; '+fmt(kmUni)+' km';
+  } else if(curLink === 'Si'){
+    var kmEv = +$('kmE').value;
+    var kmSM = kmDif_guardado>0 ? kmEv : +$('kmS').value;
+    tlKm = tl(arr-trIn,arr)+' &middot; '+fmt(kmEv)+' km';
+    tlTienda = tl(arr,lea)+' Tienda';
+    tlSalida = tl(lea,lea+trOut)+' &middot; '+fmt(kmSM)+' km';
+  } else if(curLink === 'Auto'){
+    var kmV = +$('kmA').value;
+    var kmD = autoEnlaceData ? autoEnlaceData.kmDif : 0;
+    var trD = autoEnlaceData ? autoEnlaceData.trDif : 0;
+    tlKm = (kmD>0||trD>0) ? tl(arr-trIn,arr)+' &middot; '+fmt(kmD)+' km' : '';
+    tlTienda = tl(arr,lea)+' Tienda';
+    tlSalida = tl(lea,lea+trOut)+' &middot; '+fmt(kmV)+' km';
+  }
+
+  // ===== CONSTRUIR HTML =====
+  var html = '';
+  html += tipoRow(curJob);
+  html += gt('Datos generales');
+  html += infoRow('Fecha', fecha.split('-').reverse().join('/'));
+  html += infoRow('Nº orden', $('pedido').value);
+  html += infoRow('Tienda', $('tienda').value);
+  html += infoRow('Dirección', $('dir').value);
+  html += infoRow('Teléfono', $('tel').value);
+
+  if(tlKm) html += gt(tlKm);
+  html += codRow(getCod(curJob,'Kilometraje',''), 'Kmje', fmt(kmTotal)+' km');
+
+  html += gt(tlTienda);
+  var horasMin = calcMinPorTipo(arr, lea, tipoDia);
+  var labAbr = {'H. Normal':'H.Nor','H. Extra':'H.Ext','H. Nocturna':'H.Noc','H. Festiva':'H.Fes'};
+  ['H. Normal','H. Extra','H. Nocturna','H. Festiva'].forEach(function(lab){
+    var tipo = lab.replace('H. ','');
+    var min = horasMin[tipo];
+    if(!min) return;
+    var h = min/60;
+    var abr = labAbr[lab]||lab;
+    if(!needRol){
+      var t = h*w;
+      html += codRow(getCod(curJob,lab,''), abr, w>1 ? fmtH(h)+' x'+w+'= '+fmtH(t) : fmtH(h));
+    } else {
+      if(nOf>0){ var tOf=h*nOf; html += codRow(getCod(curJob,lab,'Oficial'), abr+'.Of', nOf>1?fmtH(h)+' x'+nOf+'= '+fmtH(tOf):fmtH(h)); }
+      if(nPe>0){ var tPe=h*nPe; html += codRow(getCod(curJob,lab,'Peón'), abr+'.Pn', nPe>1?fmtH(h)+' x'+nPe+'= '+fmtH(tPe):fmtH(h)); }
+    }
   });
 
-  html+=gt(tlSalida);
-  const grp={};
-  const addRng=(s,e)=>{[['Normal',480,1440],['Extra',360,480],['Nocturno',0,360]].forEach(r=>{const m=ov(s,e,r[1],r[2]);if(m)grp[r[0]]=(grp[r[0]]||0)+m;});};
-  if(trIn>0)addRng(arr-trIn,arr);
-  if(trOut>0)addRng(lea,lea+trOut);
-  ['Normal','Extra','Nocturno'].forEach(k=>{if(!grp[k])return;const h=grp[k]/60,t=h*w,lab='Despl. '+k,abr='Dsp.'+k.substring(0,3);html+=codRow(getCod(curJob,lab,''),abr,w>1?fmtH(h)+' x'+w+'= '+fmtH(t):fmtH(h));});
+  html += gt(tlSalida);
+  var grpDespl = {Normal:0, Extra:0, Nocturna:0, Festiva:0};
+  if(trIn>0){ var dIn=calcMinPorTipo(arr-trIn,arr,tipoDia); Object.keys(dIn).forEach(function(k){ grpDespl[k]=(grpDespl[k]||0)+dIn[k]; }); }
+  if(trOut>0){ var dOut=calcMinPorTipo(lea,lea+trOut,tipoDia); Object.keys(dOut).forEach(function(k){ grpDespl[k]=(grpDespl[k]||0)+dOut[k]; }); }
+  var dspLab = {Normal:'Despl. Normal',Extra:'Despl. Extra',Nocturna:'Despl. Nocturno',Festiva:'Despl. Festivo'};
+  var dspAbr = {Normal:'Dsp.Nor',Extra:'Dsp.Ext',Nocturna:'Dsp.Noc',Festiva:'Dsp.Fes'};
+  ['Normal','Extra','Nocturna','Festiva'].forEach(function(k){
+    if(!grpDespl[k]) return;
+    var h=grpDespl[k]/60, t=h*w;
+    html += codRow(getCod(curJob,dspLab[k],''), dspAbr[k], w>1?fmtH(h)+' x'+w+'= '+fmtH(t):fmtH(h));
+  });
 
-  const totalMin=trIn+(lea-arr)+trOut;
-  const dietaYa=same.some(x=>x.dieta);
-  const acum=same.reduce((z,r)=>z+(r.totalMin||0),0)+totalMin;
-  const dieta=acum>=300&&!dietaYa;
-  const sepDieta='<div style="height:1px;background:var(--border);margin:10px 0"></div>';
-  if(dieta){html+=sepDieta;html+=codRow(getCod(curJob,'Media dieta',''),'½ Dieta',w>1?'× '+w:'× 1');}
-  else{html+=sepDieta;const info=dietaYa?'&#9989; Media dieta ya aplicada hoy':'&#9203; Acumulado: '+fmt(acum/60)+' h de 5 h (faltan '+fmt(Math.max(0,300-acum)/60)+' h)';html+='<div style="font-size:.82rem;color:var(--text2);padding:7px 10px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border2)">'+info+'</div>';}
+  var totalMin = trIn + (lea-arr) + trOut;
+  var dietaYa = same.some(function(x){ return x.dieta; });
+  var acum = same.reduce(function(z,r){ return z+(r.totalMin||0); }, 0) + totalMin;
+  var dieta = acum>=300 && !dietaYa;
+  var sepDieta = '<div style="height:1px;background:var(--border);margin:10px 0"></div>';
+  if(dieta){
+    html += sepDieta;
+    html += codRow(getCod(curJob,'Media dieta',''), '½ Dieta', w>1?'× '+w:'× 1');
+  } else {
+    html += sepDieta;
+    var info = dietaYa ? '&#9989; Media dieta ya aplicada hoy' : '&#9203; Acumulado: '+fmt(acum/60)+' h de 5 h (faltan '+fmt(Math.max(0,300-acum)/60)+' h)';
+    html += '<div style="font-size:.82rem;color:var(--text2);padding:7px 10px;background:var(--surface2);border-radius:var(--r-sm);border:1px solid var(--border2)">'+info+'</div>';
+  }
 
-  if(autoObs){html+=gt('Enlace');html+=obsRow('Auto',autoObs);}
-  html+=totalRow(fmtH((lea-arr)/60*w).replace(/ h$/,' Horas'));
-  const nombres=workerNames.filter(n=>n&&n.trim());
-  if(nombres.length){html+='<div style="text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em">'+nombres.map(n=>n.trim()).join(' &middot; ')+'</div>';}
+  if(autoObs){ html += gt('Enlace'); html += obsRow('Auto', autoObs); }
+  html += totalRow(fmtH((lea-arr)/60*w).replace(/ h$/,' Horas'));
 
-  $('out').innerHTML=html;
-  $('gbtn').textContent='Guardar parte';$('gbtn').disabled=false;$('gbtn').style.opacity='1';
-  $('msgRes').className='msg';
+  var nombres = workerNames.filter(function(n){ return n&&n.trim(); });
+  if(nombres.length) html += '<div style="text-align:center;padding:8px 10px;font-size:.88rem;font-weight:600;color:var(--text2);letter-spacing:.03em">'+nombres.map(function(n){ return n.trim(); }).join(' &middot; ')+'</div>';
 
-  window.recTmp={
-    fecha,pedido:$('pedido').value,centro:$('centro').value,tienda:$('tienda').value,
-    job:curJob,roles,detalle:html,fin:lea,trS:trOut,totalMin,dieta,
-    arr:$('arr').value,lea:$('lea').value,obs:'',linkType:curLink,
-    kmDif:kmDif_guardado,trDif:trDif_guardado,
-    horaEnlace:horaEnlace_guardada
+  $('out').innerHTML = html;
+  $('gbtn').textContent = 'Guardar parte'; $('gbtn').disabled = false; $('gbtn').style.opacity = '1';
+  $('msgRes').className = 'msg';
+
+  window.recTmp = {
+    fecha:fecha, pedido:$('pedido').value, centro:$('centro').value, tienda:$('tienda').value,
+    dir:$('dir').value, tel:$('tel').value, km:kmGuardado, tr:trGuardado,
+    job:curJob, roles:roles, detalle:html, fin:lea, trS:trOut, totalMin:totalMin, dieta:dieta,
+    arr:$('arr').value, lea:$('lea').value, obs:'', linkType:curLink,
+    kmDif:kmDif_guardado, trDif:trDif_guardado, horaEnlace:horaEnlace_guardada, tipoDia:tipoDia
   };
   goTo('w-result');
 }
 
-function generarPDFHist(i){const r=getH()[i];if(!r)return;generarPDFDesde(r.detalle,r.obs||'',r.fecha||'',r.centro||'',r.pedido||'');}
-function compartirHist(i){const r=getH()[i];if(!r)return;compartirDesde(r.detalle,r.obs||'');}
-
-function generarPDFDesde(detalle,obsVal,fechaArg,centroArg,pedidoArg){
-  if(!window.jspdf){alert('PDF no disponible.');return;}
-  const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'mm',format:'a4',orientation:'portrait'});
-  const W=doc.internal.pageSize.getWidth();
-  const verde=[26,107,58],verdeLight=[232,245,238],gris=[247,249,251],bordeGris=[214,220,229],texto=[24,32,46],muted=[75,85,99];
-  let y=10;const margin=55,contentW=W-margin*2;
-  doc.setFillColor(...verde);doc.roundedRect(margin,y,contentW,18,3,3,'F');
-  doc.setFontSize(12);doc.setFont('helvetica','bold');doc.setTextColor(255,255,255);
-  doc.text('Parte de Trabajo - Mercadona',margin+4,y+8);
-  doc.setFontSize(8);doc.setFont('helvetica','normal');doc.text('Soluciones Electronicas y Climatizacion R&V',margin+4,y+14);y+=24;
-  const tmp=document.createElement('div');tmp.innerHTML=detalle;
-  const codCol=20,descCol=24,valCol=contentW-codCol-descCol;
-  function fmtFrac(str){return str.replace(/(\d+)\.25h/g,'$1 1/4h').replace(/(\d+)\.5h/g,'$1 1/2h').replace(/(\d+)\.75h/g,'$1 3/4h').replace(/0\.25h/g,'1/4h').replace(/0\.5h/g,'1/2h').replace(/0\.75h/g,'3/4h');}
-  [...tmp.children].forEach(el=>{
-    if(y>270){doc.addPage();y=10;}
-    if(el.classList.contains('rgroup-title')){const secTxt=el.textContent.trim();if(secTxt.toLowerCase().includes('dieta'))y+=4;doc.setFontSize(7.5);doc.setFont('helvetica','bold');doc.setTextColor(...muted);doc.text(secTxt.toUpperCase(),margin,y+3.5);y+=6.5;}
-    else if(el.classList.contains('rrow')){
-      const rc=el.querySelector('.rc')?.textContent?.trim()||'';;const rl=el.querySelector('.rl')?.textContent?.trim()||'';;const rv=fmtFrac(el.querySelector('.rv')?.textContent?.trim()||'');const rowH=7;
-      if(el.classList.contains('info-row')){doc.setFillColor(...gris);doc.rect(margin,y,contentW,rowH,'F');doc.setDrawColor(...bordeGris);doc.rect(margin,y,contentW,rowH);doc.setFontSize(7.5);doc.setFont('helvetica','bold');doc.setTextColor(...muted);doc.text(rc,margin+2,y+5);doc.setFontSize(9.5);doc.setFont('helvetica','normal');doc.setTextColor(...texto);doc.text(rl,margin+codCol+2,y+5);}
-      else if(el.classList.contains('total-row')){y+=2;doc.setFillColor(...verde);doc.roundedRect(margin,y,contentW,rowH,1,1,'F');doc.setFontSize(10);doc.setFont('helvetica','bold');doc.setTextColor(255,255,255);doc.text('TOTAL',margin+2,y+5);doc.text(rv,margin+contentW-2,y+5,{align:'right'});}
-      else if(el.classList.contains('obs-row')){doc.setFillColor(255,251,235);doc.rect(margin,y,contentW,rowH,'F');doc.setFontSize(6.5);doc.setFont('helvetica','bold');doc.setTextColor(180,83,9);doc.text(rc,margin+2,y+5);doc.setFontSize(8.5);doc.setFont('helvetica','normal');const obsLines=doc.splitTextToSize(rl,descCol+valCol-2);doc.text(obsLines,margin+codCol+2,y+5);}
-      else{doc.setFillColor(...verde);doc.rect(margin,y,codCol,rowH,'F');doc.setFillColor(...verdeLight);doc.rect(margin+codCol,y,descCol,rowH,'F');doc.setFillColor(...gris);doc.rect(margin+codCol+descCol,y,valCol,rowH,'F');doc.setDrawColor(...bordeGris);doc.rect(margin,y,contentW,rowH);doc.setFontSize(8);doc.setFont('helvetica','bold');doc.setTextColor(255,255,255);doc.text(rc,margin+codCol/2,y+5,{align:'center'});doc.setTextColor(...verde);doc.setFontSize(8);doc.text(rl,margin+codCol+2,y+5);doc.setTextColor(...texto);doc.setFontSize(9);doc.text(rv,margin+codCol+descCol+2,y+5);}
-      y+=rowH+0.5;
-    } else {
-      const styleAttr=el.getAttribute('style')||'';;if(styleAttr.includes('height:1px'))return;
-      const txt=el.textContent?.trim();
-      if(txt){const isDieta=txt.includes('Acumulado')||txt.includes('dieta');if(isDieta){const lines=doc.splitTextToSize(txt,contentW-6);const h=Math.max(8,lines.length*4+4);doc.setFillColor(255,251,235);doc.rect(margin,y,contentW,h,'F');doc.setDrawColor(214,220,229);doc.rect(margin,y,contentW,h);doc.setFontSize(7.5);doc.setFont('helvetica','normal');doc.setTextColor(180,83,9);doc.text(lines,margin+3,y+5);y+=h+2;}else{doc.setFontSize(7.5);doc.setFont('helvetica','normal');doc.setTextColor(...muted);doc.text(txt,margin,y+3.5);y+=5.5;}}
-    }
-  });
-  if(obsVal){y+=2;if(y>260){doc.addPage();y=10;}doc.setFontSize(7);doc.setFont('helvetica','bold');doc.setTextColor(...muted);doc.text('OBSERVACIONES',margin,y+4);y+=7;doc.setFontSize(9);doc.setFont('helvetica','normal');doc.setTextColor(180,83,9);const obsLines=doc.splitTextToSize(obsVal,contentW-6);const obsH=Math.max(10,obsLines.length*4.5+4);doc.setFillColor(255,251,235);doc.rect(margin,y,contentW,obsH,'F');doc.setDrawColor(214,220,229);doc.rect(margin,y,contentW,obsH);doc.text(obsLines,margin+3,y+5);y+=obsH+3;}
-  const fd=fechaArg||new Date().toISOString().slice(0,10);const parts=[fd];if(centroArg)parts.push(centroArg);if(pedidoArg)parts.push(pedidoArg);doc.save(parts.join('_')+'.pdf');
+// ===== PDF =====
+function responderOrden(misma){
+  $('dialogoOrden').classList.remove('show');
+  if(misma){
+    $('pedido').value = _ultimaOrdenCentro || '';
+    generar(); // Llamar generar de nuevo con la orden rellenada
+  } else {
+    $('pedido').focus();
+    showMsg('msgForm', 'Introduce el número de orden.', 'warn');
+  }
 }
 
-async function compartirDesde(detalle,obsVal){
-  const tmp=document.createElement('div');tmp.innerHTML=detalle;
-  const sep='===================="';const lines=['PARTE DE TRABAJO',sep];
-  [...tmp.children].forEach(el=>{
-    if(el.classList.contains('rgroup-title')){const txt=el.textContent.trim();if(txt==='Datos generales')return;lines.push('');lines.push(txt);}
-    else if(el.classList.contains('rrow')){const rc=el.querySelector('.rc')?.textContent?.trim()||'';;const rl=el.querySelector('.rl')?.textContent?.trim()||'';;const rv=el.querySelector('.rv')?.textContent?.trim()||'';;if(el.classList.contains('info-row'))lines.push(rc+': '+rl);else if(el.classList.contains('total-row')){lines.push('');lines.push(sep);lines.push('TOTAL: '+rv);}else if(el.classList.contains('obs-row'))lines.push(rc+': '+rl);else{if(rl.toLowerCase().includes('dieta')){lines.push('');lines.push(rc+' | '+rl+' '+rv);}else if(rv)lines.push(rc+' | '+rl+'\n'+rv);else lines.push(rc+' | '+rl);}}
-    else{const txt=el.textContent.trim();if(txt)lines.push(txt);}
+function generarPDFHist(i){ var r=getH()[i]; if(!r) return; generarPDFDesde(r.detalle||'', r.obs||'', r.fecha||'', r.centro||'', r.pedido||''); }
+function compartirHist(i){ var r=getH()[i]; if(!r) return; compartirDesde(r.detalle||'', r.obs||''); }
+
+function generarPDFDesde(detalle, obsVal, fechaArg, centroArg, pedidoArg){
+  if(!window.jspdf){ alert('PDF no disponible.'); return; }
+  var jsPDF = window.jspdf.jsPDF;
+  var doc = new jsPDF({unit:'mm',format:'a4',orientation:'portrait'});
+  var W = doc.internal.pageSize.getWidth();
+  var verde=[26,107,58], verdeLight=[232,245,238], gris=[247,249,251], bordeGris=[214,220,229], texto=[24,32,46], muted=[75,85,99];
+  var y=10, margin=55, contentW=W-margin*2;
+  doc.setFillColor(verde[0],verde[1],verde[2]); doc.roundedRect(margin,y,contentW,18,3,3,'F');
+  doc.setFontSize(12); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+  doc.text('Partes IRV-10', margin+4, y+8);
+  doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.text('Generador de partes con calculo automatico', margin+4, y+14); y+=24;
+  var tmp = document.createElement('div'); tmp.innerHTML = detalle||'';
+  var codCol=20, descCol=24, valCol=contentW-codCol-descCol;
+  function fmtFrac(str){ if(!str) return ''; return str.replace(/(\d+)\.25h/g,'$1 1/4h').replace(/(\d+)\.5h/g,'$1 1/2h').replace(/(\d+)\.75h/g,'$1 3/4h').replace(/0\.25h/g,'1/4h').replace(/0\.5h/g,'1/2h').replace(/0\.75h/g,'3/4h'); }
+  Array.from(tmp.children).forEach(function(el){
+    if(y>270){ doc.addPage(); y=10; }
+    if(el.classList.contains('rgroup-title')){
+      var secTxt = el.textContent.trim();
+      if(secTxt.toLowerCase().includes('dieta')) y+=4;
+      doc.setFontSize(7.5); doc.setFont('helvetica','bold'); doc.setTextColor(muted[0],muted[1],muted[2]);
+      doc.text(secTxt.toUpperCase(), margin, y+3.5); y+=6.5;
+    } else if(el.classList.contains('rrow')){
+      var rcEl=el.querySelector('.rc'), rlEl=el.querySelector('.rl'), rvEl=el.querySelector('.rv');
+      var rc=rcEl?rcEl.textContent.trim():'', rl=rlEl?rlEl.textContent.trim():'', rv=fmtFrac(rvEl?rvEl.textContent.trim():'');
+      var rowH=7;
+      if(el.classList.contains('tipo-row')){
+        doc.setFillColor(124,58,237); doc.rect(margin,y,codCol,rowH,'F');
+        doc.setFillColor(245,243,255); doc.rect(margin+codCol,y,contentW-codCol,rowH,'F');
+        doc.setDrawColor(bordeGris[0],bordeGris[1],bordeGris[2]); doc.rect(margin,y,contentW,rowH);
+        doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255); doc.text(rc,margin+codCol/2,y+5,{align:'center'});
+        doc.setTextColor(124,58,237); doc.setFontSize(9); doc.text(rl,margin+codCol+2,y+5);
+      } else if(el.classList.contains('info-row')){
+        doc.setFillColor(gris[0],gris[1],gris[2]); doc.rect(margin,y,contentW,rowH,'F');
+        doc.setDrawColor(bordeGris[0],bordeGris[1],bordeGris[2]); doc.rect(margin,y,contentW,rowH);
+        doc.setFontSize(7.5); doc.setFont('helvetica','bold'); doc.setTextColor(muted[0],muted[1],muted[2]); doc.text(rc,margin+2,y+5);
+        doc.setFontSize(9.5); doc.setFont('helvetica','normal'); doc.setTextColor(texto[0],texto[1],texto[2]); doc.text(rl,margin+codCol+2,y+5);
+      } else if(el.classList.contains('total-row')){
+        y+=2; doc.setFillColor(verde[0],verde[1],verde[2]); doc.roundedRect(margin,y,contentW,rowH,1,1,'F');
+        doc.setFontSize(10); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+        doc.text('TOTAL',margin+2,y+5); doc.text(rv,margin+contentW-2,y+5,{align:'right'});
+      } else if(el.classList.contains('obs-row')){
+        doc.setFillColor(255,251,235); doc.rect(margin,y,contentW,rowH,'F');
+        doc.setFontSize(6.5); doc.setFont('helvetica','bold'); doc.setTextColor(180,83,9); doc.text(rc,margin+2,y+5);
+        doc.setFontSize(8.5); doc.setFont('helvetica','normal');
+        var obsLines=doc.splitTextToSize(rl,descCol+valCol-2); doc.text(obsLines,margin+codCol+2,y+5);
+      } else {
+        doc.setFillColor(verde[0],verde[1],verde[2]); doc.rect(margin,y,codCol,rowH,'F');
+        doc.setFillColor(verdeLight[0],verdeLight[1],verdeLight[2]); doc.rect(margin+codCol,y,descCol,rowH,'F');
+        doc.setFillColor(gris[0],gris[1],gris[2]); doc.rect(margin+codCol+descCol,y,valCol,rowH,'F');
+        doc.setDrawColor(bordeGris[0],bordeGris[1],bordeGris[2]); doc.rect(margin,y,contentW,rowH);
+        doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255); doc.text(rc,margin+codCol/2,y+5,{align:'center'});
+        doc.setTextColor(verde[0],verde[1],verde[2]); doc.setFontSize(8); doc.text(rl,margin+codCol+2,y+5);
+        doc.setTextColor(texto[0],texto[1],texto[2]); doc.setFontSize(9); doc.text(rv,margin+codCol+descCol+2,y+5);
+      }
+      y += rowH+0.5;
+    } else {
+      var styleAttr = el.getAttribute('style')||'';
+      if(styleAttr.includes('height:1px')) return;
+      var txt = el.textContent ? el.textContent.trim() : '';
+      if(txt){
+        var isDieta = txt.includes('Acumulado') || txt.includes('dieta');
+        if(isDieta){
+          var lines=doc.splitTextToSize(txt,contentW-6), hh=Math.max(8,lines.length*4+4);
+          doc.setFillColor(255,251,235); doc.rect(margin,y,contentW,hh,'F');
+          doc.setDrawColor(214,220,229); doc.rect(margin,y,contentW,hh);
+          doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(180,83,9); doc.text(lines,margin+3,y+5); y+=hh+2;
+        } else {
+          doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(muted[0],muted[1],muted[2]); doc.text(txt,margin,y+3.5); y+=5.5;
+        }
+      }
+    }
   });
-  if(obsVal){lines.push('');lines.push('Obs.: '+obsVal);}
-  const texto=lines.join('\n').trim();
-  if(navigator.share){try{await navigator.share({title:'Parte de Trabajo',text:texto});return;}catch(e){if(e.name==='AbortError')return;}}
-  try{await navigator.clipboard.writeText(texto);alert('Texto copiado.');}catch(e){alert('No se pudo compartir.');}
+  if(obsVal){
+    y+=2; if(y>260){ doc.addPage(); y=10; }
+    doc.setFontSize(7); doc.setFont('helvetica','bold'); doc.setTextColor(muted[0],muted[1],muted[2]); doc.text('OBSERVACIONES',margin,y+4); y+=7;
+    doc.setFontSize(9); doc.setFont('helvetica','normal'); doc.setTextColor(180,83,9);
+    var obsL=doc.splitTextToSize(obsVal,contentW-6), obsH=Math.max(10,obsL.length*4.5+4);
+    doc.setFillColor(255,251,235); doc.rect(margin,y,contentW,obsH,'F');
+    doc.setDrawColor(214,220,229); doc.rect(margin,y,contentW,obsH); doc.text(obsL,margin+3,y+5); y+=obsH+3;
+  }
+  var fd=fechaArg||new Date().toISOString().slice(0,10);
+  var parts=[fd]; if(centroArg) parts.push(centroArg); if(pedidoArg) parts.push(pedidoArg);
+  doc.save(parts.join('_')+'.pdf');
+}
+
+async function compartirDesde(detalle, obsVal){
+  var tmp=document.createElement('div'); tmp.innerHTML=detalle||'';
+  var sep='====================', lines=['PARTE DE TRABAJO',sep];
+  Array.from(tmp.children).forEach(function(el){
+    if(el.classList.contains('rgroup-title')){ var txt=el.textContent.trim(); if(txt==='Datos generales') return; lines.push(''); lines.push(txt); }
+    else if(el.classList.contains('rrow')){
+      var rc=el.querySelector('.rc')?el.querySelector('.rc').textContent.trim():'';
+      var rl=el.querySelector('.rl')?el.querySelector('.rl').textContent.trim():'';
+      var rv=el.querySelector('.rv')?el.querySelector('.rv').textContent.trim():'';
+      if(el.classList.contains('info-row')||el.classList.contains('tipo-row')) lines.push(rc+': '+rl);
+      else if(el.classList.contains('total-row')){ lines.push(''); lines.push(sep); lines.push('TOTAL: '+rv); }
+      else if(el.classList.contains('obs-row')) lines.push(rc+': '+rl);
+      else{ if(rl.toLowerCase().includes('dieta')){ lines.push(''); lines.push(rc+' | '+rl+' '+rv); } else if(rv) lines.push(rc+' | '+rl+'\n'+rv); else lines.push(rc+' | '+rl); }
+    } else { var txt=el.textContent?el.textContent.trim():''; if(txt) lines.push(txt); }
+  });
+  if(obsVal){ lines.push(''); lines.push('Obs.: '+obsVal); }
+  var texto=lines.join('\n').trim();
+  if(navigator.share){ try{ await navigator.share({title:'Parte de Trabajo',text:texto}); return; }catch(e){ if(e.name==='AbortError') return; } }
+  try{ await navigator.clipboard.writeText(texto); alert('Texto copiado.'); }catch(e){ alert('No se pudo compartir.'); }
 }
 
 async function compartir(){
-  if(!window.recTmp){alert('Genera el parte primero.');return;}
-  const obsVal=$('obs').value.trim();const lines=[];
-  document.querySelectorAll('#out > *').forEach(el=>{if(el.classList.contains('rgroup-title')){lines.push('');lines.push('-- '+el.textContent+' --');}else if(el.classList.contains('rrow')){const rc=el.querySelector('.rc')?.textContent?.trim()||'';;const rl=el.querySelector('.rl')?.textContent?.trim()||'';;const rv=el.querySelector('.rv')?.textContent?.trim()||'';;if(el.classList.contains('info-row'))lines.push(rc+': '+rl);else if(el.classList.contains('total-row'))lines.push('TOTAL: '+rv);else if(el.classList.contains('obs-row'))lines.push(rc+': '+rl);else lines.push(rv?rc+' | '+rl+' | '+rv:rc+' | '+rl);}else{const txt=el.textContent?.trim();if(txt)lines.push(txt);}});
-  if(obsVal)lines.push('','Obs.: '+obsVal);const texto=lines.join('\n').trim();
-  if(navigator.share){try{await navigator.share({title:'Parte Mercadona',text:texto});}catch(e){if(e.name!=='AbortError')navigator.clipboard.writeText(texto).then(()=>showMsg('msgRes','Copiado.','success'));}}
-  else{navigator.clipboard.writeText(texto).then(()=>showMsg('msgRes','Copiado.','success')).catch(()=>showMsg('msgRes','Usa el botón Copiar.','warn'));}
+  if(!window.recTmp){ alert('Genera el parte primero.'); return; }
+  var obsVal=$('obs').value.trim(), lines=[];
+  Array.from(document.querySelectorAll('#out > *')).forEach(function(el){
+    if(el.classList.contains('rgroup-title')){ lines.push(''); lines.push('-- '+el.textContent+' --'); }
+    else if(el.classList.contains('rrow')){
+      var rc=el.querySelector('.rc')?el.querySelector('.rc').textContent.trim():'';
+      var rl=el.querySelector('.rl')?el.querySelector('.rl').textContent.trim():'';
+      var rv=el.querySelector('.rv')?el.querySelector('.rv').textContent.trim():'';
+      if(el.classList.contains('info-row')||el.classList.contains('tipo-row')) lines.push(rc+': '+rl);
+      else if(el.classList.contains('total-row')) lines.push('TOTAL: '+rv);
+      else if(el.classList.contains('obs-row')) lines.push(rc+': '+rl);
+      else lines.push(rv?rc+' | '+rl+' | '+rv:rc+' | '+rl);
+    } else { var txt=el.textContent?el.textContent.trim():''; if(txt) lines.push(txt); }
+  });
+  if(obsVal) lines.push('','Obs.: '+obsVal);
+  var texto=lines.join('\n').trim();
+  if(navigator.share){ try{ await navigator.share({title:'Partes IRV-10',text:texto}); }catch(e){ if(e.name!=='AbortError') navigator.clipboard.writeText(texto).then(function(){ showMsg('msgRes','Copiado.','success'); }); } }
+  else{ navigator.clipboard.writeText(texto).then(function(){ showMsg('msgRes','Copiado.','success'); }).catch(function(){ showMsg('msgRes','Usa el botón Copiar.','warn'); }); }
 }
 
-function exportarBackup(){const h=getH();if(!h.length){alert('No hay partes guardados.');return;}const d=new Date();const fn='backup_mercadona_'+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'.json';const blob=new Blob([JSON.stringify({version:'v6',fecha:d.toISOString(),partes:h})],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=fn;document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(()=>URL.revokeObjectURL(url),10000);alert('Backup de '+h.length+' partes exportado.');}
-function importarBackup(input){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{try{const data=JSON.parse(e.target.result);const partes=data.partes||data;if(!Array.isArray(partes))throw new Error('Formato invalido');const actual=getH();partes.forEach(p=>{if(!exists(p,actual))actual.push(p);});setH(actual);renderHist();alert('Backup importado: '+partes.length+' partes.');}catch(e){alert('Error al importar.');}};r.readAsText(f);input.value='';}
-function generarPDF(){if(!window.recTmp){alert('Genera el parte primero.');return;}generarPDFDesde($('out').innerHTML,$('obs').value.trim(),window.recTmp?.fecha||'',window.recTmp?.centro||'',window.recTmp?.pedido||'');}
-function setFechaHoy(){$('fecha').value=hoy();}
-setFechaHoy();renderWorkers();
+function exportarBackup(){
+  var h=getH(); if(!h.length){ alert('No hay partes guardados.'); return; }
+  var d=new Date();
+  var fn='backup_irv10_'+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'.json';
+  var blob=new Blob([JSON.stringify({version:'v16',fecha:d.toISOString(),partes:h})],{type:'application/json'});
+  var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download=fn;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 10000);
+  alert('Backup de '+h.length+' partes exportado.');
+}
+
+function importarBackup(input){
+  var f=input.files[0]; if(!f) return;
+  var r=new FileReader();
+  r.onload=function(e){
+    try{
+      var data=JSON.parse(e.target.result); var partes=data.partes||data;
+      if(!Array.isArray(partes)) throw new Error('Formato invalido');
+      var actual=getH();
+      partes.forEach(function(p){ if(!exists(p,actual)) actual.push(p); });
+      setH(actual); renderHist();
+      alert('Backup importado: '+partes.length+' partes.');
+    }catch(ex){ alert('Error al importar.'); }
+  };
+  r.readAsText(f); input.value='';
+}
+
+function generarPDF(){
+  if(!window.recTmp){ alert('Genera el parte primero.'); return; }
+  generarPDFDesde($('out').innerHTML, $('obs').value.trim(), window.recTmp?window.recTmp.fecha:'', window.recTmp?window.recTmp.centro:'', window.recTmp?window.recTmp.pedido:'');
+}
+
+function setFechaHoy(){ $('fecha').value = hoy(); }
+
+// ===== INIT =====
+initDatos();
+setFechaHoy();
+renderWorkers();
 </script>
 <script>
-if('serviceWorker' in navigator){const sw='self.addEventListener(\'install\',e=>self.skipWaiting());self.addEventListener(\'fetch\',e=>e.respondWith(fetch(e.request).catch(()=>caches.match(e.request))))';const blob=new Blob([sw],{type:'application/javascript'});const swUrl=URL.createObjectURL(blob);navigator.serviceWorker.register(swUrl).catch(()=>{});}
+if('serviceWorker' in navigator){
+  var sw='self.addEventListener(\'install\',function(e){self.skipWaiting();});self.addEventListener(\'fetch\',function(e){e.respondWith(fetch(e.request).catch(function(){return caches.match(e.request);}));});';
+  var blob=new Blob([sw],{type:'application/javascript'});
+  var swUrl=URL.createObjectURL(blob);
+  navigator.serviceWorker.register(swUrl).catch(function(){});
+}
 </script>
 </body>
 </html>
